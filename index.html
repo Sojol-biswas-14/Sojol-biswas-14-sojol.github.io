@@ -3,18 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Sojol Biswas – Official personal website with social links and personal updates." />
-  <meta name="keywords" content="Sojol Biswas, Portfolio, Mymensingh, Bangladesh, Personal Site" />
+  <meta name="description" content="Sojol Biswas – Official personal website with links, updates, and gallery." />
+  <meta name="keywords" content="Sojol Biswas, Mymensingh, Bangladesh, Personal Website, AI Gallery, Contact" />
   <meta name="author" content="Sojol Biswas" />
   <title>Sojol Biswas – Official Website</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
       padding: 0;
       background-color: #0e0e0e;
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -24,11 +27,12 @@
     .card {
       background-color: #1a1a1a;
       padding: 30px;
-      border-radius: 12px;
+      border-radius: 14px;
       display: flex;
       flex-direction: row;
       gap: 30px;
-      max-width: 800px;
+      max-width: 900px;
+      width: 100%;
       box-shadow: 0 0 20px rgba(0, 255, 204, 0.15);
     }
 
@@ -47,8 +51,16 @@
 
     .content h1 {
       margin: 0;
-      font-size: 26px;
+      font-size: 28px;
       color: #00ffcc;
+    }
+
+    .tagline {
+      font-style: italic;
+      font-size: 15px;
+      color: #aaa;
+      margin-top: 4px;
+      margin-bottom: 20px;
     }
 
     .content p {
@@ -60,8 +72,8 @@
 
     .links a {
       display: inline-block;
-      margin: 8px 10px 0 0;
-      padding: 10px 14px;
+      margin: 8px 12px 0 0;
+      padding: 10px 16px;
       background-color: #00ffcc20;
       color: #00ffcc;
       border-radius: 5px;
@@ -74,42 +86,67 @@
       background-color: #00ffcc40;
     }
 
-    @media (max-width: 600px) {
+    .gallery {
+      margin-top: 30px;
+      border-top: 1px solid #333;
+      padding-top: 20px;
+    }
+
+    .gallery h2 {
+      font-size: 20px;
+      color: #00ffcc;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 650px) {
       .card {
         flex-direction: column;
         align-items: center;
         text-align: center;
+        padding: 20px;
       }
 
       .content {
         text-align: center;
       }
+
+      .links a {
+        margin: 10px 6px 0 6px;
+      }
     }
   </style>
 </head>
-<body>
 
+<body>
   <div class="card">
     <img src="PFD-140758.jpg" alt="Sojol Biswas" />
 
     <div class="content">
       <h1>Sojol Biswas</h1>
+      <div class="tagline">"Tech explorer | Dreamer | Sharing creativity"</div>
+
       <p>
-        I'm Sojol Biswas from Mymensingh, Bangladesh.  
-        This is my official personal website where you’ll find all my verified social media links and updates.
+        I’m Sojol Biswas from Mymensingh, Bangladesh.  
+        This is my official page where you’ll find all my verified social media links and personal updates.
       </p>
 
       <p>
-        Soon, I’ll also share my best AI-generated image collection — free for anyone to use, but fully owned by me. Stay tuned!
+        In the future, I’ll upload my best AI-generated art here — completely free to use, but under my ownership. Stay connected!
       </p>
 
       <div class="links">
+        <a href="mailto:sojol@gmail.com">📧 Contact Me</a>
         <a href="https://www.facebook.com/sojolboss007" target="_blank">📘 Facebook</a>
         <a href="https://www.instagram.com/sojol_biswas14" target="_blank">📸 Instagram</a>
         <a href="https://twitter.com/sojolbiswas14" target="_blank">🐦 Twitter</a>
+        <a href="https://www.youtube.com/@yourchannel" target="_blank">📺 YouTube</a>
+      </div>
+
+      <div class="gallery">
+        <h2>🖼️ AI Gallery Coming Soon</h2>
+        <p style="color:#bbb;">Soon I’ll upload a collection of original AI-generated images right here.</p>
       </div>
     </div>
   </div>
-
 </body>
 </html>
