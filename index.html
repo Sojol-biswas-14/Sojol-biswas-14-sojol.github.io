@@ -17,6 +17,12 @@
       background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
       color: #ffffff;
       overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.light-mode {
+      background: #f4f4f4;
+      color: #111;
     }
 
     .container {
@@ -43,6 +49,11 @@
       padding: 20px;
       border-radius: 16px;
       box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
+    }
+
+    body.light-mode .profile {
+      background: #ffffff;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     }
 
     .profile img {
@@ -73,6 +84,10 @@
       margin-bottom: 20px;
       line-height: 1.6;
       color: #ccc;
+    }
+
+    body.light-mode .bio {
+      color: #333;
     }
 
     .links a {
@@ -141,9 +156,50 @@
       font-size: 14px;
       color: #666;
     }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 999;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      background-color: #00ffcc40;
+      box-shadow: 0 0 8px #00ffcc66;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 999;
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #00ffcc40;
+      box-shadow: 0 0 8px #00ffcc66;
+    }
   </style></head>
 <body>
-  <div class="container">
+  <button class="back-button" onclick="history.back()">⬅ Back</button>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>  <div class="container">
     <div class="profile">
       <img src="PFD-140758.jpg" alt="Sojol Biswas">
       <div class="profile-info">
@@ -178,6 +234,9 @@
   &copy; 2025 Sojol Biswas | All rights reserved.
 </footer>
 
-  </div>
-</body>
+  </div>  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+    }
+  </script></body>
 </html>
