@@ -135,6 +135,24 @@
       margin-bottom: 10px;
     }
 
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      border-radius: 10px;
+      border: 2px solid #00ffcc40;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 255, 204, 0.3);
+    }
+
     @media (max-width: 650px) {
       .card {
         flex-direction: column;
@@ -192,6 +210,10 @@
       background: #007f6620;
       color: #007f66;
     }
+
+    body.light .gallery-grid img {
+      border: 2px solid #007f6630;
+    }
   </style></head><body>
   <button onclick="toggleMode()" id="modeToggle">🌙 Dark Mode</button>
   <div class="card">
@@ -219,8 +241,15 @@
   </div>
 
   <div class="gallery">
-    <h2>🖼️ AI Gallery Coming Soon</h2>
-    <p style="color:#bbb;">Soon I’ll upload a collection of original AI-generated images right here.</p>
+    <h2>🖼️ AI Gallery</h2>
+    <div class="gallery-grid">
+      <img src="https://via.placeholder.com/300x200.png?text=Image+1" alt="AI Art 1">
+      <img src="https://via.placeholder.com/300x200.png?text=Image+2" alt="AI Art 2">
+      <img src="https://via.placeholder.com/300x200.png?text=Image+3" alt="AI Art 3">
+      <img src="https://via.placeholder.com/300x200.png?text=Image+4" alt="AI Art 4">
+      <img src="https://via.placeholder.com/300x200.png?text=Image+5" alt="AI Art 5">
+      <img src="https://via.placeholder.com/300x200.png?text=Image+6" alt="AI Art 6">
+    </div>
   </div>
 </div>
 
