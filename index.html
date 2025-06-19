@@ -146,11 +146,34 @@
       border-radius: 10px;
       border: 2px solid #00ffcc40;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
     }
 
     .gallery-grid img:hover {
       transform: scale(1.05);
       box-shadow: 0 4px 12px rgba(0, 255, 204, 0.3);
+    }
+
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00ffcc70;
+    }
+
+    .lightbox:target {
+      display: flex;
     }
 
     @media (max-width: 650px) {
@@ -243,17 +266,22 @@
   <div class="gallery">
     <h2>🖼️ AI Gallery</h2>
     <div class="gallery-grid">
-      <img src="https://via.placeholder.com/300x200.png?text=Image+1" alt="AI Art 1">
-      <img src="https://via.placeholder.com/300x200.png?text=Image+2" alt="AI Art 2">
-      <img src="https://via.placeholder.com/300x200.png?text=Image+3" alt="AI Art 3">
-      <img src="https://via.placeholder.com/300x200.png?text=Image+4" alt="AI Art 4">
-      <img src="https://via.placeholder.com/300x200.png?text=Image+5" alt="AI Art 5">
-      <img src="https://via.placeholder.com/300x200.png?text=Image+6" alt="AI Art 6">
+      <a href="#img1"><img src="https://via.placeholder.com/300x200.png?text=Image+1" alt="AI Art 1"></a>
+      <a href="#img2"><img src="https://via.placeholder.com/300x200.png?text=Image+2" alt="AI Art 2"></a>
+      <a href="#img3"><img src="https://via.placeholder.com/300x200.png?text=Image+3" alt="AI Art 3"></a>
+      <a href="#img4"><img src="https://via.placeholder.com/300x200.png?text=Image+4" alt="AI Art 4"></a>
+      <a href="#img5"><img src="https://via.placeholder.com/300x200.png?text=Image+5" alt="AI Art 5"></a>
+      <a href="#img6"><img src="https://via.placeholder.com/300x200.png?text=Image+6" alt="AI Art 6"></a>
     </div>
   </div>
 </div>
 
-  </div>  <script>
+  </div>  <!-- Lightbox for Image Preview -->  <div id="img1" class="lightbox"><a href="#"><img src="https://via.placeholder.com/1000x600.png?text=Image+1"></a></div>
+  <div id="img2" class="lightbox"><a href="#"><img src="https://via.placeholder.com/1000x600.png?text=Image+2"></a></div>
+  <div id="img3" class="lightbox"><a href="#"><img src="https://via.placeholder.com/1000x600.png?text=Image+3"></a></div>
+  <div id="img4" class="lightbox"><a href="#"><img src="https://via.placeholder.com/1000x600.png?text=Image+4"></a></div>
+  <div id="img5" class="lightbox"><a href="#"><img src="https://via.placeholder.com/1000x600.png?text=Image+5"></a></div>
+  <div id="img6" class="lightbox"><a href="#"><img src="https://via.placeholder.com/1000x600.png?text=Image+6"></a></div>  <script>
     function toggleMode() {
       document.body.classList.toggle("light");
       const btn = document.getElementById("modeToggle");
