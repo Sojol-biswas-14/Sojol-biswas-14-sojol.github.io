@@ -1,17 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Sojol Biswas – Official personal website with links, updates, and gallery." />
   <meta name="keywords" content="Sojol Biswas, Mymensingh, Bangladesh, Personal Website, AI Gallery, Contact" />
   <meta name="author" content="Sojol Biswas" />
-  <title>Sojol Biswas – Official Website</title>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
-  <style>
+  <title>Sojol Biswas – Official Website</title>  <!-- Google Font -->  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">  <!-- Favicon and Web App Icons -->  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">  <style>
     body {
       margin: 0;
       padding: 0;
@@ -22,6 +19,25 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    #modeToggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #00ffcc30;
+      border: none;
+      color: #00ffcc;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
     }
 
     .card {
@@ -131,42 +147,68 @@
         margin-bottom: 15px;
       }
     }
-  </style>
-</head>
 
-<body>
+    body.light {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    body.light .card {
+      background-color: #f2f2f2;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    body.light .content h1,
+    body.light .gallery h2 {
+      color: #007f66;
+    }
+
+    body.light .links a {
+      background-color: #007f6620;
+      color: #007f66;
+    }
+
+    body.light #modeToggle {
+      background: #007f6620;
+      color: #007f66;
+    }
+  </style></head><body>
+  <button onclick="toggleMode()" id="modeToggle">🌙 Dark Mode</button>
   <div class="card">
-    <img src="PFD-140758.jpg" alt="Sojol Biswas" />
+    <img src="PFD-140758.jpg" alt="Sojol Biswas" /><div class="content">
+  <h1>Sojol Biswas</h1>
+  <div class="tagline">"Tech explorer | Gamers | Sharing creativity"</div>
 
-    <div class="content">
-      <h1>Sojol Biswas</h1>
-      <div class="tagline">"Tech explorer | Gamers | Sharing creativity"</div>
+  <a href="https://sojol-biswas-14.github.io" class="site-link" target="_blank">🌐 Sojol Biswas – Official Website</a>
 
-      <!-- 🌐 Website link here -->
-      <a href="https://sojol-biswas-14.github.io" class="site-link" target="_blank">🌐 Sojol Biswas – Official Website</a>
+  <p>
+    I’m Sojol Biswas from Mymensingh, Bangladesh.  
+    This is my official page where you’ll find all my social media links and personal updates.
+  </p>
 
-      <p>
-        I’m Sojol Biswas from Mymensingh, Bangladesh.  
-        This is my official page where you’ll find all my social media links and personal updates.
-      </p>
+  <p>
+    In the future, I’ll upload my best AI-generated art here — completely free to use, but under my ownership. So Stay connected!
+  </p>
 
-      <p>
-        In the future, I’ll upload my best AI-generated art here — completely free to use, but under my ownership. So Stay connected!
-      </p>
-
-      <div class="links">
-        <a href="mailto:sojolbiswas52@gmail.com">📧 Contact Me</a>
-        <a href="https://www.facebook.com/sojolboss007" target="_blank">📘 Facebook</a>
-        <a href="https://www.instagram.com/sojol_biswas14" target="_blank">📸 Instagram</a>
-        <a href="https://twitter.com/sojolbiswas14" target="_blank">🐦 Twitter</a>
-        <a href="https://www.youtube.com/@yourchannel" target="_blank">📺 YouTube</a>
-      </div>
-
-      <div class="gallery">
-        <h2>🖼️ AI Gallery Coming Soon</h2>
-        <p style="color:#bbb;">Soon I’ll upload a collection of original AI-generated images right here.</p>
-      </div>
-    </div>
+  <div class="links">
+    <a href="mailto:sojolbiswas52@gmail.com">📧 Contact Me</a>
+    <a href="https://www.facebook.com/sojolboss007" target="_blank">📘 Facebook</a>
+    <a href="https://www.instagram.com/sojol_biswas14" target="_blank">📸 Instagram</a>
+    <a href="https://twitter.com/sojolbiswas14" target="_blank">🐦 Twitter</a>
+    <a href="https://www.youtube.com/@yourchannel" target="_blank">📺 YouTube</a>
   </div>
-</body>
+
+  <div class="gallery">
+    <h2>🖼️ AI Gallery Coming Soon</h2>
+    <p style="color:#bbb;">Soon I’ll upload a collection of original AI-generated images right here.</p>
+  </div>
+</div>
+
+  </div>  <script>
+    function toggleMode() {
+      document.body.classList.toggle("light");
+      const btn = document.getElementById("modeToggle");
+      btn.textContent = document.body.classList.contains("light") ? "🌞 Light Mode" : "🌙 Dark Mode";
+    }
+  </script></body>
 </html>
