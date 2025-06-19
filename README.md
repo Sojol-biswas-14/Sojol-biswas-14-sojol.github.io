@@ -6,3 +6,4 @@ My personal site
     ...
   </div>
 </body>
+<!-- Manual trigger to rebuild GitHub Pages -->
