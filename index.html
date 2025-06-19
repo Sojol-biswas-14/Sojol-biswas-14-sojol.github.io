@@ -3,81 +3,113 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE_HERE" />
-  <meta name="description" content="Sojol Biswas – Official personal website with all social media links, contact info, and updates." />
-  <meta name="keywords" content="Sojol Biswas, Mymensingh, official website, social links, portfolio" />
+  <meta name="description" content="Sojol Biswas – Official personal website with social links and personal updates." />
+  <meta name="keywords" content="Sojol Biswas, Portfolio, Mymensingh, Bangladesh, Personal Site" />
   <meta name="author" content="Sojol Biswas" />
-
-  <!-- Open Graph for Social Sharing -->
-  <meta property="og:title" content="Sojol Biswas – Official Website" />
-  <meta property="og:description" content="Find all social media links and updates from Sojol Biswas." />
-  <meta property="og:url" content="https://sojol-biswas-14.github.io" />
-  <meta property="og:type" content="website" />
-
   <title>Sojol Biswas – Official Website</title>
 
   <style>
     body {
-      background-color: #0d0d0d;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-color: #0e0e0e;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background-color: #1a1a1a;
       padding: 30px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+      max-width: 800px;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.15);
     }
 
-    h1 {
-      color: #00ffcc;
-    }
-
-    p {
-      font-size: 1.1rem;
-      margin-top: 10px;
-      margin-bottom: 30px;
-      color: #ccc;
-    }
-
-    a {
-      color: #00ffcc;
-      text-decoration: none;
-      font-size: 1.1rem;
-      display: block;
-      margin: 10px 0;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .profile {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
+    .card img {
+      width: 160px;
+      height: 160px;
       object-fit: cover;
       border: 3px solid #00ffcc;
-      margin-bottom: 20px;
-      box-shadow: 0 0 15px #00ffcc44;
+      border-radius: 8px;
+    }
+
+    .content {
+      text-align: left;
+      flex: 1;
+    }
+
+    .content h1 {
+      margin: 0;
+      font-size: 26px;
+      color: #00ffcc;
+    }
+
+    .content p {
+      font-size: 15px;
+      color: #ccc;
+      margin: 15px 0;
+      line-height: 1.6;
+    }
+
+    .links a {
+      display: inline-block;
+      margin: 8px 10px 0 0;
+      padding: 10px 14px;
+      background-color: #00ffcc20;
+      color: #00ffcc;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s ease;
+    }
+
+    .links a:hover {
+      background-color: #00ffcc40;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .content {
+        text-align: center;
+      }
     }
   </style>
 </head>
-
 <body>
-  <!-- Profile Image -->
-  <img src="PFD-140758.jpg" alt="Sojol Biswas" class="profile" />
 
-  <!-- Main Content -->
-  <h1>Welcome to Sojol Biswas’s Official Website</h1>
-  <p>
-    I’m Sojol Biswas from Mymensingh, Bangladesh.  
-    This is my official page where you’ll find all my verified social media profiles and contact updates.
-    <br /><br />
-    In the future, I will upload some rated and best AI-generated photos here. These photos will be under my ownership, but you are free to use them. So stay tuned for updates.
-  </p>
+  <div class="card">
+    <img src="PFD-140758.jpg" alt="Sojol Biswas" />
 
-  <!-- Social Links -->
-  <a href="https://www.facebook.com/sojolboss007" target="_blank">📘 Facebook</a>
-  <a href="https://www.instagram.com/sojol_biswas14" target="_blank">📸 Instagram</a>
-  <a href="https://twitter.com/sojolbiswas14" target="_blank">🐦 Twitter</a>
+    <div class="content">
+      <h1>Sojol Biswas</h1>
+      <p>
+        I'm Sojol Biswas from Mymensingh, Bangladesh.  
+        This is my official personal website where you’ll find all my verified social media links and updates.
+      </p>
 
-  <p>Thanks for visiting!</p>
+      <p>
+        Soon, I’ll also share my best AI-generated image collection — free for anyone to use, but fully owned by me. Stay tuned!
+      </p>
+
+      <div class="links">
+        <a href="https://www.facebook.com/sojolboss007" target="_blank">📘 Facebook</a>
+        <a href="https://www.instagram.com/sojol_biswas14" target="_blank">📸 Instagram</a>
+        <a href="https://twitter.com/sojolbiswas14" target="_blank">🐦 Twitter</a>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
