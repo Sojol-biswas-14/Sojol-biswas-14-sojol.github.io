@@ -13,26 +13,41 @@
       margin: 0;
       padding: 20px;
     }
-
     h1 {
       text-align: center;
       color: #00ffcc;
       margin-top: 60px;
     }
-
+    .search-bar {
+      max-width: 500px;
+      margin: 20px auto 40px;
+      text-align: center;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      background: #1f1f1f;
+      color: #fff;
+    }
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 30px;
-      padding: 40px 20px;
+      padding: 20px;
       max-width: 1200px;
       margin: auto;
     }
-
     .item {
       text-align: center;
     }
-
+    .image-wrapper {
+      position: relative;
+      cursor: pointer;
+    }
     .gallery img {
       width: 100%;
       height: auto;
@@ -40,12 +55,10 @@
       border: 2px solid #00ffcc30;
       transition: 0.3s ease;
     }
-
     .gallery img:hover {
       transform: scale(1.05);
       box-shadow: 0 0 12px #00ffcc80;
     }
-
     .download {
       display: inline-block;
       margin-top: 12px;
@@ -57,11 +70,14 @@
       font-weight: 500;
       transition: 0.3s ease;
     }
-
     .download:hover {
       background: #00ffcc40;
     }
-
+    .caption {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #aaa;
+    }
     .license {
       text-align: center;
       margin-top: 60px;
@@ -74,7 +90,6 @@
       margin-right: auto;
       line-height: 1.6;
     }
-
     .back {
       position: fixed;
       top: 20px;
@@ -86,26 +101,84 @@
       text-decoration: none;
       font-weight: 600;
     }
-
     .back:hover {
       background-color: #00ffcc40;
+    }
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+    }
+    .lightbox.active {
+      display: flex;
     }
   </style>
 </head>
 <body>
   <a class="back" href="index.html">⬅ Back to Home</a>
-  <h1>🐶 Animal AI Art Gallery</h1>
+  <h1>🐾 Animal AI Art Gallery</h1>
 
-  <div class="gallery">
-    <div class="item">
-      <img src="images/animal/robotic_cockatoo_final_watermark.jpg" alt="Robotic Cockatoo" />
-      <a class="download" href="images/animal/robotic_cockatoo_final_watermark.jpg" download>⬇ Download</a>
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search AI images... (e.g. lion, bird)" onkeyup="filterImages()" />
+  </div>
+
+  <div class="gallery" id="gallery">
+    <div class="item" data-keywords="lion jungle animal">
+      <div class="image-wrapper" onclick="openLightbox('images/animal/lion_ai_art.jpg')">
+        <img src="images/animal/lion_ai_art.jpg" alt="Majestic Lion Art" />
+        <a class="download" href="images/animal/lion_ai_art.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Majestic Lion Art</div>
     </div>
+
+    <div class="item" data-keywords="bird cockatoo robot">
+      <div class="image-wrapper" onclick="openLightbox('images/animal/robotic_cockatoo_final_watermark.jpg')">
+        <img src="images/animal/robotic_cockatoo_final_watermark.jpg" alt="Robotic Cockatoo" />
+        <a class="download" href="images/animal/robotic_cockatoo_final_watermark.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Robotic Cockatoo</div>
+    </div>
+
+    <!-- Add more animal images like above -->
   </div>
 
   <div class="license">
     ⚠️ All images shown above are original and owned by <strong>Sojol Biswas</strong>.<br>
-    Use for personal/educational only. Commercial use needs permission. Credit is appreciated.
+    Use for personal or educational only. Commercial use needs permission. Credit is appreciated.
   </div>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="Expanded view" />
+  </div>
+
+  <script>
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('active');
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+    function filterImages() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const items = document.querySelectorAll('.item');
+      items.forEach(item => {
+        const keywords = item.getAttribute('data-keywords').toLowerCase();
+        item.style.display = keywords.includes(input) ? '' : 'none';
+      });
+    }
+  </script>
 </body>
 </html>
