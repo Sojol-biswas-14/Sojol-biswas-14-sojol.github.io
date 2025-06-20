@@ -33,6 +33,22 @@
   background-color: #00ffcc40;
 }
 
+.search-box {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.search-box input {
+  padding: 10px 16px;
+  width: 300px;
+  max-width: 90%;
+  border-radius: 8px;
+  border: none;
+  background: #1a1a1a;
+  color: #00ffcc;
+  font-size: 16px;
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -103,7 +119,6 @@
   line-height: 1.6;
 }
 
-/* Lightbox Styles */
 .lightbox {
   position: fixed;
   top: 0;
@@ -136,20 +151,34 @@
 </head>
 <body>
   <a class="back" href="index.html">⬅ Back to Home</a>
-  <h1>👤 Human AI Art Gallery</h1>  <div class="gallery">
-    <div class="item">
-      <div class="image-wrapper" onclick="openLightbox('images/human/images1.jpeg')">
-        <img src="images/human/images1.jpeg" alt="Elegant female portrait" />
-        <a class="download" href="images/human/images1.jpeg" download>⬇ Download</a>
+  <h1>👤 Human AI Art Gallery</h1>  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search AI images... (e.g. profile, elegant)" onkeyup="filterImages()" />
+  </div>  <div class="gallery" id="gallery">
+    <div class="item" data-keywords="elegant female portrait">
+      <div class="image-wrapper" onclick="openLightbox('images/human/human1.jpg')">
+        <img src="images/human/human1.jpg" alt="Elegant Female Portrait" />
+        <a class="download" href="images/human/human1.jpg" download>⬇ Download</a>
       </div>
       <div class="caption">Elegant Female Portrait</div>
     </div>
+    <div class="item" data-keywords="futuristic male side profile">
+      <div class="image-wrapper" onclick="openLightbox('images/human/human2.jpg')">
+        <img src="images/human/human2.jpg" alt="Futuristic Male Side Profile" />
+        <a class="download" href="images/human/human2.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Futuristic Male Side Profile</div>
+    </div>
+    <div class="item" data-keywords="dreamy abstract concept">
+      <div class="image-wrapper" onclick="openLightbox('images/human/human3.jpg')">
+        <img src="images/human/human3.jpg" alt="Dreamy Abstract Concept" />
+        <a class="download" href="images/human/human3.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Dreamy Abstract Human Concept</div>
+    </div>
   </div>  <div class="license">
-    ⚠️ All images are original and owned by <strong>Sojol Biswas</strong>.<br>
-    You may use them for personal or educational purposes only.<br>
-    <strong>Commercial use is not permitted without written permission.</strong><br>
-    Credit is appreciated if shared online.
-  </div>  <!-- Lightbox -->  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    ⚠️ All images shown above are original and owned by <strong>Sojol Biswas</strong>.<br>
+    Use for personal/educational only. Commercial use needs permission. Credit is appreciated.
+  </div>  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <span class="close">&times;</span>
     <img id="lightbox-img" src="" alt="Preview" />
   </div>  <script>
@@ -157,8 +186,19 @@
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').style.display = 'flex';
     }
+
     function closeLightbox() {
       document.getElementById('lightbox').style.display = 'none';
+    }
+
+    function filterImages() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const items = document.querySelectorAll('.gallery .item');
+
+      items.forEach(item => {
+        const keywords = item.getAttribute('data-keywords');
+        item.style.display = keywords.includes(input) ? 'block' : 'none';
+      });
     }
   </script></body>
 </html>
