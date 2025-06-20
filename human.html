@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,149 +12,154 @@
       font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 20px;
-    }h1 {
-  text-align: center;
-  color: #00ffcc;
-  margin-top: 60px;
-}
+    }
 
-.back {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  background: #00ffcc20;
-  color: #00ffcc;
-  padding: 10px 16px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 600;
-}
+    h1 {
+      text-align: center;
+      color: #00ffcc;
+      margin-top: 60px;
+    }
 
-.back:hover {
-  background-color: #00ffcc40;
-}
+    .back {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 10px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+    }
 
-.search-box {
-  text-align: center;
-  margin-top: 20px;
-}
+    .back:hover {
+      background-color: #00ffcc40;
+    }
 
-.search-box input {
-  padding: 10px 16px;
-  width: 300px;
-  max-width: 90%;
-  border-radius: 8px;
-  border: none;
-  background: #1a1a1a;
-  color: #00ffcc;
-  font-size: 16px;
-}
+    .search-box {
+      text-align: center;
+      margin-top: 20px;
+    }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 30px;
-  padding: 40px 20px;
-  max-width: 1200px;
-  margin: auto;
-}
+    .search-box input {
+      padding: 10px 16px;
+      width: 300px;
+      max-width: 90%;
+      border-radius: 8px;
+      border: none;
+      background: #1a1a1a;
+      color: #00ffcc;
+      font-size: 16px;
+    }
 
-.item {
-  text-align: center;
-}
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
 
-.image-wrapper {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
+    .item {
+      text-align: center;
+    }
 
-.image-wrapper img {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  border: 2px solid #00ffcc30;
-  transition: transform 0.3s ease;
-}
+    .image-wrapper {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
 
-.image-wrapper:hover img {
-  transform: scale(1.05);
-  box-shadow: 0 0 12px #00ffcc80;
-}
+    .image-wrapper img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 2px solid #00ffcc30;
+      transition: transform 0.3s ease;
+    }
 
-.download {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  background: #00ffcc20;
-  color: #00ffcc;
-  padding: 8px 16px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: 500;
-}
+    .image-wrapper:hover img {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #00ffcc80;
+    }
 
-.image-wrapper:hover .download {
-  opacity: 1;
-}
+    .download {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 8px 16px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 500;
+    }
 
-.caption {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #ccc;
-}
+    .image-wrapper:hover .download {
+      opacity: 1;
+    }
 
-.license {
-  text-align: center;
-  margin-top: 60px;
-  font-size: 14px;
-  color: #bbb;
-  border-top: 1px solid #333;
-  padding-top: 30px;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.6;
-}
+    .caption {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ccc;
+    }
 
-.lightbox {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
+    .license {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 14px;
+      color: #bbb;
+      border-top: 1px solid #333;
+      padding-top: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
 
-.lightbox img {
-  max-width: 90%;
-  max-height: 80vh;
-  border-radius: 10px;
-}
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
 
-.lightbox .close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 28px;
-  color: #00ffcc;
-  cursor: pointer;
-}
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 10px;
+    }
 
+    .lightbox .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 28px;
+      color: #00ffcc;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <a class="back" href="index.html">⬅ Back to Home</a>
-  <h1>👤 Human AI Art Gallery</h1>  <div class="search-box">
+  <h1>👤 Human AI Art Gallery</h1>
+
+  <div class="search-box">
     <input type="text" id="searchInput" placeholder="Search AI images... (e.g. profile, elegant)" onkeyup="filterImages()" />
-  </div>  <div class="gallery" id="gallery">
+  </div>
+
+  <div class="gallery" id="gallery">
     <div class="item" data-keywords="elegant female portrait">
       <div class="image-wrapper" onclick="openLightbox('images/human/human1.jpg')">
         <img src="images/human/human1.jpg" alt="Elegant Female Portrait" />
@@ -161,6 +167,7 @@
       </div>
       <div class="caption">Elegant Female Portrait</div>
     </div>
+
     <div class="item" data-keywords="futuristic male side profile">
       <div class="image-wrapper" onclick="openLightbox('images/human/human2.jpg')">
         <img src="images/human/human2.jpg" alt="Futuristic Male Side Profile" />
@@ -168,6 +175,7 @@
       </div>
       <div class="caption">Futuristic Male Side Profile</div>
     </div>
+
     <div class="item" data-keywords="dreamy abstract concept">
       <div class="image-wrapper" onclick="openLightbox('images/human/human3.jpg')">
         <img src="images/human/human3.jpg" alt="Dreamy Abstract Concept" />
@@ -175,13 +183,19 @@
       </div>
       <div class="caption">Dreamy Abstract Human Concept</div>
     </div>
-  </div>  <div class="license">
+  </div>
+
+  <div class="license">
     ⚠️ All images shown above are original and owned by <strong>Sojol Biswas</strong>.<br>
     Use for personal/educational only. Commercial use needs permission. Credit is appreciated.
-  </div>  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  </div>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <span class="close">&times;</span>
     <img id="lightbox-img" src="" alt="Preview" />
-  </div>  <script>
+  </div>
+
+  <script>
     function openLightbox(src) {
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').style.display = 'flex';
@@ -200,5 +214,6 @@
         item.style.display = keywords.includes(input) ? 'block' : 'none';
       });
     }
-  </script></body>
+  </script>
+</body>
 </html>
