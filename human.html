@@ -13,11 +13,30 @@
       margin: 0;
       padding: 20px;
     }
+
     h1 {
       text-align: center;
       color: #00ffcc;
       margin-top: 60px;
     }
+
+    .search-bar {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .search-bar input {
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      width: 300px;
+      max-width: 90%;
+      background-color: #1a1a1a;
+      color: #00ffcc;
+      border: 1px solid #00ffcc40;
+    }
+
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -26,7 +45,9 @@
       max-width: 1200px;
       margin: auto;
     }
+
     .item { text-align: center; }
+
     .gallery img {
       width: 100%;
       height: auto;
@@ -34,10 +55,12 @@
       border: 2px solid #00ffcc30;
       transition: 0.3s ease;
     }
+
     .gallery img:hover {
       transform: scale(1.05);
       box-shadow: 0 0 12px #00ffcc80;
     }
+
     .download {
       display: inline-block;
       margin-top: 12px;
@@ -49,9 +72,11 @@
       font-weight: 500;
       transition: 0.3s ease;
     }
+
     .download:hover {
       background: #00ffcc40;
     }
+
     .license {
       text-align: center;
       margin-top: 60px;
@@ -64,6 +89,7 @@
       margin-right: auto;
       line-height: 1.6;
     }
+
     .back {
       position: fixed;
       top: 20px;
@@ -75,26 +101,33 @@
       text-decoration: none;
       font-weight: 600;
     }
+
     .back:hover {
       background-color: #00ffcc40;
     }
+
+    .hidden { display: none; }
   </style>
 </head>
 <body>
   <a class="back" href="index.html">⬅ Back to Home</a>
   <h1>👤 Human AI Art Gallery</h1>
 
-  <div class="gallery">
-    <div class="item">
-      <img src="images/human/images1.jpeg" alt="AI Human Art 1" />
-      <a class="download" href="images/human/images1.jpeg" download>⬇ Download</a>
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="🔍 Search AI images... (e.g. female, profile, side)" />
+  </div>
+
+  <div class="gallery" id="gallery">
+    <div class="item" data-keywords="female portrait profile">
+      <img src="images/human/human1.jpg" alt="Elegant female portrait" />
+      <a class="download" href="images/human/human1.jpg" download>⬇ Download</a>
     </div>
-    <div class="item">
-      <img src="images/human/human2.jpg" alt="AI Human Art 2" />
+    <div class="item" data-keywords="male side futuristic">
+      <img src="images/human/human2.jpg" alt="Futuristic side-view male" />
       <a class="download" href="images/human/human2.jpg" download>⬇ Download</a>
     </div>
-    <div class="item">
-      <img src="images/human/human3.jpg" alt="AI Human Art 3" />
+    <div class="item" data-keywords="art dreamy abstract">
+      <img src="images/human/human3.jpg" alt="Dreamy abstract human concept" />
       <a class="download" href="images/human/human3.jpg" download>⬇ Download</a>
     </div>
   </div>
@@ -105,5 +138,22 @@
     <strong>Commercial use is not permitted without written permission.</strong><br>
     Please give credit if you share these images online.
   </div>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const items = document.querySelectorAll('.item');
+
+    searchInput.addEventListener('input', () => {
+      const term = searchInput.value.toLowerCase();
+      items.forEach(item => {
+        const keywords = item.dataset.keywords;
+        if (keywords.includes(term)) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
