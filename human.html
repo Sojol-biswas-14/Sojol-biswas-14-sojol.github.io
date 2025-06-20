@@ -20,78 +20,6 @@
       margin-top: 60px;
     }
 
-    .search-bar {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .search-bar input {
-      padding: 10px 15px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
-      width: 300px;
-      max-width: 90%;
-      background-color: #1a1a1a;
-      color: #00ffcc;
-      border: 1px solid #00ffcc40;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 30px;
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .item {
-      text-align: center;
-    }
-
-    .gallery img {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      border: 2px solid #00ffcc30;
-      transition: 0.3s ease;
-    }
-
-    .gallery img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 12px #00ffcc80;
-    }
-
-    .download {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 8px 16px;
-      background: #00ffcc20;
-      color: #00ffcc;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: 500;
-      transition: 0.3s ease;
-    }
-
-    .download:hover {
-      background: #00ffcc40;
-    }
-
-    .license {
-      text-align: center;
-      margin-top: 60px;
-      font-size: 14px;
-      color: #bbb;
-      border-top: 1px solid #333;
-      padding-top: 30px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.6;
-    }
-
     .back {
       position: fixed;
       top: 20px;
@@ -108,46 +36,95 @@
       background-color: #00ffcc40;
     }
 
-    .hidden { display: none; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .item {
+      text-align: center;
+    }
+
+    .image-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .image-wrapper img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 2px solid #00ffcc30;
+      transition: transform 0.3s ease;
+    }
+
+    .image-wrapper:hover img {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #00ffcc80;
+    }
+
+    .download {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 8px 16px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .image-wrapper:hover .download {
+      opacity: 1;
+    }
+
+    .caption {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .license {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 14px;
+      color: #bbb;
+      border-top: 1px solid #333;
+      padding-top: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
   <a class="back" href="index.html">⬅ Back to Home</a>
   <h1>👤 Human AI Art Gallery</h1>
 
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="🔍 Search AI images... (e.g. female, portrait, modern)" />
-  </div>
-
-  <div class="gallery" id="gallery">
-    <div class="item" data-keywords="female portrait modern">
-      <img src="images/human/images1.jpeg" alt="Elegant female portrait" />
-      <a class="download" href="images/human/images1.jpeg" download>⬇ Download</a>
+  <div class="gallery">
+    <div class="item">
+      <div class="image-wrapper">
+        <img src="images/human/images1.jpeg" alt="Elegant female portrait" />
+        <a class="download" href="images/human/images1.jpeg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Elegant Female Portrait</div>
     </div>
   </div>
 
   <div class="license">
-    ⚠️ All images shown above are original and owned by <strong>Sojol Biswas</strong>.<br>
+    ⚠️ All images are original and owned by <strong>Sojol Biswas</strong>.<br>
     You may use them for personal or educational purposes only.<br>
     <strong>Commercial use is not permitted without written permission.</strong><br>
-    Please give credit if you share these images online.
+    Credit is appreciated if shared online.
   </div>
-
-  <script>
-    const searchInput = document.getElementById('searchInput');
-    const items = document.querySelectorAll('.item');
-
-    searchInput.addEventListener('input', () => {
-      const term = searchInput.value.toLowerCase();
-      items.forEach(item => {
-        const keywords = item.dataset.keywords;
-        if (keywords.includes(term)) {
-          item.classList.remove('hidden');
-        } else {
-          item.classList.add('hidden');
-        }
-      });
-    });
-  </script>
 </body>
 </html>
