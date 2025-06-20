@@ -156,7 +156,7 @@
   <h1>👤 Human AI Art Gallery</h1>
 
   <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search AI images... (e.g. profile, elegant)" onkeyup="filterImages()" />
+    <input type="text" id="searchInput" placeholder="Search AI images..." onkeyup="filterImages()" />
   </div>
 
   <div class="gallery" id="gallery">
@@ -167,12 +167,13 @@
       </div>
       <div class="caption">Elegant Female Portrait</div>
     </div>
-    <!-- Add more images below as needed -->
+    <!-- You can add more images here -->
   </div>
 
   <div class="license">
-    ⚠️ All images shown above are original and owned by <strong>Sojol Biswas</strong>.<br>
-    Use for personal/educational only. Commercial use needs permission. Credit is appreciated.
+    ⚠️ All images are original and owned by <strong>Sojol Biswas</strong>.<br>
+    You may use them for personal or educational purposes only.<br>
+    Commercial use requires permission. Credit is appreciated.
   </div>
 
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -193,7 +194,6 @@
     function filterImages() {
       const input = document.getElementById('searchInput').value.toLowerCase();
       const items = document.querySelectorAll('.gallery .item');
-
       items.forEach(item => {
         const keywords = item.getAttribute('data-keywords');
         item.style.display = keywords.includes(input) ? 'block' : 'none';
