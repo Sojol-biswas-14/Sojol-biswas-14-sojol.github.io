@@ -36,23 +36,29 @@
       margin-top: 60px;
     }
 
-    .back {
+    .back, .theme-toggle {
       position: fixed;
       top: 20px;
-      left: 20px;
       background: #00ffcc20;
       color: #00ffcc;
       padding: 10px 16px;
       border-radius: 6px;
-      text-decoration: none;
       font-weight: 600;
       z-index: 1000;
       transition: opacity 0.3s ease;
-      cursor: pointer;
       border: none;
+      cursor: pointer;
     }
 
-    .back.hidden {
+    .back {
+      left: 20px;
+    }
+
+    .theme-toggle {
+      right: 20px;
+    }
+
+    .back.hidden, .theme-toggle.hidden {
       opacity: 0;
       pointer-events: none;
     }
@@ -142,8 +148,7 @@
       border-top: 1px solid #333;
       padding-top: 30px;
       max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: auto;
       line-height: 1.6;
     }
 
@@ -175,7 +180,6 @@
       cursor: pointer;
     }
 
-    /* Watermark overlay on each image */
     .watermark {
       position: absolute;
       bottom: 8px;
@@ -188,28 +192,6 @@
       border-radius: 6px;
     }
 
-    /* Theme toggle button */
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #00ffcc20;
-      color: #00ffcc;
-      padding: 8px 14px;
-      border-radius: 6px;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-      z-index: 999;
-      transition: all 0.3s ease;
-    }
-
-    .theme-toggle:hover {
-      background-color: #00ffcc40;
-      box-shadow: 0 0 8px #00ffcc66;
-    }
-
-    /* Feedback Button */
     #feedbackBtn {
       position: fixed;
       bottom: 20px;
@@ -222,13 +204,12 @@
       font-size: 20px;
       box-shadow: 0 0 10px #00ffccaa;
       z-index: 1000;
-      transition: background-color 0.3s ease;
     }
+
     #feedbackBtn:hover {
       background-color: #00ffccee;
     }
 
-    /* Feedback Form Modal */
     #feedbackModal {
       display: none;
       position: fixed;
@@ -243,9 +224,11 @@
       justify-content: center;
       align-items: center;
     }
+
     #feedbackModal.active {
       display: flex;
     }
+
     #feedbackModalContent {
       background-color: #1a1a1a;
       padding: 30px;
@@ -256,6 +239,7 @@
       box-shadow: 0 0 20px #00ffcc99;
       position: relative;
     }
+
     #feedbackModalContent textarea {
       width: 100%;
       height: 100px;
@@ -268,6 +252,7 @@
       font-family: 'Inter', sans-serif;
       font-size: 16px;
     }
+
     #feedbackModalContent button {
       background: #00ffcc;
       border: none;
@@ -279,11 +264,12 @@
       cursor: pointer;
       width: 100%;
       font-size: 16px;
-      transition: background-color 0.3s ease;
     }
+
     #feedbackModalContent button:hover {
       background-color: #00ccaa;
     }
+
     #feedbackModalClose {
       position: absolute;
       top: 12px;
@@ -293,12 +279,12 @@
       cursor: pointer;
     }
 
-    /* Fade-in utility */
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.6s ease;
     }
+
     .fade-in.visible {
       opacity: 1;
       transform: translateY(0);
@@ -307,11 +293,11 @@
 </head>
 <body>
   <button class="back hidden" id="backBtn" onclick="history.back()">⬅ Back</button>
-  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+  <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()">🌓 Theme</button>
 
   <h1 class="fade-in">👤 Human AI Art Gallery</h1>
 
-  <div class="search-box fade-in" style="text-align:center; margin-top: 20px;">
+  <div class="search-box fade-in">
     <input type="text" id="searchInput" placeholder="Search AI images..." onkeyup="filterImages()" />
   </div>
 
@@ -356,10 +342,8 @@
     <img id="lightbox-img" src="" alt="Preview" />
   </div>
 
-  <!-- Feedback Button -->
+  <!-- Feedback Button + Modal -->
   <button id="feedbackBtn" title="Send Feedback">💬</button>
-
-  <!-- Feedback Modal -->
   <div id="feedbackModal">
     <div id="feedbackModalContent">
       <span id="feedbackModalClose">&times;</span>
@@ -370,27 +354,26 @@
   </div>
 
   <script>
-    // Google Analytics already loaded in head
-
-    // Theme toggle
     function toggleTheme() {
       document.body.classList.toggle('light-mode');
     }
 
-    // Back button scroll show/hide
+    // Scroll hide
     const backBtn = document.getElementById('backBtn');
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
     let lastScrollTop = 0;
     window.addEventListener("scroll", function () {
       const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
       if (currentScroll > lastScrollTop) {
         backBtn.classList.add("hidden");
+        themeToggleBtn.classList.add("hidden");
       } else {
         backBtn.classList.remove("hidden");
+        themeToggleBtn.classList.remove("hidden");
       }
       lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     });
 
-    // Lightbox open/close
     function openLightbox(src) {
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').style.display = 'flex';
@@ -399,7 +382,6 @@
       document.getElementById('lightbox').style.display = 'none';
     }
 
-    // Search filter
     function filterImages() {
       const input = document.getElementById('searchInput').value.toLowerCase();
       const items = document.querySelectorAll('.gallery .item');
@@ -409,7 +391,7 @@
       });
     }
 
-    // Fade-in animation on scroll
+    // Fade-in on scroll
     document.addEventListener("DOMContentLoaded", function () {
       const fadeEls = document.querySelectorAll(".fade-in");
       const observer = new IntersectionObserver(entries => {
@@ -420,7 +402,7 @@
       fadeEls.forEach(el => observer.observe(el));
     });
 
-    // Feedback Modal logic
+    // Feedback modal logic
     const feedbackBtn = document.getElementById('feedbackBtn');
     const feedbackModal = document.getElementById('feedbackModal');
     const feedbackModalClose = document.getElementById('feedbackModalClose');
@@ -444,11 +426,11 @@
 
     feedbackSendBtn.addEventListener('click', () => {
       const feedback = feedbackText.value.trim();
-      if(feedback.length === 0) {
+      if (feedback.length === 0) {
         alert('Please write some feedback before sending.');
         return;
       }
-      alert('Thanks for your feedback! (This is a demo, no actual sending)');
+      alert('Thanks for your feedback! (Demo only)');
       feedbackText.value = '';
       feedbackModal.classList.remove('active');
     });
