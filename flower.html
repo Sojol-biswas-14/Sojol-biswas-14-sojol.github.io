@@ -4,8 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Flower AI Art – Sojol Biswas</title>
-  <meta name="description" content="Explore AI-generated flower art by Sojol Biswas" />
-  <meta name="keywords" content="AI flower art, Sojol Biswas, digital art" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     body {
@@ -14,41 +12,54 @@
       font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 20px;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.light-mode {
+      background: #ffffff;
+      color: #111;
     }
     h1 {
       text-align: center;
       color: #00ffcc;
       margin-top: 60px;
     }
-    .views {
-      text-align: center;
-      font-size: 14px;
-      color: #888;
-      margin-top: 10px;
-    }
-    .back, .theme-toggle {
+    .back-button {
       position: fixed;
       top: 20px;
+      left: 20px;
       background: #00ffcc20;
       color: #00ffcc;
-      padding: 10px 16px;
+      padding: 8px 14px;
       border-radius: 6px;
+      border: none;
       font-weight: 600;
-      text-decoration: none;
-      z-index: 999;
-      transition: opacity 0.3s ease, background 0.3s ease;
       cursor: pointer;
-      user-select: none;
+      z-index: 999;
+      opacity: 1;
+      transition: opacity 0.4s ease;
     }
-    .back:hover, .theme-toggle:hover {
-      background-color: #00ffcc40;
-    }
-    .back.hidden, .theme-toggle.hidden {
+    .back-button.hidden {
       opacity: 0;
       pointer-events: none;
     }
-    .back { left: 20px; }
-    .theme-toggle { right: 20px; }
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 999;
+      transition: all 0.3s ease;
+    }
+    .theme-toggle:hover {
+      background-color: #00ffcc40;
+      box-shadow: 0 0 8px #00ffcc66;
+    }
     .search-box {
       text-align: center;
       margin-top: 20px;
@@ -71,22 +82,29 @@
       max-width: 1200px;
       margin: auto;
     }
-    .item { text-align: center; }
+    .item {
+      text-align: center;
+    }
     .image-wrapper {
       position: relative;
       overflow: hidden;
       cursor: pointer;
+      border-radius: 12px;
+      border: 2px solid #00ffcc30;
+      transition: box-shadow 0.3s ease;
+    }
+    .image-wrapper:hover {
+      box-shadow: 0 0 12px #00ffcc80;
     }
     .image-wrapper img {
       width: 100%;
       height: auto;
       border-radius: 12px;
-      border: 2px solid #00ffcc30;
       transition: transform 0.3s ease;
+      display: block;
     }
     .image-wrapper:hover img {
       transform: scale(1.05);
-      box-shadow: 0 0 12px #00ffcc80;
     }
     .download {
       position: absolute;
@@ -101,6 +119,7 @@
       border-radius: 5px;
       text-decoration: none;
       font-weight: 500;
+      user-select: none;
     }
     .image-wrapper:hover .download {
       opacity: 1;
@@ -124,18 +143,24 @@
     }
     .lightbox {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(0, 0, 0, 0.9);
       display: none;
       justify-content: center;
       align-items: center;
       z-index: 999;
     }
+    .lightbox.active {
+      display: flex;
+    }
     .lightbox img {
       max-width: 90%;
       max-height: 80vh;
       border-radius: 10px;
+      box-shadow: 0 0 20px #00ffccaa;
     }
     .lightbox .close {
       position: absolute;
@@ -146,104 +171,145 @@
       cursor: pointer;
       user-select: none;
     }
+    #viewCount {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      display: none;
+      user-select: none;
+      z-index: 999;
+    }
   </style>
 </head>
 <body>
-  <a class="back" href="index.html" id="backBtn">⬅ Back to Home</a>
-  <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌓 Theme</button>
+  <button class="back-button" onclick="history.back()" id="backBtn">⬅ Back</button>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
 
   <h1>🌸 Flower AI Art Gallery</h1>
 
-  <div class="views" id="viewsContainer" style="display:none;">
-    👁️ Views: <span id="viewCount">Loading...</span>
-  </div>
-
   <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search AI images..." onkeyup="filterImages()" />
+    <input type="text" id="searchInput" placeholder="Search flowers..." onkeyup="filterImages()" />
   </div>
 
   <div class="gallery" id="gallery">
-    <div class="item" data-keywords="red rose flower">
-      <div class="image-wrapper" onclick="openLightbox('images/flower/red_rose.jpg')">
-        <img src="images/flower/red_rose.jpg" alt="Red Rose" />
-        <a class="download" href="images/flower/red_rose.jpg" download>⬇ Download</a>
+    <div class="item" data-keywords="rose red romantic flower">
+      <div class="image-wrapper" onclick="openLightbox('images/flower/rose_red.jpg')">
+        <img src="images/flower/rose_red.jpg" alt="Red Rose Romantic" />
+        <a class="download" href="images/flower/rose_red.jpg" download>⬇ Download</a>
       </div>
-      <div class="caption">Red Rose</div>
+      <div class="caption">Red Rose Romantic</div>
     </div>
 
-    <div class="item" data-keywords="sunflower yellow bloom">
-      <div class="image-wrapper" onclick="openLightbox('images/flower/sunflower.jpg')">
-        <img src="images/flower/sunflower.jpg" alt="Sunflower" />
-        <a class="download" href="images/flower/sunflower.jpg" download>⬇ Download</a>
+    <div class="item" data-keywords="fantasy blossom pink bloom">
+      <div class="image-wrapper" onclick="openLightbox('images/flower/fantasy_blossom.jpg')">
+        <img src="images/flower/fantasy_blossom.jpg" alt="Fantasy Blossom" />
+        <a class="download" href="images/flower/fantasy_blossom.jpg" download>⬇ Download</a>
       </div>
-      <div class="caption">Sunflower</div>
-    </div>
-
-    <div class="item" data-keywords="lotus pink water">
-      <div class="image-wrapper" onclick="openLightbox('images/flower/lotus.jpg')">
-        <img src="images/flower/lotus.jpg" alt="Lotus" />
-        <a class="download" href="images/flower/lotus.jpg" download>⬇ Download</a>
-      </div>
-      <div class="caption">Lotus</div>
+      <div class="caption">Fantasy Blossom</div>
     </div>
   </div>
 
   <div class="license">
-    ⚠️ All images are original and owned by <strong>Sojol Biswas</strong>.<br>
-    You may use them for personal or educational purposes only.<br>
-    Commercial use requires permission. Credit is appreciated.
+    ⚠️ All flower artworks are created by <strong>Sojol Biswas</strong>.<br />
+    Use is allowed for personal or educational purposes only.<br />
+    Commercial use requires permission.
   </div>
 
-  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <span class="close">&times;</span>
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <span class="close" onclick="closeLightbox(event)">&times;</span>
     <img id="lightbox-img" src="" alt="Preview" />
   </div>
 
+  <div id="viewCount" title="Page Views">👁️ 0</div>
+
   <script>
-    function openLightbox(src) {
-      document.getElementById('lightbox-img').src = src;
-      document.getElementById('lightbox').style.display = 'flex';
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      if (document.body.classList.contains('light-mode')) {
+        localStorage.setItem('theme', 'light');
+      } else {
+        localStorage.removeItem('theme');
+      }
     }
-    function closeLightbox() {
-      document.getElementById('lightbox').style.display = 'none';
-    }
+    window.onload = function () {
+      if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-mode');
+      }
+      fetchViewCount();
+    };
+
+    let prevScroll = window.scrollY;
+    const backBtn = document.getElementById('backBtn');
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll > prevScroll) {
+        backBtn.classList.add('hidden');
+      } else {
+        backBtn.classList.remove('hidden');
+      }
+      prevScroll = currentScroll;
+    });
+
     function filterImages() {
       const input = document.getElementById('searchInput').value.toLowerCase();
       const items = document.querySelectorAll('.gallery .item');
       items.forEach(item => {
-        const keywords = item.getAttribute('data-keywords');
+        const keywords = item.getAttribute('data-keywords').toLowerCase();
         item.style.display = keywords.includes(input) ? 'block' : 'none';
       });
     }
-    function toggleTheme() {
-      document.body.classList.toggle('light-mode');
+
+    function openLightbox(src) {
+      const lightbox = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      img.src = src;
+      lightbox.classList.add('active');
     }
-    let prevScroll = window.scrollY;
-    window.addEventListener("scroll", function () {
-      const currentScroll = window.scrollY;
-      const hide = currentScroll > prevScroll;
-      document.getElementById("backBtn").classList.toggle("hidden", hide);
-      document.getElementById("themeBtn").classList.toggle("hidden", hide);
-      prevScroll = currentScroll;
-    });
+
+    function closeLightbox(event) {
+      event.stopPropagation();
+      document.getElementById('lightbox').classList.remove('active');
+      document.getElementById('lightbox-img').src = '';
+    }
 
     function isAdmin() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get('admin') === '1';
+      return window.location.search.includes('admin=1');
     }
-    (async () => {
-      if (isAdmin()) {
-        document.getElementById('viewsContainer').style.display = 'block';
-        const page = location.pathname.split('/').pop() || 'index.html';
-        try {
-          const res = await fetch('https://raw.githubusercontent.com/sojol-biswas-14/sojol-biswas-14.github.io/main/data/views.json');
-          const data = await res.json();
-          document.getElementById('viewCount').innerText = data[page] ?? '0';
-        } catch (e) {
-          document.getElementById('viewCount').innerText = 'N/A';
-        }
+
+    async function fetchViewCount() {
+      if (!isAdmin()) return;
+      const viewCountElem = document.getElementById('viewCount');
+      viewCountElem.style.display = 'block';
+      try {
+        const response = await fetch('https://sojol-biswas-14.github.io/viewcounts.json');
+        if (!response.ok) throw new Error('Failed to fetch view counts');
+        const data = await response.json();
+        let count = data.flower || 0;
+        animateCount(viewCountElem, count);
+      } catch (err) {
+        console.error(err);
       }
-    })();
+    }
+
+    function animateCount(element, count) {
+      let current = 0;
+      const step = Math.ceil(count / 50);
+      const interval = setInterval(() => {
+        current += step;
+        if (current >= count) {
+          element.textContent = `👁️ ${count}`;
+          clearInterval(interval);
+        } else {
+          element.textContent = `👁️ ${current}`;
+        }
+      }, 20);
+    }
   </script>
 </body>
 </html>
