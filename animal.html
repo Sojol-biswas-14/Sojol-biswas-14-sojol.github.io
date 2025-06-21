@@ -4,233 +4,247 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Animal AI Art – Sojol Biswas</title>
-  <meta name="description" content="Explore a gallery of animal-inspired AI artwork by Sojol Biswas. Download beautiful and creative animal images." />
+  <meta name="description" content="Explore AI-generated animal art by Sojol Biswas" />
+  <meta name="keywords" content="AI art, Animal AI, Pets, Sojol Biswas Gallery" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --bg-color: #0d0d0d;
-      --text-color: #ffffff;
-      --accent-color: #00ffcc;
-      --input-bg: #1a1a1a;
-      --caption-color: #ccc;
-    }
-    
-    [data-theme="light"] {
-      --bg-color: #ffffff;
-      --text-color: #000000;
-      --accent-color: #007777;
-      --input-bg: #f0f0f0;
-      --caption-color: #333;
-    }
-
     body {
-      background: var(--bg-color);
-      color: var(--text-color);
+      background: #0d0d0d;
+      color: #ffffff;
       font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 20px;
-      transition: background 0.3s, color 0.3s;
     }
 
-    h1 { text-align: center; color: var(--accent-color); margin-top: 60px; }
+    h1 {
+      text-align: center;
+      color: #00ffcc;
+      margin-top: 60px;
+    }
+
+    .views {
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+      margin-top: 10px;
+    }
 
     .back, .theme-toggle {
-      position: fixed; padding: 10px 16px; border-radius: 6px;
-      font-weight: 600; z-index: 1000; transition: opacity 0.3s ease;
+      position: fixed;
+      top: 20px;
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      z-index: 999;
+      transition: opacity 0.3s ease, background 0.3s ease;
     }
-    .back {
-      top: 20px; left: 20px; background: var(--accent-color); color: #000;
-    }
-    .theme-toggle {
-      bottom: 20px; right: 20px; background: var(--accent-color); color: #000;
-      cursor: pointer;
-    }
-    .hidden { opacity: 0; pointer-events: none; }
 
-    .search-box { text-align: center; margin-top: 20px; }
+    .back:hover, .theme-toggle:hover {
+      background-color: #00ffcc40;
+    }
+
+    .back.hidden, .theme-toggle.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .back { left: 20px; }
+    .theme-toggle { right: 20px; }
+
+    .search-box {
+      text-align: center;
+      margin-top: 20px;
+    }
+
     .search-box input {
-      padding: 10px 16px; width: 300px; max-width: 90%; border-radius: 8px;
-      border: none; background: var(--input-bg); color: var(--accent-color);
+      padding: 10px 16px;
+      width: 300px;
+      max-width: 90%;
+      border-radius: 8px;
+      border: none;
+      background: #1a1a1a;
+      color: #00ffcc;
       font-size: 16px;
     }
 
-    #result-count { text-align: center; color: var(--accent-color); font-size: 14px; margin-top: 10px; height: 20px; }
     .gallery {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 30px; padding: 40px 20px; max-width: 1200px; margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
     }
 
     .item { text-align: center; }
-    .image-wrapper { position: relative; overflow: hidden; cursor: pointer; }
+
+    .image-wrapper {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
     .image-wrapper img {
-      width: 100%; border-radius: 12px; border: 2px solid var(--accent-color);
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      border: 2px solid #00ffcc30;
       transition: transform 0.3s ease;
     }
+
     .image-wrapper:hover img {
-      transform: scale(1.05); box-shadow: 0 0 12px var(--accent-color);
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #00ffcc80;
     }
 
     .download {
-      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
-      opacity: 0; transition: opacity 0.3s ease;
-      background: var(--accent-color); color: #000; padding: 8px 16px;
-      border-radius: 5px; text-decoration: none; font-weight: 500;
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 8px 16px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 500;
     }
-    .image-wrapper:hover .download { opacity: 1; }
 
-    .caption { margin-top: 10px; font-size: 14px; color: var(--caption-color); }
+    .image-wrapper:hover .download {
+      opacity: 1;
+    }
+
+    .caption {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
     .license {
-      text-align: center; margin-top: 60px; font-size: 14px; color: var(--caption-color);
-      border-top: 1px solid #333; padding-top: 30px; max-width: 700px; margin: auto;
+      text-align: center;
+      margin-top: 60px;
+      font-size: 14px;
+      color: #bbb;
+      border-top: 1px solid #333;
+      padding-top: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
       line-height: 1.6;
     }
 
     .lightbox {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.9); display: none; justify-content: center;
-      align-items: center; z-index: 999;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
     }
-    .lightbox img { max-width: 90%; max-height: 80vh; border-radius: 10px; }
-    .lightbox .close { position: absolute; top: 20px; right: 30px; font-size: 28px; color: var(--accent-color); cursor: pointer; }
-    .lightbox .counter { position: absolute; bottom: 20px; color: var(--accent-color); font-size: 14px; }
 
-    .spinner {
-      text-align: center; color: var(--accent-color);
-      padding: 20px; font-size: 16px;
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 10px;
+    }
+
+    .lightbox .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 28px;
+      color: #00ffcc;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <a class="back" href="index.html" id="backBtn">⬅ Back</a>
-  <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌓 Theme</button>
-  <h1>🐾 Animal AI Art Gallery</h1>
+  <a class="back" href="index.html" id="backBtn">⬅ Back to Home</a>
+  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌓 Theme</button>
+
+  <h1>🐶 Animal AI Art Gallery</h1>
+  <div class="views">👁️ Views: <span id="viewCount">Loading...</span></div>
 
   <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search AI images..." onkeyup="filterImages()" />
-    <div id="result-count" aria-live="polite"></div>
+    <input type="text" id="searchInput" placeholder="Search AI animals..." onkeyup="filterImages()" />
   </div>
 
-  <div class="gallery" id="gallery"></div>
-  <div class="spinner" id="spinner">🔄 Loading...</div>
+  <div class="gallery" id="gallery">
+    <div class="item" data-keywords="tiger jungle animal">
+      <div class="image-wrapper" onclick="openLightbox('images/animal/tiger.jpg')">
+        <img src="images/animal/tiger.jpg" alt="Tiger Jungle Animal" />
+        <a class="download" href="images/animal/tiger.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Tiger in the Jungle</div>
+    </div>
+
+    <div class="item" data-keywords="cute puppy dog">
+      <div class="image-wrapper" onclick="openLightbox('images/animal/puppy.jpg')">
+        <img src="images/animal/puppy.jpg" alt="Cute Puppy" />
+        <a class="download" href="images/animal/puppy.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Cute AI Puppy</div>
+    </div>
+  </div>
 
   <div class="license">
-    ⚠️ All images are owned by <strong>Sojol Biswas</strong>. Personal/educational use only.
+    ⚠️ All animal artworks are created by <strong>Sojol Biswas</strong>.<br>
+    Free for personal or educational use. Commercial use needs permission.
   </div>
 
-  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <span class="close">&times;</span>
     <img id="lightbox-img" src="" alt="Preview" />
-    <div class="counter" id="viewCounter"></div>
   </div>
 
   <script>
-    const imageData = [
-      { src: "images/animal/animal1.jpg", title: "Majestic Lion", keywords: "majestic lion animal" },
-      { src: "images/animal/animal2.jpg", title: "Colorful Parrot", keywords: "colorful parrot bird" },
-      { src: "images/animal/animal3.jpg", title: "Gentle Elephant", keywords: "gentle elephant mammal" }
-      // Add more animal images here
-    ];
-
-    let currentIndex = 0;
-    const perPage = 6;
-    const gallery = document.getElementById('gallery');
-    const spinner = document.getElementById('spinner');
-
-    function loadImages() {
-      spinner.style.display = 'block';
-      const next = imageData.slice(currentIndex, currentIndex + perPage);
-      next.forEach(img => {
-        const div = document.createElement('div');
-        div.className = 'item';
-        div.setAttribute('data-keywords', img.keywords);
-        div.innerHTML = `
-          <div class="image-wrapper" onclick="openLightbox('${img.src}')">
-            <img src="${img.src}" alt="${img.title}" loading="lazy" />
-            <a class="download" href="${img.src}" download>⬇ Download</a>
-          </div>
-          <div class="caption">${img.title}</div>
-        `;
-        gallery.appendChild(div);
-      });
-      currentIndex += perPage;
-      spinner.style.display = 'none';
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').style.display = 'flex';
     }
 
-    window.addEventListener('scroll', () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 300) loadImages();
-    });
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
 
     function filterImages() {
       const input = document.getElementById('searchInput').value.toLowerCase();
-      const items = document.querySelectorAll('.item');
-      let count = 0;
+      const items = document.querySelectorAll('.gallery .item');
       items.forEach(item => {
-        const match = item.getAttribute('data-keywords').includes(input);
-        item.style.display = match ? '' : 'none';
-        if (match) count++;
+        const keywords = item.getAttribute('data-keywords');
+        item.style.display = keywords.includes(input) ? 'block' : 'none';
       });
-      document.getElementById('result-count').textContent = count + " image(s) found";
-    }
-
-    function openLightbox(src) {
-      const img = document.getElementById('lightbox-img');
-      img.src = src;
-      document.getElementById('lightbox').style.display = 'flex';
-      const views = incrementViewCount(src);
-      document.getElementById('viewCounter').textContent = views + ' views';
-    }
-
-    function closeLightbox(e) {
-      if (e.target.id === 'lightbox' || e.target.className === 'close') {
-        document.getElementById('lightbox').style.display = 'none';
-        document.getElementById('lightbox-img').src = '';
-      }
-    }
-
-    function incrementViewCount(src) {
-      const key = 'views_' + src;
-      let count = localStorage.getItem(key) || 0;
-      count++;
-      localStorage.setItem(key, count);
-      return count;
     }
 
     function toggleTheme() {
-      const current = document.documentElement.getAttribute('data-theme');
-      const next = current === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
+      document.body.classList.toggle('light-mode');
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      loadImages();
-    });
-
-    let lastScrollTop = 0;
-    window.addEventListener('scroll', () => {
-      const st = window.pageYOffset || document.documentElement.scrollTop;
-      const backBtn = document.getElementById('backBtn');
-      const themeBtn = document.getElementById('themeBtn');
-      if (st > lastScrollTop) {
-        backBtn.classList.add('hidden');
-        themeBtn.classList.add('hidden');
-      } else {
-        backBtn.classList.remove('hidden');
-        themeBtn.classList.remove('hidden');
-      }
-      lastScrollTop = st <= 0 ? 0 : st;
-    });
-
-    // SWIPE SUPPORT
-    let startX = 0;
-    document.getElementById('lightbox').addEventListener('touchstart', e => startX = e.touches[0].clientX);
-    document.getElementById('lightbox').addEventListener('touchend', e => {
-      const endX = e.changedTouches[0].clientX;
-      if (Math.abs(startX - endX) > 50) closeLightbox(e);
+    let prevScroll = window.scrollY;
+    window.addEventListener("scroll", function () {
+      const currentScroll = window.scrollY;
+      const hide = currentScroll > prevScroll;
+      document.getElementById("backBtn").classList.toggle("hidden", hide);
+      document.getElementById("themeBtn").classList.toggle("hidden", hide);
+      prevScroll = currentScroll;
     });
   </script>
+
   <script src="scripts/track-view.js"></script>
+  <script>
+    (async () => {
+      const page = location.pathname.split('/').pop() || 'index.html';
+      const res = await fetch('https://raw.githubusercontent.com/sojol-biswas-14/sojol-biswas-14.github.io/main/data/views.json');
+      const data = await res.json();
+      document.getElementById('viewCount').innerText = data[page] ?? '0';
+    })();
+  </script>
 </body>
 </html>
