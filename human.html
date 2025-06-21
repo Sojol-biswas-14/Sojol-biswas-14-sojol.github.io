@@ -32,10 +32,13 @@
       font-weight: 600;
       z-index: 1000;
       transition: opacity 0.3s ease;
+      outline-offset: 2px;
     }
 
-    .back:hover {
+    .back:hover,
+    .back:focus {
       background-color: #00ffcc40;
+      outline: 2px solid #00ffcc;
     }
 
     .back.hidden {
@@ -57,6 +60,11 @@
       background: #1a1a1a;
       color: #00ffcc;
       font-size: 16px;
+      outline-offset: 2px;
+    }
+
+    .search-box input:focus {
+      outline: 2px solid #00ffcc;
     }
 
     .gallery {
@@ -76,6 +84,8 @@
       position: relative;
       overflow: hidden;
       cursor: pointer;
+      display: inline-block;
+      outline-offset: 2px;
     }
 
     .image-wrapper img {
@@ -84,9 +94,11 @@
       border-radius: 12px;
       border: 2px solid #00ffcc30;
       transition: transform 0.3s ease;
+      display: block;
     }
 
-    .image-wrapper:hover img {
+    .image-wrapper:hover img,
+    .image-wrapper:focus img {
       transform: scale(1.05);
       box-shadow: 0 0 12px #00ffcc80;
     }
@@ -104,9 +116,11 @@
       border-radius: 5px;
       text-decoration: none;
       font-weight: 500;
+      user-select: none;
     }
 
-    .image-wrapper:hover .download {
+    .image-wrapper:hover .download,
+    .image-wrapper:focus .download {
       opacity: 1;
     }
 
@@ -140,6 +154,11 @@
       justify-content: center;
       align-items: center;
       z-index: 999;
+      flex-direction: column;
+    }
+
+    .lightbox.active {
+      display: flex;
     }
 
     .lightbox img {
@@ -155,70 +174,163 @@
       font-size: 28px;
       color: #00ffcc;
       cursor: pointer;
+      user-select: none;
+      outline-offset: 2px;
+    }
+
+    .lightbox .close:focus {
+      outline: 2px solid #00ffcc;
     }
   </style>
 </head>
 <body>
-  <a class="back" href="index.html" id="backBtn">⬅ Back to Home</a>
+  <a href="index.html" class="back" id="backBtn" tabindex="0">⬅ Back to Home</a>
   <h1>👤 Human AI Art Gallery</h1>
 
   <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search AI images..." onkeyup="filterImages()" />
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search AI images..."
+      onkeyup="filterImages()"
+      aria-label="Search AI images"
+    />
   </div>
 
   <div class="gallery" id="gallery">
     <div class="item" data-keywords="elegant female portrait">
-      <div class="image-wrapper" onclick="openLightbox('images/human/images1.jpeg')">
-        <img src="images/human/images1.jpeg" alt="Elegant Female Portrait" />
-        <a class="download" href="images/human/images1.jpeg" download>⬇ Download</a>
+      <div
+        class="image-wrapper"
+        tabindex="0"
+        role="button"
+        aria-label="View Elegant Female Portrait"
+        onclick="openLightbox('images/human/images1.jpeg')"
+        onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); openLightbox('images/human/images1.jpeg'); }"
+      >
+        <img
+          src="images/human/images1.jpeg"
+          alt="Elegant Female Portrait"
+          loading="lazy"
+        />
+        <a class="download" href="images/human/images1.jpeg" download title="Download Elegant Female Portrait"
+          >⬇ Download</a
+        >
       </div>
       <div class="caption">Elegant Female Portrait</div>
     </div>
 
     <div class="item" data-keywords="traditional female ai art">
-      <div class="image-wrapper" onclick="openLightbox('images/human/South_Asian_Woman_Portrait.jpg')">
-        <img src="images/human/South_Asian_Woman_Portrait.jpg" alt="Traditional Female AI Art" />
-        <a class="download" href="images/human/South_Asian_Woman_Portrait.jpg" download>⬇ Download</a>
+      <div
+        class="image-wrapper"
+        tabindex="0"
+        role="button"
+        aria-label="View Traditional Female AI Art"
+        onclick="openLightbox('images/human/South_Asian_Woman_Portrait.jpg')"
+        onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); openLightbox('images/human/South_Asian_Woman_Portrait.jpg'); }"
+      >
+        <img
+          src="images/human/South_Asian_Woman_Portrait.jpg"
+          alt="Traditional Female AI Art"
+          loading="lazy"
+        />
+        <a class="download" href="images/human/South_Asian_Woman_Portrait.jpg" download title="Download Traditional Female AI Art"
+          >⬇ Download</a
+        >
       </div>
       <div class="caption">Traditional Female AI Art</div>
     </div>
 
     <div class="item" data-keywords="female black and white portrait">
-      <div class="image-wrapper" onclick="openLightbox('images/human/Female-art-black-and-white.jpg')">
-        <img src="images/human/Female-art-black-and-white.jpg" alt="Female Art Black and White" />
-        <a class="download" href="images/human/Female-art-black-and-white.jpg" download>⬇ Download</a>
+      <div
+        class="image-wrapper"
+        tabindex="0"
+        role="button"
+        aria-label="View Female Art Black and White"
+        onclick="openLightbox('images/human/Female-art-black-and-white.jpg')"
+        onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); openLightbox('images/human/Female-art-black-and-white.jpg'); }"
+      >
+        <img
+          src="images/human/Female-art-black-and-white.jpg"
+          alt="Female Art Black and White"
+          loading="lazy"
+        />
+        <a class="download" href="images/human/Female-art-black-and-white.jpg" download title="Download Female Art Black and White"
+          >⬇ Download</a
+        >
       </div>
       <div class="caption">Female Art – Black and White</div>
     </div>
   </div>
 
   <div class="license">
-    ⚠️ All images are original and owned by <strong>Sojol Biswas</strong>.<br>
-    You may use them for personal or educational purposes only.<br>
+    ⚠️ All images are original and owned by <strong>Sojol Biswas</strong>.<br />
+    You may use them for personal or educational purposes only.<br />
     Commercial use requires permission. Credit is appreciated.
   </div>
 
-  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <span class="close">&times;</span>
+  <div
+    class="lightbox"
+    id="lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Image preview"
+    tabindex="0"
+    onclick="closeLightbox(event)"
+  >
+    <span
+      class="close"
+      role="button"
+      tabindex="0"
+      aria-label="Close lightbox"
+      onclick="closeLightbox(event)"
+      onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); closeLightbox(event); }"
+      >&times;</span
+    >
     <img id="lightbox-img" src="" alt="Preview" />
   </div>
 
   <script>
     function openLightbox(src) {
-      document.getElementById('lightbox-img').src = src;
-      document.getElementById('lightbox').style.display = 'flex';
+      const lightbox = document.getElementById("lightbox");
+      const img = document.getElementById("lightbox-img");
+      img.src = src;
+      lightbox.classList.add("active");
+      lightbox.style.display = "flex";
+      lightbox.focus();
     }
 
-    function closeLightbox() {
-      document.getElementById('lightbox').style.display = 'none';
+    function closeLightbox(event) {
+      // Prevent close if clicking inside the image
+      if (
+        event &&
+        event.target.id === "lightbox-img"
+      ) {
+        return;
+      }
+      const lightbox = document.getElementById("lightbox");
+      lightbox.classList.remove("active");
+      lightbox.style.display = "none";
+      document.getElementById("lightbox-img").src = "";
     }
+
+    // Close lightbox on ESC key press
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        closeLightbox();
+      }
+    });
 
     function filterImages() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
-      const items = document.querySelectorAll('.gallery .item');
-      items.forEach(item => {
-        const keywords = item.getAttribute('data-keywords');
-        item.style.display = keywords.includes(input) ? 'block' : 'none';
+      const input = document.getElementById("searchInput").value
+        .toLowerCase()
+        .trim();
+      const items = document.querySelectorAll(".gallery .item");
+      const terms = input.split(/\s+/).filter(Boolean);
+
+      items.forEach((item) => {
+        const keywords = item.getAttribute("data-keywords").toLowerCase();
+        const match = terms.every((term) => keywords.includes(term));
+        item.style.display = match ? "block" : "none";
       });
     }
 
