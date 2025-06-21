@@ -188,11 +188,6 @@
       border-radius: 6px;
     }
 
-    .theme-toggle:hover {
-      background-color: #00ffcc40;
-      box-shadow: 0 0 8px #00ffcc66;
-    }
-
     #feedbackBtn {
       position: fixed;
       bottom: 20px;
@@ -305,7 +300,30 @@
   </div>
 
   <div class="gallery fade-in" id="gallery">
-    <!-- Your images go here -->
+    <div class="item" data-keywords="elegant female portrait">
+      <div class="image-wrapper" onclick="openLightbox('images/human/images1.jpeg')">
+        <img src="images/human/images1.jpeg" alt="Elegant Female Portrait" />
+        <div class="watermark"></div>
+        <a class="download" href="images/human/images1.jpeg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Elegant Female Portrait</div>
+    </div>
+    <div class="item" data-keywords="traditional female ai art">
+      <div class="image-wrapper" onclick="openLightbox('images/human/South_Asian_Woman_Portrait.jpg')">
+        <img src="images/human/South_Asian_Woman_Portrait.jpg" alt="Traditional Female AI Art" />
+        <div class="watermark"></div>
+        <a class="download" href="images/human/South_Asian_Woman_Portrait.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Traditional Female AI Art</div>
+    </div>
+    <div class="item" data-keywords="female black and white portrait">
+      <div class="image-wrapper" onclick="openLightbox('images/human/Female-art-black-and-white.jpg')">
+        <img src="images/human/Female-art-black-and-white.jpg" alt="Female Art Black and White" />
+        <div class="watermark"></div>
+        <a class="download" href="images/human/Female-art-black-and-white.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Female Art – Black and White</div>
+    </div>
   </div>
 
   <div class="license fade-in">
@@ -314,16 +332,13 @@
     Commercial use requires permission. Credit is appreciated.
   </div>
 
-  <!-- Lightbox -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <span class="close">&times;</span>
     <img id="lightbox-img" src="" alt="Preview" />
   </div>
 
-  <!-- Feedback Button -->
   <button id="feedbackBtn" title="Send Feedback">💬</button>
 
-  <!-- Feedback Modal -->
   <div id="feedbackModal">
     <div id="feedbackModalContent">
       <span id="feedbackModalClose">&times;</span>
