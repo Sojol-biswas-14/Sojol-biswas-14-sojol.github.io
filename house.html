@@ -2,9 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>House AI Art – Sojol Biswas</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVNEJT1ERV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TVNEJT1ERV');
+  </script>
+
   <style>
     body {
       background: #0d0d0d;
@@ -14,34 +24,171 @@
       padding: 20px;
       transition: background 0.3s, color 0.3s;
     }
+
     body.light-mode {
-      background: #ffffff;
+      background: #fff;
       color: #111;
     }
+
     h1 {
       text-align: center;
       color: #00ffcc;
       margin-top: 60px;
     }
-    .back-button {
+
+    .back {
       position: fixed;
       top: 20px;
       left: 20px;
       background: #00ffcc20;
       color: #00ffcc;
-      padding: 8px 14px;
+      padding: 10px 16px;
       border-radius: 6px;
-      border: none;
+      text-decoration: none;
       font-weight: 600;
+      z-index: 1000;
+      transition: opacity 0.3s ease;
       cursor: pointer;
-      z-index: 999;
-      opacity: 1;
-      transition: opacity 0.4s ease;
+      border: none;
     }
-    .back-button.hidden {
+
+    .back.hidden {
       opacity: 0;
       pointer-events: none;
     }
+
+    .search-box {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .search-box input {
+      padding: 10px 16px;
+      width: 300px;
+      max-width: 90%;
+      border-radius: 8px;
+      border: none;
+      background: #1a1a1a;
+      color: #00ffcc;
+      font-size: 16px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .item {
+      text-align: center;
+      position: relative;
+    }
+
+    .image-wrapper {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 12px;
+      border: 2px solid #00ffcc30;
+      transition: transform 0.3s ease;
+    }
+
+    .image-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+    }
+
+    .image-wrapper:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #00ffcc80;
+    }
+
+    .download {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 8px 16px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 500;
+      z-index: 10;
+    }
+
+    .image-wrapper:hover .download {
+      opacity: 1;
+    }
+
+    .caption {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .license {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 14px;
+      color: #bbb;
+      border-top: 1px solid #333;
+      padding-top: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 10px;
+    }
+
+    .lightbox .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 28px;
+      color: #00ffcc;
+      cursor: pointer;
+    }
+
+    /* Watermark overlay on each image */
+    .watermark {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      width: 40px;
+      height: 40px;
+      background: url('images/logo.png') no-repeat center/contain;
+      opacity: 0.25;
+      pointer-events: none;
+      border-radius: 6px;
+    }
+
+    /* Theme toggle button */
     .theme-toggle {
       position: fixed;
       top: 20px;
@@ -56,260 +203,253 @@
       z-index: 999;
       transition: all 0.3s ease;
     }
+
     .theme-toggle:hover {
       background-color: #00ffcc40;
       box-shadow: 0 0 8px #00ffcc66;
     }
-    .search-box {
-      text-align: center;
-      margin-top: 20px;
-    }
-    .search-box input {
-      padding: 10px 16px;
-      width: 300px;
-      max-width: 90%;
-      border-radius: 8px;
-      border: none;
-      background: #1a1a1a;
-      color: #00ffcc;
-      font-size: 16px;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 30px;
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: auto;
-    }
-    .item {
-      text-align: center;
-    }
-    .image-wrapper {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      border-radius: 12px;
-      border: 2px solid #00ffcc30;
-      transition: box-shadow 0.3s ease;
-    }
-    .image-wrapper:hover {
-      box-shadow: 0 0 12px #00ffcc80;
-    }
-    .image-wrapper img {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      transition: transform 0.3s ease;
-      display: block;
-    }
-    .image-wrapper:hover img {
-      transform: scale(1.05);
-    }
-    .download {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      background: #00ffcc20;
-      color: #00ffcc;
-      padding: 8px 16px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: 500;
-      user-select: none;
-    }
-    .image-wrapper:hover .download {
-      opacity: 1;
-    }
-    .caption {
-      margin-top: 10px;
-      font-size: 14px;
-      color: #ccc;
-    }
-    .license {
-      text-align: center;
-      margin-top: 60px;
-      font-size: 14px;
-      color: #bbb;
-      border-top: 1px solid #333;
-      padding-top: 30px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.6;
-    }
-    .lightbox {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-    .lightbox.active {
-      display: flex;
-    }
-    .lightbox img {
-      max-width: 90%;
-      max-height: 80vh;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #00ffccaa;
-    }
-    .lightbox .close {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 28px;
-      color: #00ffcc;
-      cursor: pointer;
-      user-select: none;
-    }
-    #viewCount {
+
+    /* Feedback Button */
+    #feedbackBtn {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: #00ffcc20;
-      color: #00ffcc;
-      padding: 8px 14px;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 14px;
+      background: #00ffcccc;
+      border: none;
+      padding: 14px 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      box-shadow: 0 0 10px #00ffccaa;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
+    #feedbackBtn:hover {
+      background-color: #00ffccee;
+    }
+
+    /* Feedback Form Modal */
+    #feedbackModal {
       display: none;
-      user-select: none;
-      z-index: 999;
+      position: fixed;
+      z-index: 1500;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.8);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+    }
+    #feedbackModal.active {
+      display: flex;
+    }
+    #feedbackModalContent {
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      color: #00ffcc;
+      box-shadow: 0 0 20px #00ffcc99;
+      position: relative;
+    }
+    #feedbackModalContent textarea {
+      width: 100%;
+      height: 100px;
+      background: #0d0d0d;
+      border: none;
+      border-radius: 8px;
+      color: #00ffcc;
+      padding: 10px;
+      resize: vertical;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+    }
+    #feedbackModalContent button {
+      background: #00ffcc;
+      border: none;
+      color: #000;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    #feedbackModalContent button:hover {
+      background-color: #00ccaa;
+    }
+    #feedbackModalClose {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      font-size: 28px;
+      color: #00ffcc;
+      cursor: pointer;
+    }
+
+    /* Fade-in utility */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
-  <button class="back-button" onclick="history.back()" id="backBtn">⬅ Back</button>
+  <button class="back hidden" id="backBtn" onclick="history.back()">⬅ Back</button>
   <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
 
-  <h1>🏠 House AI Art Gallery</h1>
+  <h1 class="fade-in">🏠 House AI Art Gallery</h1>
 
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search house art..." onkeyup="filterImages()" />
+  <div class="search-box fade-in" style="text-align:center; margin-top: 20px;">
+    <input type="text" id="searchInput" placeholder="Search AI images..." onkeyup="filterImages()" />
   </div>
 
-  <div class="gallery" id="gallery">
-    <div class="item" data-keywords="modern architecture villa house">
-      <div class="image-wrapper" onclick="openLightbox('images/house/modern_villa.jpg')">
-        <img src="images/house/modern_villa.jpg" alt="Modern Villa" />
-        <a class="download" href="images/house/modern_villa.jpg" download>⬇ Download</a>
+  <div class="gallery fade-in" id="gallery">
+    <div class="item" data-keywords="modern house architecture">
+      <div class="image-wrapper" onclick="openLightbox('images/house/house1.jpg')">
+        <img src="images/house/house1.jpg" alt="Modern House Architecture" />
+        <div class="watermark"></div>
+        <a class="download" href="images/house/house1.jpg" download>⬇ Download</a>
       </div>
-      <div class="caption">Modern Villa</div>
+      <div class="caption">Modern House Architecture</div>
     </div>
 
-    <div class="item" data-keywords="futuristic building ai concept">
-      <div class="image-wrapper" onclick="openLightbox('images/house/futuristic_building.jpg')">
-        <img src="images/house/futuristic_building.jpg" alt="Futuristic Building" />
-        <a class="download" href="images/house/futuristic_building.jpg" download>⬇ Download</a>
+    <div class="item" data-keywords="traditional house ai art">
+      <div class="image-wrapper" onclick="openLightbox('images/house/house2.jpg')">
+        <img src="images/house/house2.jpg" alt="Traditional House AI Art" />
+        <div class="watermark"></div>
+        <a class="download" href="images/house/house2.jpg" download>⬇ Download</a>
       </div>
-      <div class="caption">Futuristic Building</div>
+      <div class="caption">Traditional House AI Art</div>
+    </div>
+
+    <div class="item" data-keywords="futuristic house design">
+      <div class="image-wrapper" onclick="openLightbox('images/house/house3.jpg')">
+        <img src="images/house/house3.jpg" alt="Futuristic House Design" />
+        <div class="watermark"></div>
+        <a class="download" href="images/house/house3.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Futuristic House Design</div>
     </div>
   </div>
 
-  <div class="license">
-    ⚠️ All house artworks are created by <strong>Sojol Biswas</strong>.<br />
-    Free to use for personal and educational purposes.<br />
-    Contact for commercial licensing.
+  <div class="license fade-in">
+    ⚠️ All images are original and owned by <strong>Sojol Biswas</strong>.<br />
+    You may use them for personal or educational purposes only.<br />
+    Commercial use requires permission. Credit is appreciated.
   </div>
 
-  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-    <span class="close" onclick="closeLightbox(event)">&times;</span>
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="close">&times;</span>
     <img id="lightbox-img" src="" alt="Preview" />
   </div>
 
-  <div id="viewCount" title="Page Views">👁️ 0</div>
+  <!-- Feedback Button -->
+  <button id="feedbackBtn" title="Send Feedback">💬</button>
+
+  <!-- Feedback Modal -->
+  <div id="feedbackModal">
+    <div id="feedbackModalContent">
+      <span id="feedbackModalClose">&times;</span>
+      <h3>Send your feedback</h3>
+      <textarea id="feedbackText" placeholder="Write your feedback here..."></textarea>
+      <button id="feedbackSendBtn">Send</button>
+    </div>
+  </div>
 
   <script>
+    // Theme toggle
     function toggleTheme() {
       document.body.classList.toggle('light-mode');
-      if (document.body.classList.contains('light-mode')) {
-        localStorage.setItem('theme', 'light');
-      } else {
-        localStorage.removeItem('theme');
-      }
     }
-    window.onload = function () {
-      if (localStorage.getItem('theme') === 'light') {
-        document.body.classList.add('light-mode');
-      }
-      fetchViewCount();
-    };
 
-    let prevScroll = window.scrollY;
+    // Back button scroll show/hide
     const backBtn = document.getElementById('backBtn');
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.scrollY;
-      if (currentScroll > prevScroll) {
-        backBtn.classList.add('hidden');
+    let lastScrollTop = 0;
+    window.addEventListener("scroll", function () {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      if (currentScroll > lastScrollTop) {
+        backBtn.classList.add("hidden");
       } else {
-        backBtn.classList.remove('hidden');
+        backBtn.classList.remove("hidden");
       }
-      prevScroll = currentScroll;
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     });
 
+    // Lightbox open/close
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').style.display = 'flex';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
+
+    // Search filter
     function filterImages() {
       const input = document.getElementById('searchInput').value.toLowerCase();
       const items = document.querySelectorAll('.gallery .item');
       items.forEach(item => {
-        const keywords = item.getAttribute('data-keywords').toLowerCase();
+        const keywords = item.getAttribute('data-keywords');
         item.style.display = keywords.includes(input) ? 'block' : 'none';
       });
     }
 
-    function openLightbox(src) {
-      const lightbox = document.getElementById('lightbox');
-      const img = document.getElementById('lightbox-img');
-      img.src = src;
-      lightbox.classList.add('active');
-    }
+    // Fade-in animation on scroll
+    document.addEventListener("DOMContentLoaded", function () {
+      const fadeEls = document.querySelectorAll(".fade-in");
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      }, { threshold: 0.1 });
+      fadeEls.forEach(el => observer.observe(el));
+    });
 
-    function closeLightbox(event) {
-      event.stopPropagation();
-      document.getElementById('lightbox').classList.remove('active');
-      document.getElementById('lightbox-img').src = '';
-    }
+    // Feedback Modal logic
+    const feedbackBtn = document.getElementById('feedbackBtn');
+    const feedbackModal = document.getElementById('feedbackModal');
+    const feedbackModalClose = document.getElementById('feedbackModalClose');
+    const feedbackSendBtn = document.getElementById('feedbackSendBtn');
+    const feedbackText = document.getElementById('feedbackText');
 
-    function isAdmin() {
-      return window.location.search.includes('admin=1');
-    }
+    feedbackBtn.addEventListener('click', () => {
+      feedbackModal.classList.add('active');
+      feedbackText.focus();
+    });
 
-    async function fetchViewCount() {
-      if (!isAdmin()) return;
-      const viewCountElem = document.getElementById('viewCount');
-      viewCountElem.style.display = 'block';
-      try {
-        const response = await fetch('https://sojol-biswas-14.github.io/viewcounts.json');
-        if (!response.ok) throw new Error('Failed to fetch view counts');
-        const data = await response.json();
-        let count = data.house || 0;
-        animateCount(viewCountElem, count);
-      } catch (err) {
-        console.error(err);
+    feedbackModalClose.addEventListener('click', () => {
+      feedbackModal.classList.remove('active');
+    });
+
+    feedbackModal.addEventListener('click', e => {
+      if (e.target === feedbackModal) {
+        feedbackModal.classList.remove('active');
       }
-    }
+    });
 
-    function animateCount(element, count) {
-      let current = 0;
-      const step = Math.ceil(count / 50);
-      const interval = setInterval(() => {
-        current += step;
-        if (current >= count) {
-          element.textContent = `👁️ ${count}`;
-          clearInterval(interval);
-        } else {
-          element.textContent = `👁️ ${current}`;
-        }
-      }, 20);
-    }
+    feedbackSendBtn.addEventListener('click', () => {
+      const feedback = feedbackText.value.trim();
+      if(feedback.length === 0) {
+        alert('Please write some feedback before sending.');
+        return;
+      }
+      alert('Thanks for your feedback! (This is a demo, no actual sending)');
+      feedbackText.value = '';
+      feedbackModal.classList.remove('active');
+    });
   </script>
 </body>
 </html>
