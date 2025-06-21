@@ -24,18 +24,15 @@
       padding: 20px;
       transition: background 0.3s, color 0.3s;
     }
-
     body.light-mode {
       background: #fff;
       color: #111;
     }
-
     h1 {
       text-align: center;
       color: #00ffcc;
       margin-top: 60px;
     }
-
     .back, .theme-toggle {
       position: fixed;
       top: 20px;
@@ -44,30 +41,21 @@
       padding: 10px 16px;
       border-radius: 6px;
       font-weight: 600;
+      cursor: pointer;
       z-index: 1000;
       transition: opacity 0.3s ease;
       border: none;
-      cursor: pointer;
     }
-
-    .back {
-      left: 20px;
-    }
-
-    .theme-toggle {
-      right: 20px;
-    }
-
+    .back { left: 20px; }
+    .theme-toggle { right: 20px; }
     .back.hidden, .theme-toggle.hidden {
       opacity: 0;
       pointer-events: none;
     }
-
     .search-box {
       text-align: center;
       margin-top: 20px;
     }
-
     .search-box input {
       padding: 10px 16px;
       width: 300px;
@@ -78,7 +66,6 @@
       color: #00ffcc;
       font-size: 16px;
     }
-
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -87,12 +74,10 @@
       max-width: 1200px;
       margin: auto;
     }
-
     .item {
       text-align: center;
       position: relative;
     }
-
     .image-wrapper {
       position: relative;
       overflow: hidden;
@@ -101,19 +86,16 @@
       border: 2px solid #00ffcc30;
       transition: transform 0.3s ease;
     }
-
     .image-wrapper img {
       width: 100%;
       height: auto;
       display: block;
       border-radius: 12px;
     }
-
     .image-wrapper:hover {
       transform: scale(1.05);
       box-shadow: 0 0 12px #00ffcc80;
     }
-
     .download {
       position: absolute;
       bottom: 10px;
@@ -129,17 +111,14 @@
       font-weight: 500;
       z-index: 10;
     }
-
     .image-wrapper:hover .download {
       opacity: 1;
     }
-
     .caption {
       margin-top: 10px;
       font-size: 14px;
       color: #ccc;
     }
-
     .license {
       text-align: center;
       margin-top: 60px;
@@ -148,10 +127,10 @@
       border-top: 1px solid #333;
       padding-top: 30px;
       max-width: 700px;
-      margin: auto;
+      margin-left: auto;
+      margin-right: auto;
       line-height: 1.6;
     }
-
     .lightbox {
       position: fixed;
       top: 0;
@@ -164,13 +143,11 @@
       align-items: center;
       z-index: 999;
     }
-
     .lightbox img {
       max-width: 90%;
       max-height: 80vh;
       border-radius: 10px;
     }
-
     .lightbox .close {
       position: absolute;
       top: 20px;
@@ -179,7 +156,6 @@
       color: #00ffcc;
       cursor: pointer;
     }
-
     .watermark {
       position: absolute;
       bottom: 8px;
@@ -191,7 +167,6 @@
       pointer-events: none;
       border-radius: 6px;
     }
-
     #feedbackBtn {
       position: fixed;
       bottom: 20px;
@@ -205,11 +180,9 @@
       box-shadow: 0 0 10px #00ffccaa;
       z-index: 1000;
     }
-
     #feedbackBtn:hover {
       background-color: #00ffccee;
     }
-
     #feedbackModal {
       display: none;
       position: fixed;
@@ -224,11 +197,9 @@
       justify-content: center;
       align-items: center;
     }
-
     #feedbackModal.active {
       display: flex;
     }
-
     #feedbackModalContent {
       background-color: #1a1a1a;
       padding: 30px;
@@ -239,7 +210,6 @@
       box-shadow: 0 0 20px #00ffcc99;
       position: relative;
     }
-
     #feedbackModalContent textarea {
       width: 100%;
       height: 100px;
@@ -252,7 +222,6 @@
       font-family: 'Inter', sans-serif;
       font-size: 16px;
     }
-
     #feedbackModalContent button {
       background: #00ffcc;
       border: none;
@@ -265,11 +234,9 @@
       width: 100%;
       font-size: 16px;
     }
-
     #feedbackModalContent button:hover {
       background-color: #00ccaa;
     }
-
     #feedbackModalClose {
       position: absolute;
       top: 12px;
@@ -278,13 +245,11 @@
       color: #00ffcc;
       cursor: pointer;
     }
-
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.6s ease;
     }
-
     .fade-in.visible {
       opacity: 1;
       transform: translateY(0);
@@ -293,7 +258,7 @@
 </head>
 <body>
   <button class="back hidden" id="backBtn" onclick="history.back()">⬅ Back</button>
-  <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()">🌓 Theme</button>
+  <button class="theme-toggle hidden" onclick="toggleTheme()">🌓 Theme</button>
 
   <h1 class="fade-in">👤 Human AI Art Gallery</h1>
 
@@ -342,8 +307,10 @@
     <img id="lightbox-img" src="" alt="Preview" />
   </div>
 
-  <!-- Feedback Button + Modal -->
+  <!-- Feedback Button -->
   <button id="feedbackBtn" title="Send Feedback">💬</button>
+
+  <!-- Feedback Modal -->
   <div id="feedbackModal">
     <div id="feedbackModalContent">
       <span id="feedbackModalClose">&times;</span>
@@ -358,18 +325,17 @@
       document.body.classList.toggle('light-mode');
     }
 
-    // Scroll hide
     const backBtn = document.getElementById('backBtn');
-    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeToggle = document.querySelector('.theme-toggle');
     let lastScrollTop = 0;
     window.addEventListener("scroll", function () {
       const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
       if (currentScroll > lastScrollTop) {
         backBtn.classList.add("hidden");
-        themeToggleBtn.classList.add("hidden");
+        themeToggle.classList.add("hidden");
       } else {
         backBtn.classList.remove("hidden");
-        themeToggleBtn.classList.remove("hidden");
+        themeToggle.classList.remove("hidden");
       }
       lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     });
@@ -391,7 +357,6 @@
       });
     }
 
-    // Fade-in on scroll
     document.addEventListener("DOMContentLoaded", function () {
       const fadeEls = document.querySelectorAll(".fade-in");
       const observer = new IntersectionObserver(entries => {
@@ -402,7 +367,6 @@
       fadeEls.forEach(el => observer.observe(el));
     });
 
-    // Feedback modal logic
     const feedbackBtn = document.getElementById('feedbackBtn');
     const feedbackModal = document.getElementById('feedbackModal');
     const feedbackModalClose = document.getElementById('feedbackModalClose');
@@ -413,27 +377,24 @@
       feedbackModal.classList.add('active');
       feedbackText.focus();
     });
-
     feedbackModalClose.addEventListener('click', () => {
       feedbackModal.classList.remove('active');
     });
-
     feedbackModal.addEventListener('click', e => {
       if (e.target === feedbackModal) {
         feedbackModal.classList.remove('active');
       }
     });
-
     feedbackSendBtn.addEventListener('click', () => {
       const feedback = feedbackText.value.trim();
-      if (feedback.length === 0) {
+      if(feedback.length === 0) {
         alert('Please write some feedback before sending.');
         return;
       }
-      alert('Thanks for your feedback! (Demo only)');
+      alert('Thanks for your feedback! (This is a demo, no actual sending)');
       feedbackText.value = '';
       feedbackModal.classList.remove('active');
     });
   </script>
 </body>
-</html>
+      </html>
