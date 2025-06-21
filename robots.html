@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Robot AI Art – Sojol Biswas</title>
-  <meta name="description" content="Explore a gallery of robot-inspired AI artwork by Sojol Biswas. Download futuristic and digital robot images." />
+  <meta name="description" content="Explore a futuristic collection of AI-generated robot art by Sojol Biswas. Download high-quality robot and sci-fi themed artworks." />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -14,7 +14,7 @@
       --input-bg: #1a1a1a;
       --caption-color: #ccc;
     }
-    
+
     [data-theme="light"] {
       --bg-color: #ffffff;
       --text-color: #000000;
@@ -32,71 +32,173 @@
       transition: background 0.3s, color 0.3s;
     }
 
-    h1 { text-align: center; color: var(--accent-color); margin-top: 60px; }
+    h1 {
+      text-align: center;
+      color: var(--accent-color);
+      margin-top: 60px;
+    }
 
     .back, .theme-toggle {
-      position: fixed; padding: 10px 16px; border-radius: 6px;
-      font-weight: 600; z-index: 1000; transition: opacity 0.3s ease;
+      position: fixed;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      z-index: 1000;
+      transition: opacity 0.3s ease;
     }
+
     .back {
-      top: 20px; left: 20px; background: var(--accent-color); color: #000;
+      top: 20px;
+      left: 20px;
+      background: var(--accent-color);
+      color: #000;
     }
+
     .theme-toggle {
-      bottom: 20px; right: 20px; background: var(--accent-color); color: #000;
+      bottom: 20px;
+      right: 20px;
+      background: var(--accent-color);
+      color: #000;
       cursor: pointer;
     }
-    .hidden { opacity: 0; pointer-events: none; }
 
-    .search-box { text-align: center; margin-top: 20px; }
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .search-box {
+      text-align: center;
+      margin-top: 20px;
+    }
+
     .search-box input {
-      padding: 10px 16px; width: 300px; max-width: 90%; border-radius: 8px;
-      border: none; background: var(--input-bg); color: var(--accent-color);
+      padding: 10px 16px;
+      width: 300px;
+      max-width: 90%;
+      border-radius: 8px;
+      border: none;
+      background: var(--input-bg);
+      color: var(--accent-color);
       font-size: 16px;
     }
 
-    #result-count { text-align: center; color: var(--accent-color); font-size: 14px; margin-top: 10px; height: 20px; }
-    .gallery {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 30px; padding: 40px 20px; max-width: 1200px; margin: auto;
+    #result-count {
+      text-align: center;
+      color: var(--accent-color);
+      font-size: 14px;
+      margin-top: 10px;
+      height: 20px;
     }
 
-    .item { text-align: center; }
-    .image-wrapper { position: relative; overflow: hidden; cursor: pointer; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .item {
+      text-align: center;
+    }
+
+    .image-wrapper {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
     .image-wrapper img {
-      width: 100%; border-radius: 12px; border: 2px solid var(--accent-color);
+      width: 100%;
+      border-radius: 12px;
+      border: 2px solid var(--accent-color);
       transition: transform 0.3s ease;
     }
+
     .image-wrapper:hover img {
-      transform: scale(1.05); box-shadow: 0 0 12px var(--accent-color);
+      transform: scale(1.05);
+      box-shadow: 0 0 12px var(--accent-color);
     }
 
     .download {
-      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
-      opacity: 0; transition: opacity 0.3s ease;
-      background: var(--accent-color); color: #000; padding: 8px 16px;
-      border-radius: 5px; text-decoration: none; font-weight: 500;
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: var(--accent-color);
+      color: #000;
+      padding: 8px 16px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 500;
     }
-    .image-wrapper:hover .download { opacity: 1; }
 
-    .caption { margin-top: 10px; font-size: 14px; color: var(--caption-color); }
+    .image-wrapper:hover .download {
+      opacity: 1;
+    }
+
+    .caption {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--caption-color);
+    }
+
     .license {
-      text-align: center; margin-top: 60px; font-size: 14px; color: var(--caption-color);
-      border-top: 1px solid #333; padding-top: 30px; max-width: 700px; margin: auto;
+      text-align: center;
+      margin-top: 60px;
+      font-size: 14px;
+      color: var(--caption-color);
+      border-top: 1px solid #333;
+      padding-top: 30px;
+      max-width: 700px;
+      margin: auto;
       line-height: 1.6;
     }
 
     .lightbox {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.9); display: none; justify-content: center;
-      align-items: center; z-index: 999;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
     }
-    .lightbox img { max-width: 90%; max-height: 80vh; border-radius: 10px; }
-    .lightbox .close { position: absolute; top: 20px; right: 30px; font-size: 28px; color: var(--accent-color); cursor: pointer; }
-    .lightbox .counter { position: absolute; bottom: 20px; color: var(--accent-color); font-size: 14px; }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 10px;
+    }
+
+    .lightbox .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 28px;
+      color: var(--accent-color);
+      cursor: pointer;
+    }
+
+    .lightbox .counter {
+      position: absolute;
+      bottom: 20px;
+      color: var(--accent-color);
+      font-size: 14px;
+    }
 
     .spinner {
-      text-align: center; color: var(--accent-color);
-      padding: 20px; font-size: 16px;
+      text-align: center;
+      color: var(--accent-color);
+      padding: 20px;
+      font-size: 16px;
     }
   </style>
 </head>
@@ -114,7 +216,7 @@
   <div class="spinner" id="spinner">🔄 Loading...</div>
 
   <div class="license">
-    ⚠️ All images are owned by <strong>Sojol Biswas</strong>. Personal/educational use only.
+    ⚠️ All images are owned by <strong>Sojol Biswas</strong>. Personal and educational use only. For commercial use, contact for permission.
   </div>
 
   <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
@@ -125,9 +227,9 @@
 
   <script>
     const imageData = [
-      { src: "images/robot/robot1.jpg", title: "Futuristic Robot Head", keywords: "futuristic robot head" },
-      { src: "images/robot/robot2.jpg", title: "Cybernetic Android", keywords: "cybernetic android robot" },
-      { src: "images/robot/robot3.jpg", title: "Digital Robot Concept", keywords: "digital robot concept" }
+      { src: "images/robot/robot1.jpg", title: "Futuristic Humanoid", keywords: "robot futuristic humanoid android" },
+      { src: "images/robot/robot2.jpg", title: "Mechanical Warrior", keywords: "robot mechanical warrior battle" },
+      { src: "images/robot/robot3.jpg", title: "AI Drone Scout", keywords: "robot ai drone sci-fi machine" }
       // Add more robot images here
     ];
 
