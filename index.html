@@ -29,12 +29,17 @@
       max-width: 960px;
       margin: auto;
       padding: 30px 20px;
-      animation: fadeIn 1s ease;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .profile {
@@ -127,10 +132,8 @@
       color: #666;
     }
 
-    .theme-toggle {
+    .theme-toggle, .back-button {
       position: fixed;
-      top: 20px;
-      right: 20px;
       background: #00ffcc20;
       color: #00ffcc;
       padding: 8px 14px;
@@ -142,29 +145,22 @@
       transition: all 0.3s ease;
     }
 
-    .theme-toggle:hover {
+    .theme-toggle:hover, .back-button:hover {
       background-color: #00ffcc40;
       box-shadow: 0 0 8px #00ffcc66;
     }
 
-    .back-button {
-      position: fixed;
+    .theme-toggle {
       top: 20px;
-      left: 20px;
-      background: #00ffcc20;
-      color: #00ffcc;
-      padding: 8px 14px;
-      border-radius: 6px;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-      z-index: 999;
-      transition: all 0.3s ease;
-      opacity: 1;
-      transition: opacity 0.4s ease;
+      right: 20px;
     }
 
-    .back-button.hidden {
+    .back-button {
+      top: 20px;
+      left: 20px;
+    }
+
+    .back-button.hidden, .theme-toggle.hidden {
       opacity: 0;
       pointer-events: none;
     }
@@ -172,10 +168,10 @@
 </head>
 <body>
   <button class="back-button" onclick="history.back()" id="backBtn">⬅ Back</button>
-  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌓 Theme</button>
 
-  <div class="container">
-    <div class="profile">
+  <div class="container fade-in">
+    <div class="profile fade-in">
       <img src="PFD-140758.jpg" alt="Sojol Biswas" />
       <div class="profile-info">
         <h1>Sojol Biswas</h1>
@@ -193,12 +189,12 @@
       </div>
     </div>
 
-    <div class="gallery-intro">
+    <div class="gallery-intro fade-in">
       <h2>🖼️ Explore AI Art Categories</h2>
       <p>Select a category to explore Sojol's AI creations</p>
     </div>
 
-    <div class="categories">
+    <div class="categories fade-in">
       <a href="human.html">👤 Human</a>
       <a href="animal.html">🐶 Animal</a>
       <a href="robots.html">🤖 Robots</a>
@@ -207,29 +203,46 @@
       <a href="wallpaper.html">🖼 Wallpaper</a>
     </div>
 
-    <footer>
+    <footer class="fade-in">
       &copy; 2025 Sojol Biswas | All rights reserved.
     </footer>
   </div>
 
   <script>
     function toggleTheme() {
-      document.body.classList.toggle('light-mode');
+      const body = document.body;
+      const isLight = body.classList.toggle('light-mode');
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
     }
 
-    // Hide back button when scrolling down, show when scrolling up
-    let prevScroll = window.scrollY;
-    const backBtn = document.getElementById('backBtn');
+    // Restore theme from localStorage
+    document.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-mode');
+      }
+    });
 
+    // Scroll hide/show back & theme buttons
+    let lastScroll = window.scrollY;
+    const backBtn = document.getElementById('backBtn');
+    const themeBtn = document.getElementById('themeBtn');
     window.addEventListener('scroll', () => {
       const currentScroll = window.scrollY;
-      if (currentScroll > prevScroll) {
-        backBtn.classList.add('hidden');
-      } else {
-        backBtn.classList.remove('hidden');
-      }
-      prevScroll = currentScroll;
+      const down = currentScroll > lastScroll;
+      backBtn.classList.toggle('hidden', down);
+      themeBtn.classList.toggle('hidden', down);
+      lastScroll = currentScroll;
     });
+
+    // Fade-in on scroll
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.1 });
+
+    fadeEls.forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
