@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Sojol Biswas – Official personal website and AI image gallery" />
   <meta name="keywords" content="Sojol Biswas, AI Gallery, Human, Animal, Robots, House, Flower, Wallpaper, Mymensingh" />
   <meta name="author" content="Sojol Biswas" />
@@ -112,9 +112,10 @@
       font-size: 14px;
       color: #666;
     }
-    .theme-toggle, .back-button {
+    .theme-toggle {
       position: fixed;
       top: 20px;
+      right: 20px;
       background: #00ffcc20;
       color: #00ffcc;
       padding: 8px 14px;
@@ -123,35 +124,51 @@
       font-weight: 600;
       cursor: pointer;
       z-index: 999;
-      transition: all 0.3s ease, opacity 0.3s ease;
-      user-select: none;
+      transition: all 0.3s ease;
     }
-    .theme-toggle:hover, .back-button:hover {
+    .theme-toggle:hover {
       background-color: #00ffcc40;
       box-shadow: 0 0 8px #00ffcc66;
     }
-    .theme-toggle {
-      right: 20px;
-    }
     .back-button {
+      position: fixed;
+      top: 20px;
       left: 20px;
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 999;
+      transition: opacity 0.4s ease;
       opacity: 1;
     }
-    .hidden {
+    .back-button.hidden {
       opacity: 0;
       pointer-events: none;
     }
-    .views {
-      text-align: center;
+    /* View count style */
+    #viewCount {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 600;
       font-size: 14px;
-      color: #888;
-      margin-top: 10px;
+      display: none; /* Hidden by default for public */
+      user-select: none;
+      z-index: 999;
     }
   </style>
 </head>
 <body>
   <button class="back-button" onclick="history.back()" id="backBtn">⬅ Back</button>
-  <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌓 Theme</button>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
 
   <div class="container">
     <div class="profile">
@@ -164,10 +181,10 @@
         </div>
         <div class="links">
           <a href="mailto:sojolbiswas52@gmail.com">📧 Contact</a>
-          <a href="https://www.facebook.com/sojolboss007" target="_blank">📘 Facebook</a>
-          <a href="https://www.instagram.com/sojol_biswas14" target="_blank">📸 Instagram</a>
-          <a href="https://twitter.com/sojolbiswas14" target="_blank">🐦 Twitter</a>
-          <a href="https://www.youtube.com/@yourchannel" target="_blank">📺 YouTube</a>
+          <a href="https://www.facebook.com/sojolboss007" target="_blank" rel="noopener noreferrer">📘 Facebook</a>
+          <a href="https://www.instagram.com/sojol_biswas14" target="_blank" rel="noopener noreferrer">📸 Instagram</a>
+          <a href="https://twitter.com/sojolbiswas14" target="_blank" rel="noopener noreferrer">🐦 Twitter</a>
+          <a href="https://www.youtube.com/@yourchannel" target="_blank" rel="noopener noreferrer">📺 YouTube</a>
         </div>
       </div>
     </div>
@@ -186,56 +203,80 @@
       <a href="wallpaper.html">🖼 Wallpaper</a>
     </div>
 
-    <div class="views" id="viewsContainer" style="display:none;">
-      👁️ Views: <span id="viewCount">Loading...</span>
-    </div>
-
     <footer>
       &copy; 2025 Sojol Biswas | All rights reserved.
     </footer>
   </div>
 
+  <!-- View count badge (visible only if admin query param is set) -->
+  <div id="viewCount" title="Page Views">👁️ 0</div>
+
   <script>
+    // Theme toggle
     function toggleTheme() {
       document.body.classList.toggle('light-mode');
+      // Save preference
+      if(document.body.classList.contains('light-mode')) {
+        localStorage.setItem('theme', 'light');
+      } else {
+        localStorage.removeItem('theme');
+      }
     }
+    // Load saved theme
+    window.onload = function() {
+      if(localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-mode');
+      }
+    };
 
-    // Hide back button and theme toggle when scrolling down, show when scrolling up
+    // Back button hide/show on scroll
     let prevScroll = window.scrollY;
     const backBtn = document.getElementById('backBtn');
-    const themeBtn = document.getElementById('themeBtn');
-
     window.addEventListener('scroll', () => {
       const currentScroll = window.scrollY;
       if (currentScroll > prevScroll) {
         backBtn.classList.add('hidden');
-        themeBtn.classList.add('hidden');
       } else {
         backBtn.classList.remove('hidden');
-        themeBtn.classList.remove('hidden');
       }
-      prevScroll = currentScroll <= 0 ? 0 : currentScroll;
+      prevScroll = currentScroll;
     });
 
-    // Admin check and views count display
+    // View count display for admin only (if URL has ?admin=1)
     function isAdmin() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get('admin') === '1';
+      return window.location.search.includes('admin=1');
     }
-
-    (async () => {
-      if (isAdmin()) {
-        document.getElementById('viewsContainer').style.display = 'block';
-        const page = 'index.html';
-        try {
-          const res = await fetch('https://raw.githubusercontent.com/sojol-biswas-14/sojol-biswas-14.github.io/main/data/views.json');
-          const data = await res.json();
-          document.getElementById('viewCount').innerText = data[page] ?? '0';
-        } catch (e) {
-          document.getElementById('viewCount').innerText = 'N/A';
-        }
+    async function fetchViewCount() {
+      if(!isAdmin()) return;
+      const viewCountElem = document.getElementById('viewCount');
+      viewCountElem.style.display = 'block';
+      try {
+        const response = await fetch('https://sojol-biswas-14.github.io/viewcounts.json');
+        if(!response.ok) throw new Error('Failed to fetch view counts');
+        const data = await response.json();
+        // Use "index" as the key for index.html page view count
+        let count = data.index || 0;
+        // Animate count increment
+        animateCount(viewCountElem, count);
+      } catch(err) {
+        console.error(err);
       }
-    })();
+    }
+    // Animate number count
+    function animateCount(element, count) {
+      let current = 0;
+      const step = Math.ceil(count / 50);
+      const interval = setInterval(() => {
+        current += step;
+        if(current >= count) {
+          element.textContent = `👁️ ${count}`;
+          clearInterval(interval);
+        } else {
+          element.textContent = `👁️ ${current}`;
+        }
+      }, 20);
+    }
+    fetchViewCount();
   </script>
 </body>
 </html>
