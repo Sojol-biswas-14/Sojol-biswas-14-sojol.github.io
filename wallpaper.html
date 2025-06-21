@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wallpaper AI Art – Sojol Biswas</title>
+  <meta name="description" content="Browse AI-generated wallpaper art by Sojol Biswas. Free for personal use, high-quality digital wallpapers." />
+  <meta name="keywords" content="AI art, wallpaper, digital art, Sojol Biswas, downloadable wallpapers" />
+  <meta name="robots" content="index, follow" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     body { background: #0d0d0d; color: #fff; font-family: 'Inter', sans-serif; margin: 0; padding: 20px; }
@@ -18,16 +21,29 @@
       gap: 30px; padding: 20px; max-width: 1200px; margin: auto;
     }
     .item { text-align: center; }
-    .image-wrapper { cursor: pointer; }
+    .image-wrapper {
+      cursor: pointer;
+      outline-offset: 3px;
+      display: inline-block;
+    }
+    .image-wrapper:focus {
+      outline: 2px solid #00ffcc;
+      outline-offset: 3px;
+    }
     .gallery img {
       width: 100%; border-radius: 12px; border: 2px solid #00ffcc30;
       transition: 0.3s ease;
+      display: block;
     }
-    .gallery img:hover { transform: scale(1.05); box-shadow: 0 0 12px #00ffcc80; }
+    .gallery img:hover, .image-wrapper:focus img {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #00ffcc80;
+    }
     .download {
       display: inline-block; margin-top: 12px; padding: 8px 16px;
       background: #00ffcc20; color: #00ffcc;
       border-radius: 5px; text-decoration: none; font-weight: 500;
+      user-select: none;
     }
     .caption { margin-top: 8px; font-size: 14px; color: #aaa; }
     .license {
@@ -39,6 +55,8 @@
       position: fixed; top: 20px; left: 20px; background: #00ffcc20;
       color: #00ffcc; padding: 10px 16px; border-radius: 6px;
       text-decoration: none; font-weight: 600;
+      user-select: none;
+      z-index: 101;
     }
     .lightbox {
       display: none; position: fixed; z-index: 100; top: 0; left: 0;
@@ -50,53 +68,71 @@
   </style>
 </head>
 <body>
-  <a class="back" href="index.html">⬅ Back to Home</a>
+  <a class="back" href="index.html" tabindex="0">⬅ Back to Home</a>
   <h1>🖼️ Wallpaper AI Art Gallery</h1>
 
   <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Search wallpapers..." onkeyup="filterImages()" />
+    <input type="text" id="searchInput" placeholder="Search wallpapers..." onkeyup="filterImages()" aria-label="Search wallpapers" />
   </div>
 
-  <div class="gallery" id="gallery">
-    <div class="item" data-keywords="sunset abstract mountain landscape">
-      <div class="image-wrapper" onclick="openLightbox('images/wallpaper/sunset_mountain.jpg')">
-        <img src="images/wallpaper/sunset_mountain.jpg" alt="Sunset Abstract Mountain" />
+  <div class="gallery" id="gallery" role="list">
+    <div class="item" data-keywords="sunset abstract mountain landscape" role="listitem">
+      <div class="image-wrapper" tabindex="0" role="button" aria-label="View Sunset Abstract Mountain wallpaper" onclick="openLightbox('images/wallpaper/sunset_mountain.jpg')" onkeydown="if(event.key==='Enter' || event.key===' ') openLightbox('images/wallpaper/sunset_mountain.jpg')">
+        <img loading="lazy" src="images/wallpaper/sunset_mountain.jpg" alt="Sunset Abstract Mountain" title="Sunset Abstract Mountain" />
         <a class="download" href="images/wallpaper/sunset_mountain.jpg" download>⬇ Download</a>
       </div>
       <div class="caption">Sunset Abstract Mountain</div>
     </div>
-    <div class="item" data-keywords="dark fantasy digital background">
-      <div class="image-wrapper" onclick="openLightbox('images/wallpaper/dark_fantasy.jpg')">
-        <img src="images/wallpaper/dark_fantasy.jpg" alt="Dark Fantasy Digital Background" />
+    <div class="item" data-keywords="dark fantasy digital background" role="listitem">
+      <div class="image-wrapper" tabindex="0" role="button" aria-label="View Dark Fantasy Digital Background wallpaper" onclick="openLightbox('images/wallpaper/dark_fantasy.jpg')" onkeydown="if(event.key==='Enter' || event.key===' ') openLightbox('images/wallpaper/dark_fantasy.jpg')">
+        <img loading="lazy" src="images/wallpaper/dark_fantasy.jpg" alt="Dark Fantasy Digital Background" title="Dark Fantasy Digital Background" />
         <a class="download" href="images/wallpaper/dark_fantasy.jpg" download>⬇ Download</a>
       </div>
       <div class="caption">Dark Fantasy Digital Background</div>
     </div>
   </div>
 
-  <div class="license">
-    ⚠️ All wallpapers are owned by <strong>Sojol Biswas</strong>.<br>
+  <div class="license" role="contentinfo">
+    ⚠️ All wallpapers are owned by <strong>Sojol Biswas</strong>.<br />
     Free for personal or educational use. For commercial use, contact me.
   </div>
 
-  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()" role="dialog" aria-modal="true" aria-label="Image preview">
     <img id="lightbox-img" src="" alt="Preview" />
   </div>
 
   <script>
     function openLightbox(src) {
-      document.getElementById('lightbox-img').src = src;
-      document.getElementById('lightbox').classList.add('active');
+      const lightbox = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      img.src = src;
+      lightbox.classList.add('active');
+      // Focus on lightbox for accessibility
+      lightbox.focus();
     }
     function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('active');
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+      // Clear image src to stop loading when closed
+      document.getElementById('lightbox-img').src = '';
     }
+
+    // Close lightbox on ESC key press
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+
     function filterImages() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
+      const input = document.getElementById('searchInput').value.toLowerCase().trim();
       const items = document.querySelectorAll('.item');
+      const terms = input.split(/\s+/).filter(Boolean);
+
       items.forEach(item => {
         const keywords = item.getAttribute('data-keywords').toLowerCase();
-        item.style.display = keywords.includes(input) ? '' : 'none';
+        const show = terms.every(term => keywords.includes(term));
+        item.style.display = show ? '' : 'none';
       });
     }
   </script>
