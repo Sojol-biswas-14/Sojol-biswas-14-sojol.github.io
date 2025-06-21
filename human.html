@@ -30,10 +30,17 @@
       border-radius: 6px;
       text-decoration: none;
       font-weight: 600;
+      z-index: 1000;
+      transition: opacity 0.3s ease;
     }
 
     .back:hover {
       background-color: #00ffcc40;
+    }
+
+    .back.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .search-box {
@@ -152,7 +159,7 @@
   </style>
 </head>
 <body>
-  <a class="back" href="index.html">⬅ Back to Home</a>
+  <a class="back" href="index.html" id="backBtn">⬅ Back to Home</a>
   <h1>👤 Human AI Art Gallery</h1>
 
   <div class="search-box">
@@ -160,7 +167,6 @@
   </div>
 
   <div class="gallery" id="gallery">
-
     <div class="item" data-keywords="elegant female portrait">
       <div class="image-wrapper" onclick="openLightbox('images/human/images1.jpeg')">
         <img src="images/human/images1.jpeg" alt="Elegant Female Portrait" />
@@ -170,22 +176,20 @@
     </div>
 
     <div class="item" data-keywords="traditional female ai art">
-  <div class="image-wrapper" onclick="openLightbox('images/human/South_Asian_Woman_Portrait.jpg')">
-    <img src="images/human/South_Asian_Woman_Portrait.jpg" alt="Traditional Female AI Art" />
-    <a class="download" href="images/human/South_Asian_Woman_Portrait.jpg" download>⬇ Download</a>
-  </div>
-  <div class="caption">Traditional Female AI Art</div>
-</div>
+      <div class="image-wrapper" onclick="openLightbox('images/human/South_Asian_Woman_Portrait.jpg')">
+        <img src="images/human/South_Asian_Woman_Portrait.jpg" alt="Traditional Female AI Art" />
+        <a class="download" href="images/human/South_Asian_Woman_Portrait.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Traditional Female AI Art</div>
+    </div>
 
     <div class="item" data-keywords="female black and white portrait">
-  <div class="image-wrapper" onclick="openLightbox('images/human/Female-art-black-and-white.jpg')">
-    <img src="images/human/Female-art-black-and-white.jpg" alt="Female Art Black and White" />
-    <a class="download" href="images/human/Female-art-black-and-white.jpg" download>⬇ Download</a>
-  </div>
-  <div class="caption">Female Art – Black and White</div>
-</div>
-
-    <!-- Add more images here in the same format -->
+      <div class="image-wrapper" onclick="openLightbox('images/human/Female-art-black-and-white.jpg')">
+        <img src="images/human/Female-art-black-and-white.jpg" alt="Female Art Black and White" />
+        <a class="download" href="images/human/Female-art-black-and-white.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Female Art – Black and White</div>
+    </div>
   </div>
 
   <div class="license">
@@ -217,6 +221,19 @@
         item.style.display = keywords.includes(input) ? 'block' : 'none';
       });
     }
+
+    // Scroll hide/show back button
+    let lastScrollTop = 0;
+    window.addEventListener("scroll", function () {
+      const backBtn = document.getElementById("backBtn");
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      if (currentScroll > lastScrollTop) {
+        backBtn.classList.add("hidden");
+      } else {
+        backBtn.classList.remove("hidden");
+      }
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
   </script>
 </body>
 </html>
