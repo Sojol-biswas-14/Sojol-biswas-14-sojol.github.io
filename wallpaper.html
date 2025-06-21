@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Wallpaper AI Art – Sojol Biswas</title>
-  <meta name="description" content="Explore beautiful AI-generated wallpapers by Sojol Biswas" />
-  <meta name="keywords" content="AI wallpapers, digital backgrounds, Sojol Biswas" />
+  <meta name="description" content="Explore AI-generated wallpapers by Sojol Biswas" />
+  <meta name="keywords" content="AI wallpaper art, Sojol Biswas, digital art" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     body {
@@ -15,20 +15,17 @@
       margin: 0;
       padding: 20px;
     }
-
     h1 {
       text-align: center;
       color: #00ffcc;
       margin-top: 60px;
     }
-
     .views {
       text-align: center;
       font-size: 14px;
       color: #888;
       margin-top: 10px;
     }
-
     .back, .theme-toggle {
       position: fixed;
       top: 20px;
@@ -43,24 +40,19 @@
       cursor: pointer;
       user-select: none;
     }
-
     .back:hover, .theme-toggle:hover {
       background-color: #00ffcc40;
     }
-
     .back.hidden, .theme-toggle.hidden {
       opacity: 0;
       pointer-events: none;
     }
-
     .back { left: 20px; }
     .theme-toggle { right: 20px; }
-
     .search-box {
       text-align: center;
       margin-top: 20px;
     }
-
     .search-box input {
       padding: 10px 16px;
       width: 300px;
@@ -71,7 +63,6 @@
       color: #00ffcc;
       font-size: 16px;
     }
-
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -80,15 +71,12 @@
       max-width: 1200px;
       margin: auto;
     }
-
     .item { text-align: center; }
-
     .image-wrapper {
       position: relative;
       overflow: hidden;
       cursor: pointer;
     }
-
     .image-wrapper img {
       width: 100%;
       height: auto;
@@ -96,12 +84,10 @@
       border: 2px solid #00ffcc30;
       transition: transform 0.3s ease;
     }
-
     .image-wrapper:hover img {
       transform: scale(1.05);
       box-shadow: 0 0 12px #00ffcc80;
     }
-
     .download {
       position: absolute;
       bottom: 10px;
@@ -116,17 +102,14 @@
       text-decoration: none;
       font-weight: 500;
     }
-
     .image-wrapper:hover .download {
       opacity: 1;
     }
-
     .caption {
       margin-top: 10px;
       font-size: 14px;
       color: #ccc;
     }
-
     .license {
       text-align: center;
       margin-top: 60px;
@@ -139,7 +122,6 @@
       margin-right: auto;
       line-height: 1.6;
     }
-
     .lightbox {
       position: fixed;
       top: 0; left: 0;
@@ -150,13 +132,11 @@
       align-items: center;
       z-index: 999;
     }
-
     .lightbox img {
       max-width: 90%;
       max-height: 80vh;
       border-radius: 10px;
     }
-
     .lightbox .close {
       position: absolute;
       top: 20px;
@@ -173,10 +153,13 @@
   <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌓 Theme</button>
 
   <h1>🖼️ Wallpaper AI Art Gallery</h1>
-  <div class="views">👁️ Views: <span id="viewCount">Loading...</span></div>
+
+  <div class="views" id="viewsContainer" style="display:none;">
+    👁️ Views: <span id="viewCount">Loading...</span>
+  </div>
 
   <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search wallpapers..." onkeyup="filterImages()" />
+    <input type="text" id="searchInput" placeholder="Search AI images..." onkeyup="filterImages()" />
   </div>
 
   <div class="gallery" id="gallery">
@@ -211,11 +194,9 @@
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').style.display = 'flex';
     }
-
     function closeLightbox() {
       document.getElementById('lightbox').style.display = 'none';
     }
-
     function filterImages() {
       const input = document.getElementById('searchInput').value.toLowerCase();
       const items = document.querySelectorAll('.gallery .item');
@@ -224,11 +205,9 @@
         item.style.display = keywords.includes(input) ? 'block' : 'none';
       });
     }
-
     function toggleTheme() {
       document.body.classList.toggle('light-mode');
     }
-
     let prevScroll = window.scrollY;
     window.addEventListener("scroll", function () {
       const currentScroll = window.scrollY;
@@ -237,15 +216,23 @@
       document.getElementById("themeBtn").classList.toggle("hidden", hide);
       prevScroll = currentScroll;
     });
-  </script>
 
-  <script src="scripts/track-view.js"></script>
-  <script>
+    function isAdmin() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('admin') === '1';
+    }
     (async () => {
-      const page = location.pathname.split('/').pop() || 'index.html';
-      const res = await fetch('https://raw.githubusercontent.com/sojol-biswas-14/sojol-biswas-14.github.io/main/data/views.json');
-      const data = await res.json();
-      document.getElementById('viewCount').innerText = data[page] ?? '0';
+      if (isAdmin()) {
+        document.getElementById('viewsContainer').style.display = 'block';
+        const page = location.pathname.split('/').pop() || 'index.html';
+        try {
+          const res = await fetch('https://raw.githubusercontent.com/sojol-biswas-14/sojol-biswas-14.github.io/main/data/views.json');
+          const data = await res.json();
+          document.getElementById('viewCount').innerText = data[page] ?? '0';
+        } catch (e) {
+          document.getElementById('viewCount').innerText = 'N/A';
+        }
+      }
     })();
   </script>
 </body>
