@@ -31,17 +31,18 @@ body {
 
 h1 { text-align: center; color: var(--accent-color); margin-top: 60px; }
 
+.back, .theme-toggle {
+  position: fixed; padding: 10px 16px; border-radius: 6px;
+  font-weight: 600; z-index: 1000; transition: opacity 0.3s ease;
+}
 .back {
-  position: fixed; top: 20px; left: 20px; background: var(--accent-color);
-  color: #000; padding: 10px 16px; border-radius: 6px;
-  text-decoration: none; font-weight: 600; z-index: 1000;
+  top: 20px; left: 20px; background: var(--accent-color); color: #000;
 }
-
 .theme-toggle {
-  position: fixed; bottom: 20px; right: 20px; background: var(--accent-color);
-  color: #000; padding: 10px 16px; border-radius: 6px;
-  font-weight: 600; cursor: pointer; z-index: 1000;
+  bottom: 20px; right: 20px; background: var(--accent-color); color: #000;
+  cursor: pointer;
 }
+.hidden { opacity: 0; pointer-events: none; }
 
 .search-box { text-align: center; margin-top: 20px; }
 .search-box input {
@@ -98,8 +99,8 @@ h1 { text-align: center; color: var(--accent-color); margin-top: 60px; }
   </style>
 </head>
 <body>
-  <a class="back" href="index.html">⬅ Back</a>
-  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+  <a class="back" href="index.html" id="backBtn">⬅ Back</a>
+  <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌓 Theme</button>
   <h1>👤 Human AI Art Gallery</h1>  <div class="search-box">
     <input type="text" id="searchInput" placeholder="Search AI images..." onkeyup="filterImages()" />
     <div id="result-count" aria-live="polite"></div>
@@ -189,6 +190,21 @@ h1 { text-align: center; color: var(--accent-color); margin-top: 60px; }
       const savedTheme = localStorage.getItem('theme') || 'dark';
       document.documentElement.setAttribute('data-theme', savedTheme);
       loadImages();
+    });
+
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', () => {
+      const st = window.pageYOffset || document.documentElement.scrollTop;
+      const backBtn = document.getElementById('backBtn');
+      const themeBtn = document.getElementById('themeBtn');
+      if (st > lastScrollTop) {
+        backBtn.classList.add('hidden');
+        themeBtn.classList.add('hidden');
+      } else {
+        backBtn.classList.remove('hidden');
+        themeBtn.classList.remove('hidden');
+      }
+      lastScrollTop = st <= 0 ? 0 : st;
     });
 
     // SWIPE SUPPORT
