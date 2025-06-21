@@ -7,7 +7,7 @@
   <meta name="keywords" content="Sojol Biswas, AI Gallery, Human, Animal, Robots, House, Flower, Wallpaper, Mymensingh" />
   <meta name="author" content="Sojol Biswas" />
   <title>Sojol Biswas – Official Website & AI Gallery</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; }
     body {
@@ -19,29 +19,20 @@
       overflow-x: hidden;
       transition: background 0.3s, color 0.3s;
     }
-
     body.light-mode {
       background: #ffffff;
       color: #111;
     }
-
     .container {
       max-width: 960px;
       margin: auto;
       padding: 30px 20px;
+      animation: fadeIn 1s ease;
     }
-
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
-    .fade-in.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     .profile {
       display: flex;
       flex-wrap: wrap;
@@ -53,7 +44,6 @@
       border-radius: 16px;
       box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
     }
-
     .profile img {
       width: 150px;
       height: 150px;
@@ -61,12 +51,10 @@
       border-radius: 12px;
       border: 3px solid #00ffcc;
     }
-
     .profile-info { flex: 1; min-width: 260px; }
     h1 { color: #00ffcc; margin-bottom: 5px; }
     .tagline { font-style: italic; color: #aaa; margin-bottom: 20px; }
     .bio { margin-bottom: 20px; line-height: 1.6; color: #ccc; }
-
     .links a {
       display: inline-block;
       margin: 6px 10px 6px 0;
@@ -78,32 +66,27 @@
       font-weight: 500;
       transition: all 0.3s ease;
     }
-
     .links a:hover {
       background-color: #00ffcc40;
       transform: translateY(-2px);
       box-shadow: 0 0 8px #00ffcc80;
     }
-
     .gallery-intro {
       text-align: center;
       margin-top: 60px;
       margin-bottom: 20px;
     }
-
     .gallery-intro h2 {
       font-size: 26px;
       color: #00ffcc;
       margin-bottom: 10px;
     }
-
     .categories {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 20px;
       margin-top: 20px;
     }
-
     .categories a {
       text-decoration: none;
       color: #00ffcc;
@@ -116,13 +99,11 @@
       transition: all 0.3s ease;
       border: 2px solid #00ffcc20;
     }
-
     .categories a:hover {
       background-color: #00ffcc20;
       transform: scale(1.05);
       box-shadow: 0 0 10px #00ffcc66;
     }
-
     footer {
       margin-top: 50px;
       padding-top: 20px;
@@ -131,9 +112,9 @@
       font-size: 14px;
       color: #666;
     }
-
     .theme-toggle, .back-button {
       position: fixed;
+      top: 20px;
       background: #00ffcc20;
       color: #00ffcc;
       padding: 8px 14px;
@@ -142,21 +123,24 @@
       font-weight: 600;
       cursor: pointer;
       z-index: 999;
-      transition: all 0.3s ease;
+      transition: all 0.3s ease, opacity 0.3s ease;
+      user-select: none;
     }
-
     .theme-toggle:hover, .back-button:hover {
       background-color: #00ffcc40;
       box-shadow: 0 0 8px #00ffcc66;
     }
-
-    .theme-toggle { top: 20px; right: 20px; }
-    .back-button { top: 20px; left: 20px; }
-    .theme-toggle.hidden, .back-button.hidden {
+    .theme-toggle {
+      right: 20px;
+    }
+    .back-button {
+      left: 20px;
+      opacity: 1;
+    }
+    .hidden {
       opacity: 0;
       pointer-events: none;
     }
-
     .views {
       text-align: center;
       font-size: 14px;
@@ -167,10 +151,10 @@
 </head>
 <body>
   <button class="back-button" onclick="history.back()" id="backBtn">⬅ Back</button>
-  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌓 Theme</button>
+  <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌓 Theme</button>
 
-  <div class="container fade-in">
-    <div class="profile fade-in">
+  <div class="container">
+    <div class="profile">
       <img src="PFD-140758.jpg" alt="Sojol Biswas" />
       <div class="profile-info">
         <h1>Sojol Biswas</h1>
@@ -188,12 +172,12 @@
       </div>
     </div>
 
-    <div class="gallery-intro fade-in">
+    <div class="gallery-intro">
       <h2>🖼️ Explore AI Art Categories</h2>
       <p>Select a category to explore Sojol's AI creations</p>
     </div>
 
-    <div class="categories fade-in">
+    <div class="categories">
       <a href="human.html">👤 Human</a>
       <a href="animal.html">🐶 Animal</a>
       <a href="robots.html">🤖 Robots</a>
@@ -202,53 +186,55 @@
       <a href="wallpaper.html">🖼 Wallpaper</a>
     </div>
 
-    <div class="views fade-in">👁️ Views: <span id="viewCount">Loading...</span></div>
+    <div class="views" id="viewsContainer" style="display:none;">
+      👁️ Views: <span id="viewCount">Loading...</span>
+    </div>
 
-    <footer class="fade-in">
+    <footer>
       &copy; 2025 Sojol Biswas | All rights reserved.
     </footer>
   </div>
 
   <script>
     function toggleTheme() {
-      const body = document.body;
-      const isLight = body.classList.toggle('light-mode');
-      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      document.body.classList.toggle('light-mode');
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      if (localStorage.getItem('theme') === 'light') {
-        document.body.classList.add('light-mode');
-      }
-    });
-
-    let lastScroll = window.scrollY;
+    // Hide back button and theme toggle when scrolling down, show when scrolling up
+    let prevScroll = window.scrollY;
     const backBtn = document.getElementById('backBtn');
     const themeBtn = document.getElementById('themeBtn');
+
     window.addEventListener('scroll', () => {
       const currentScroll = window.scrollY;
-      const down = currentScroll > lastScroll;
-      backBtn.classList.toggle('hidden', down);
-      themeBtn.classList.toggle('hidden', down);
-      lastScroll = currentScroll;
+      if (currentScroll > prevScroll) {
+        backBtn.classList.add('hidden');
+        themeBtn.classList.add('hidden');
+      } else {
+        backBtn.classList.remove('hidden');
+        themeBtn.classList.remove('hidden');
+      }
+      prevScroll = currentScroll <= 0 ? 0 : currentScroll;
     });
 
-    const fadeEls = document.querySelectorAll('.fade-in');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('show');
-      });
-    }, { threshold: 0.1 });
-    fadeEls.forEach(el => observer.observe(el));
-  </script>
+    // Admin check and views count display
+    function isAdmin() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('admin') === '1';
+    }
 
-  <script src="scripts/track-view.js"></script>
-  <script>
     (async () => {
-      const page = location.pathname.split('/').pop() || 'index.html';
-      const res = await fetch('https://raw.githubusercontent.com/sojol-biswas-14/sojol-biswas-14.github.io/main/data/views.json');
-      const data = await res.json();
-      document.getElementById('viewCount').innerText = data[page] ?? '0';
+      if (isAdmin()) {
+        document.getElementById('viewsContainer').style.display = 'block';
+        const page = 'index.html';
+        try {
+          const res = await fetch('https://raw.githubusercontent.com/sojol-biswas-14/sojol-biswas-14.github.io/main/data/views.json');
+          const data = await res.json();
+          document.getElementById('viewCount').innerText = data[page] ?? '0';
+        } catch (e) {
+          document.getElementById('viewCount').innerText = 'N/A';
+        }
+      }
     })();
   </script>
 </body>
