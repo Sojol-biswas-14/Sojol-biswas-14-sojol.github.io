@@ -150,19 +150,18 @@
       box-shadow: 0 0 8px #00ffcc66;
     }
 
-    .theme-toggle {
-      top: 20px;
-      right: 20px;
-    }
-
-    .back-button {
-      top: 20px;
-      left: 20px;
-    }
-
-    .back-button.hidden, .theme-toggle.hidden {
+    .theme-toggle { top: 20px; right: 20px; }
+    .back-button { top: 20px; left: 20px; }
+    .theme-toggle.hidden, .back-button.hidden {
       opacity: 0;
       pointer-events: none;
+    }
+
+    .views {
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -203,6 +202,8 @@
       <a href="wallpaper.html">🖼 Wallpaper</a>
     </div>
 
+    <div class="views fade-in">👁️ Views: <span id="viewCount">Loading...</span></div>
+
     <footer class="fade-in">
       &copy; 2025 Sojol Biswas | All rights reserved.
     </footer>
@@ -215,14 +216,12 @@
       localStorage.setItem('theme', isLight ? 'light' : 'dark');
     }
 
-    // Restore theme from localStorage
     document.addEventListener('DOMContentLoaded', () => {
       if (localStorage.getItem('theme') === 'light') {
         document.body.classList.add('light-mode');
       }
     });
 
-    // Scroll hide/show back & theme buttons
     let lastScroll = window.scrollY;
     const backBtn = document.getElementById('backBtn');
     const themeBtn = document.getElementById('themeBtn');
@@ -234,16 +233,23 @@
       lastScroll = currentScroll;
     });
 
-    // Fade-in on scroll
     const fadeEls = document.querySelectorAll('.fade-in');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('show');
       });
     }, { threshold: 0.1 });
-
     fadeEls.forEach(el => observer.observe(el));
   </script>
+
   <script src="scripts/track-view.js"></script>
+  <script>
+    (async () => {
+      const page = location.pathname.split('/').pop() || 'index.html';
+      const res = await fetch('https://raw.githubusercontent.com/sojol-biswas-14/sojol-biswas-14.github.io/main/data/views.json');
+      const data = await res.json();
+      document.getElementById('viewCount').innerText = data[page] ?? '0';
+    })();
+  </script>
 </body>
 </html>
