@@ -1,0 +1,31 @@
+name: Update View Count
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [update_view]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Update View Count
+        run: |
+          FILE=data/views.json
+          PAGE=${{ github.event.client_payload.page }}
+          if [ -f "$FILE" ]; then
+            count=$(jq ".\"$PAGE\"" $FILE)
+            newcount=$((count + 1))
+            jq ".\"$PAGE\" = $newcount" $FILE > tmp.json && mv tmp.json $FILE
+          fi
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/views.json
+          git commit -m "Update view count for ${{ github.event.client_payload.page }}"
+          git push
