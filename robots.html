@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Robots AI Art – Sojol Biswas</title>
+  <title>Robot AI Art – Sojol Biswas</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 
   <!-- Google Analytics -->
@@ -36,23 +36,24 @@
       margin-top: 60px;
     }
 
-    .back {
+    .back, .theme-toggle {
       position: fixed;
       top: 20px;
-      left: 20px;
       background: #00ffcc20;
       color: #00ffcc;
       padding: 10px 16px;
       border-radius: 6px;
-      text-decoration: none;
       font-weight: 600;
+      cursor: pointer;
       z-index: 1000;
       transition: opacity 0.3s ease;
-      cursor: pointer;
       border: none;
     }
 
-    .back.hidden {
+    .back { left: 20px; }
+    .theme-toggle { right: 20px; }
+
+    .back.hidden, .theme-toggle.hidden {
       opacity: 0;
       pointer-events: none;
     }
@@ -175,7 +176,6 @@
       cursor: pointer;
     }
 
-    /* Watermark overlay on each image */
     .watermark {
       position: absolute;
       bottom: 8px;
@@ -188,28 +188,11 @@
       border-radius: 6px;
     }
 
-    /* Theme toggle button */
-    .theme-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: #00ffcc20;
-      color: #00ffcc;
-      padding: 8px 14px;
-      border-radius: 6px;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-      z-index: 999;
-      transition: all 0.3s ease;
-    }
-
     .theme-toggle:hover {
       background-color: #00ffcc40;
       box-shadow: 0 0 8px #00ffcc66;
     }
 
-    /* Feedback Button */
     #feedbackBtn {
       position: fixed;
       bottom: 20px;
@@ -224,11 +207,11 @@
       z-index: 1000;
       transition: background-color 0.3s ease;
     }
+
     #feedbackBtn:hover {
       background-color: #00ffccee;
     }
 
-    /* Feedback Form Modal */
     #feedbackModal {
       display: none;
       position: fixed;
@@ -243,9 +226,11 @@
       justify-content: center;
       align-items: center;
     }
+
     #feedbackModal.active {
       display: flex;
     }
+
     #feedbackModalContent {
       background-color: #1a1a1a;
       padding: 30px;
@@ -256,6 +241,7 @@
       box-shadow: 0 0 20px #00ffcc99;
       position: relative;
     }
+
     #feedbackModalContent textarea {
       width: 100%;
       height: 100px;
@@ -268,6 +254,7 @@
       font-family: 'Inter', sans-serif;
       font-size: 16px;
     }
+
     #feedbackModalContent button {
       background: #00ffcc;
       border: none;
@@ -281,9 +268,11 @@
       font-size: 16px;
       transition: background-color 0.3s ease;
     }
+
     #feedbackModalContent button:hover {
       background-color: #00ccaa;
     }
+
     #feedbackModalClose {
       position: absolute;
       top: 12px;
@@ -293,12 +282,12 @@
       cursor: pointer;
     }
 
-    /* Fade-in utility */
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.6s ease;
     }
+
     .fade-in.visible {
       opacity: 1;
       transform: translateY(0);
@@ -307,40 +296,31 @@
 </head>
 <body>
   <button class="back hidden" id="backBtn" onclick="history.back()">⬅ Back</button>
-  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+  <button class="theme-toggle hidden" onclick="toggleTheme()">🌓 Theme</button>
 
-  <h1 class="fade-in">🤖 Robots AI Art Gallery</h1>
+  <h1 class="fade-in">🤖 Robot AI Art Gallery</h1>
 
-  <div class="search-box fade-in" style="text-align:center; margin-top: 20px;">
+  <div class="search-box fade-in">
     <input type="text" id="searchInput" placeholder="Search AI images..." onkeyup="filterImages()" />
   </div>
 
   <div class="gallery fade-in" id="gallery">
-    <div class="item" data-keywords="futuristic robot android">
-      <div class="image-wrapper" onclick="openLightbox('images/robots/robot1.jpg')">
-        <img src="images/robots/robot1.jpg" alt="Futuristic Robot Android" />
+    <div class="item" data-keywords="cyborg robot ai tech">
+      <div class="image-wrapper" onclick="openLightbox('images/robots/cyborg1.png')">
+        <img src="images/robots/cyborg1.png" alt="Cyborg 1" />
         <div class="watermark"></div>
-        <a class="download" href="images/robots/robot1.jpg" download>⬇ Download</a>
+        <a class="download" href="images/robots/cyborg1.png" download>⬇ Download</a>
       </div>
-      <div class="caption">Futuristic Robot Android</div>
+      <div class="caption">Cyborg Futuristic Design</div>
     </div>
 
-    <div class="item" data-keywords="vintage robot design">
-      <div class="image-wrapper" onclick="openLightbox('images/robots/robot2.jpg')">
-        <img src="images/robots/robot2.jpg" alt="Vintage Robot Design" />
+    <div class="item" data-keywords="robot android future ai cyber">
+      <div class="image-wrapper" onclick="openLightbox('images/robots/file_000000000f1c61f9b998cdab9e2b25d8.png')">
+        <img src="images/robots/file_000000000f1c61f9b998cdab9e2b25d8.png" alt="Futuristic Robot" />
         <div class="watermark"></div>
-        <a class="download" href="images/robots/robot2.jpg" download>⬇ Download</a>
+        <a class="download" href="images/robots/file_000000000f1c61f9b998cdab9e2b25d8.png" download>⬇ Download</a>
       </div>
-      <div class="caption">Vintage Robot Design</div>
-    </div>
-
-    <div class="item" data-keywords="colorful robot art">
-      <div class="image-wrapper" onclick="openLightbox('images/robots/robot3.jpg')">
-        <img src="images/robots/robot3.jpg" alt="Colorful Robot Art" />
-        <div class="watermark"></div>
-        <a class="download" href="images/robots/robot3.jpg" download>⬇ Download</a>
-      </div>
-      <div class="caption">Colorful Robot Art</div>
+      <div class="caption">Futuristic Robot Concept</div>
     </div>
   </div>
 
@@ -370,34 +350,34 @@
   </div>
 
   <script>
-    // Theme toggle
     function toggleTheme() {
       document.body.classList.toggle('light-mode');
     }
 
-    // Back button scroll show/hide
     const backBtn = document.getElementById('backBtn');
+    const themeToggle = document.querySelector('.theme-toggle');
     let lastScrollTop = 0;
     window.addEventListener("scroll", function () {
       const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
       if (currentScroll > lastScrollTop) {
         backBtn.classList.add("hidden");
+        themeToggle.classList.add("hidden");
       } else {
         backBtn.classList.remove("hidden");
+        themeToggle.classList.remove("hidden");
       }
       lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     });
 
-    // Lightbox open/close
     function openLightbox(src) {
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').style.display = 'flex';
     }
+
     function closeLightbox() {
       document.getElementById('lightbox').style.display = 'none';
     }
 
-    // Search filter
     function filterImages() {
       const input = document.getElementById('searchInput').value.toLowerCase();
       const items = document.querySelectorAll('.gallery .item');
@@ -407,7 +387,6 @@
       });
     }
 
-    // Fade-in animation on scroll
     document.addEventListener("DOMContentLoaded", function () {
       const fadeEls = document.querySelectorAll(".fade-in");
       const observer = new IntersectionObserver(entries => {
@@ -418,7 +397,6 @@
       fadeEls.forEach(el => observer.observe(el));
     });
 
-    // Feedback Modal logic
     const feedbackBtn = document.getElementById('feedbackBtn');
     const feedbackModal = document.getElementById('feedbackModal');
     const feedbackModalClose = document.getElementById('feedbackModalClose');
