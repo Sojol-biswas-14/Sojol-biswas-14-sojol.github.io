@@ -1,15 +1,15 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Sojol Biswas – Official personal website and AI image gallery" />
   <meta name="keywords" content="Sojol Biswas, AI Gallery, Human, Animal, Robots, House, Flower, Wallpaper, Mymensingh" />
   <meta name="author" content="Sojol Biswas" />
-  <title>Sojol Biswas – Official Website & AI Gallery</title>  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">  <style>
-    * {
-      box-sizing: border-box;
-    }
-
+  <title>Sojol Biswas – Official Website & AI Gallery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       padding: 0;
@@ -23,22 +23,6 @@
     body.light-mode {
       background: #ffffff;
       color: #111;
-    }
-
-    body.light-mode .profile {
-      background: #f2f2f2;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
-    }
-
-    body.light-mode .bio,
-    body.light-mode .tagline {
-      color: #444;
-    }
-
-    body.light-mode .gallery-intro h2,
-    body.light-mode .categories a,
-    body.light-mode .links a {
-      color: #00665c;
     }
 
     .container {
@@ -55,11 +39,9 @@
 
     .profile {
       display: flex;
-      flex-direction: row;
+      flex-wrap: wrap;
       align-items: center;
       gap: 30px;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
       justify-content: center;
       background: #1f1f1f;
       padding: 20px;
@@ -75,27 +57,10 @@
       border: 3px solid #00ffcc;
     }
 
-    .profile-info {
-      flex: 1;
-      min-width: 260px;
-    }
-
-    h1 {
-      color: #00ffcc;
-      margin-bottom: 5px;
-    }
-
-    .tagline {
-      font-style: italic;
-      color: #aaa;
-      margin-bottom: 20px;
-    }
-
-    .bio {
-      margin-bottom: 20px;
-      line-height: 1.6;
-      color: #ccc;
-    }
+    .profile-info { flex: 1; min-width: 260px; }
+    h1 { color: #00ffcc; margin-bottom: 5px; }
+    .tagline { font-style: italic; color: #aaa; margin-bottom: 20px; }
+    .bio { margin-bottom: 20px; line-height: 1.6; color: #ccc; }
 
     .links a {
       display: inline-block;
@@ -119,7 +84,6 @@
       text-align: center;
       margin-top: 60px;
       margin-bottom: 20px;
-      animation: fadeIn 1.3s ease;
     }
 
     .gallery-intro h2 {
@@ -133,7 +97,6 @@
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 20px;
       margin-top: 20px;
-      animation: fadeIn 1.6s ease;
     }
 
     .categories a {
@@ -153,16 +116,6 @@
       background-color: #00ffcc20;
       transform: scale(1.05);
       box-shadow: 0 0 10px #00ffcc66;
-    }
-
-    body.light-mode .categories a {
-      background-color: #e6f7f7;
-      border: 2px solid #ccf2f2;
-    }
-
-    body.light-mode .categories a:hover {
-      background-color: #d9fafa;
-      box-shadow: 0 0 10px #99e6e6;
     }
 
     footer {
@@ -189,11 +142,6 @@
       transition: all 0.3s ease;
     }
 
-    body.light-mode .theme-toggle {
-      background-color: #d9fafa;
-      color: #00665c;
-    }
-
     .theme-toggle:hover {
       background-color: #00ffcc40;
       box-shadow: 0 0 8px #00ffcc66;
@@ -212,18 +160,23 @@
       cursor: pointer;
       z-index: 999;
       transition: all 0.3s ease;
+      opacity: 1;
+      transition: opacity 0.4s ease;
     }
 
-    .back-button:hover {
-      background-color: #00ffcc40;
-      box-shadow: 0 0 8px #00ffcc66;
+    .back-button.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
-  </style></head>
+  </style>
+</head>
 <body>
-  <button class="back-button" onclick="history.back()">⬅ Back</button>
-  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>  <div class="container">
+  <button class="back-button" onclick="history.back()" id="backBtn">⬅ Back</button>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+
+  <div class="container">
     <div class="profile">
-      <img src="PFD-140758.jpg" alt="Sojol Biswas">
+      <img src="PFD-140758.jpg" alt="Sojol Biswas" />
       <div class="profile-info">
         <h1>Sojol Biswas</h1>
         <div class="tagline">"Tech explorer | Gamer | Sharing creativity with the world"</div>
@@ -238,27 +191,45 @@
           <a href="https://www.youtube.com/@yourchannel" target="_blank">📺 YouTube</a>
         </div>
       </div>
-    </div><div class="gallery-intro">
-  <h2>🖼️ Explore AI Art Categories</h2>
-  <p>Select a category to explore Sojol's AI creations</p>
-</div>
+    </div>
 
-<div class="categories">
-  <a href="human.html">👤 Human</a>
-  <a href="animal.html">🐶 Animal</a>
-  <a href="robots.html">🤖 Robots</a>
-  <a href="house.html">🏠 House</a>
-  <a href="flower.html">🌸 Flower</a>
-  <a href="wallpaper.html">🖼 Wallpaper</a>
-</div>
+    <div class="gallery-intro">
+      <h2>🖼️ Explore AI Art Categories</h2>
+      <p>Select a category to explore Sojol's AI creations</p>
+    </div>
 
-<footer>
-  &copy; 2025 Sojol Biswas | All rights reserved.
-</footer>
+    <div class="categories">
+      <a href="human.html">👤 Human</a>
+      <a href="animal.html">🐶 Animal</a>
+      <a href="robots.html">🤖 Robots</a>
+      <a href="house.html">🏠 House</a>
+      <a href="flower.html">🌸 Flower</a>
+      <a href="wallpaper.html">🖼 Wallpaper</a>
+    </div>
 
-  </div>  <script>
+    <footer>
+      &copy; 2025 Sojol Biswas | All rights reserved.
+    </footer>
+  </div>
+
+  <script>
     function toggleTheme() {
       document.body.classList.toggle('light-mode');
     }
-  </script></body>
+
+    // Hide back button when scrolling down, show when scrolling up
+    let prevScroll = window.scrollY;
+    const backBtn = document.getElementById('backBtn');
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll > prevScroll) {
+        backBtn.classList.add('hidden');
+      } else {
+        backBtn.classList.remove('hidden');
+      }
+      prevScroll = currentScroll;
+    });
+  </script>
+</body>
 </html>
