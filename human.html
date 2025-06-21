@@ -1,351 +1,202 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Human AI Art – Sojol Biswas</title>
+  <meta name="description" content="Explore a gallery of human-inspired AI artwork by Sojol Biswas. Download elegant, traditional, and monochrome digital portraits." />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    body {
-      background: #0d0d0d;
-      color: #ffffff;
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 20px;
-    }
+    :root {
+      --bg-color: #0d0d0d;
+      --text-color: #ffffff;
+      --accent-color: #00ffcc;
+      --input-bg: #1a1a1a;
+      --caption-color: #ccc;
+    }[data-theme="light"] {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --accent-color: #007777;
+  --input-bg: #f0f0f0;
+  --caption-color: #333;
+}
 
-    h1 {
-      text-align: center;
-      color: #00ffcc;
-      margin-top: 60px;
-    }
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 20px;
+  transition: background 0.3s, color 0.3s;
+}
 
-    .back {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: #00ffcc20;
-      color: #00ffcc;
-      padding: 10px 16px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      z-index: 1000;
-      transition: opacity 0.3s ease;
-      outline-offset: 2px;
-    }
+h1 { text-align: center; color: var(--accent-color); margin-top: 60px; }
 
-    .back:hover,
-    .back:focus {
-      background-color: #00ffcc40;
-      outline: 2px solid #00ffcc;
-    }
+.back {
+  position: fixed; top: 20px; left: 20px; background: var(--accent-color);
+  color: #000; padding: 10px 16px; border-radius: 6px;
+  text-decoration: none; font-weight: 600; z-index: 1000;
+}
 
-    .back.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
+.theme-toggle {
+  position: fixed; bottom: 20px; right: 20px; background: var(--accent-color);
+  color: #000; padding: 10px 16px; border-radius: 6px;
+  font-weight: 600; cursor: pointer; z-index: 1000;
+}
 
-    .search-box {
-      text-align: center;
-      margin-top: 20px;
-    }
+.search-box { text-align: center; margin-top: 20px; }
+.search-box input {
+  padding: 10px 16px; width: 300px; max-width: 90%; border-radius: 8px;
+  border: none; background: var(--input-bg); color: var(--accent-color);
+  font-size: 16px;
+}
 
-    .search-box input {
-      padding: 10px 16px;
-      width: 300px;
-      max-width: 90%;
-      border-radius: 8px;
-      border: none;
-      background: #1a1a1a;
-      color: #00ffcc;
-      font-size: 16px;
-      outline-offset: 2px;
-    }
+#result-count { text-align: center; color: var(--accent-color); font-size: 14px; margin-top: 10px; height: 20px; }
+.gallery {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px; padding: 40px 20px; max-width: 1200px; margin: auto;
+}
 
-    .search-box input:focus {
-      outline: 2px solid #00ffcc;
-    }
+.item { text-align: center; }
+.image-wrapper { position: relative; overflow: hidden; cursor: pointer; }
+.image-wrapper img {
+  width: 100%; border-radius: 12px; border: 2px solid var(--accent-color);
+  transition: transform 0.3s ease;
+}
+.image-wrapper:hover img {
+  transform: scale(1.05); box-shadow: 0 0 12px var(--accent-color);
+}
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 30px;
-      padding: 40px 20px;
-      max-width: 1200px;
-      margin: auto;
-    }
+.download {
+  position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+  opacity: 0; transition: opacity 0.3s ease;
+  background: var(--accent-color); color: #000; padding: 8px 16px;
+  border-radius: 5px; text-decoration: none; font-weight: 500;
+}
+.image-wrapper:hover .download { opacity: 1; }
 
-    .item {
-      text-align: center;
-    }
+.caption { margin-top: 10px; font-size: 14px; color: var(--caption-color); }
+.license {
+  text-align: center; margin-top: 60px; font-size: 14px; color: var(--caption-color);
+  border-top: 1px solid #333; padding-top: 30px; max-width: 700px; margin: auto;
+  line-height: 1.6;
+}
 
-    .image-wrapper {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      display: inline-block;
-      outline-offset: 2px;
-    }
+.lightbox {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.9); display: none; justify-content: center;
+  align-items: center; z-index: 999;
+}
+.lightbox img { max-width: 90%; max-height: 80vh; border-radius: 10px; }
+.lightbox .close { position: absolute; top: 20px; right: 30px; font-size: 28px; color: var(--accent-color); cursor: pointer; }
+.lightbox .counter { position: absolute; bottom: 20px; color: var(--accent-color); font-size: 14px; }
 
-    .image-wrapper img {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      border: 2px solid #00ffcc30;
-      transition: transform 0.3s ease;
-      display: block;
-    }
+.spinner {
+  text-align: center; color: var(--accent-color);
+  padding: 20px; font-size: 16px;
+}
 
-    .image-wrapper:hover img,
-    .image-wrapper:focus img {
-      transform: scale(1.05);
-      box-shadow: 0 0 12px #00ffcc80;
-    }
-
-    .download {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      background: #00ffcc20;
-      color: #00ffcc;
-      padding: 8px 16px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: 500;
-      user-select: none;
-    }
-
-    .image-wrapper:hover .download,
-    .image-wrapper:focus .download {
-      opacity: 1;
-    }
-
-    .caption {
-      margin-top: 10px;
-      font-size: 14px;
-      color: #ccc;
-    }
-
-    .license {
-      text-align: center;
-      margin-top: 60px;
-      font-size: 14px;
-      color: #bbb;
-      border-top: 1px solid #333;
-      padding-top: 30px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.6;
-    }
-
-    .lightbox {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-      flex-direction: column;
-    }
-
-    .lightbox.active {
-      display: flex;
-    }
-
-    .lightbox img {
-      max-width: 90%;
-      max-height: 80vh;
-      border-radius: 10px;
-    }
-
-    .lightbox .close {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 28px;
-      color: #00ffcc;
-      cursor: pointer;
-      user-select: none;
-      outline-offset: 2px;
-    }
-
-    .lightbox .close:focus {
-      outline: 2px solid #00ffcc;
-    }
   </style>
 </head>
 <body>
-  <a href="index.html" class="back" id="backBtn" tabindex="0">⬅ Back to Home</a>
-  <h1>👤 Human AI Art Gallery</h1>
-
-  <div class="search-box">
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Search AI images..."
-      onkeyup="filterImages()"
-      aria-label="Search AI images"
-    />
-  </div>
-
-  <div class="gallery" id="gallery">
-    <div class="item" data-keywords="elegant female portrait">
-      <div
-        class="image-wrapper"
-        tabindex="0"
-        role="button"
-        aria-label="View Elegant Female Portrait"
-        onclick="openLightbox('images/human/images1.jpeg')"
-        onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); openLightbox('images/human/images1.jpeg'); }"
-      >
-        <img
-          src="images/human/images1.jpeg"
-          alt="Elegant Female Portrait"
-          loading="lazy"
-        />
-        <a class="download" href="images/human/images1.jpeg" download title="Download Elegant Female Portrait"
-          >⬇ Download</a
-        >
-      </div>
-      <div class="caption">Elegant Female Portrait</div>
-    </div>
-
-    <div class="item" data-keywords="traditional female ai art">
-      <div
-        class="image-wrapper"
-        tabindex="0"
-        role="button"
-        aria-label="View Traditional Female AI Art"
-        onclick="openLightbox('images/human/South_Asian_Woman_Portrait.jpg')"
-        onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); openLightbox('images/human/South_Asian_Woman_Portrait.jpg'); }"
-      >
-        <img
-          src="images/human/South_Asian_Woman_Portrait.jpg"
-          alt="Traditional Female AI Art"
-          loading="lazy"
-        />
-        <a class="download" href="images/human/South_Asian_Woman_Portrait.jpg" download title="Download Traditional Female AI Art"
-          >⬇ Download</a
-        >
-      </div>
-      <div class="caption">Traditional Female AI Art</div>
-    </div>
-
-    <div class="item" data-keywords="female black and white portrait">
-      <div
-        class="image-wrapper"
-        tabindex="0"
-        role="button"
-        aria-label="View Female Art Black and White"
-        onclick="openLightbox('images/human/Female-art-black-and-white.jpg')"
-        onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); openLightbox('images/human/Female-art-black-and-white.jpg'); }"
-      >
-        <img
-          src="images/human/Female-art-black-and-white.jpg"
-          alt="Female Art Black and White"
-          loading="lazy"
-        />
-        <a class="download" href="images/human/Female-art-black-and-white.jpg" download title="Download Female Art Black and White"
-          >⬇ Download</a
-        >
-      </div>
-      <div class="caption">Female Art – Black and White</div>
-    </div>
-  </div>
-
-  <div class="license">
-    ⚠️ All images are original and owned by <strong>Sojol Biswas</strong>.<br />
-    You may use them for personal or educational purposes only.<br />
-    Commercial use requires permission. Credit is appreciated.
-  </div>
-
-  <div
-    class="lightbox"
-    id="lightbox"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Image preview"
-    tabindex="0"
-    onclick="closeLightbox(event)"
-  >
-    <span
-      class="close"
-      role="button"
-      tabindex="0"
-      aria-label="Close lightbox"
-      onclick="closeLightbox(event)"
-      onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); closeLightbox(event); }"
-      >&times;</span
-    >
+  <a class="back" href="index.html">⬅ Back</a>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+  <h1>👤 Human AI Art Gallery</h1>  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search AI images..." onkeyup="filterImages()" />
+    <div id="result-count" aria-live="polite"></div>
+  </div>  <div class="gallery" id="gallery"></div>
+  <div class="spinner" id="spinner">🔄 Loading...</div>  <div class="license">
+    ⚠️ All images are owned by <strong>Sojol Biswas</strong>. Personal/educational use only.
+  </div>  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <span class="close">&times;</span>
     <img id="lightbox-img" src="" alt="Preview" />
-  </div>
+    <div class="counter" id="viewCounter"></div>
+  </div>  <script>
+    const imageData = [
+      { src: "images/human/images1.jpeg", title: "Elegant Female Portrait", keywords: "elegant female portrait" },
+      { src: "images/human/South_Asian_Woman_Portrait.jpg", title: "Traditional Female AI Art", keywords: "south asian woman ai" },
+      { src: "images/human/Female-art-black-and-white.jpg", title: "Female Art Black and White", keywords: "black white portrait" }
+    ];
 
-  <script>
-    function openLightbox(src) {
-      const lightbox = document.getElementById("lightbox");
-      const img = document.getElementById("lightbox-img");
-      img.src = src;
-      lightbox.classList.add("active");
-      lightbox.style.display = "flex";
-      lightbox.focus();
+    let currentIndex = 0;
+    const perPage = 6;
+    const gallery = document.getElementById('gallery');
+
+    function loadImages() {
+      const next = imageData.slice(currentIndex, currentIndex + perPage);
+      next.forEach(img => {
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.setAttribute('data-keywords', img.keywords);
+        div.innerHTML = `
+          <div class="image-wrapper" onclick="openLightbox('${img.src}')">
+            <img src="${img.src}" alt="${img.title}" loading="lazy" />
+            <a class="download" href="${img.src}" download>⬇ Download</a>
+          </div>
+          <div class="caption">${img.title}</div>
+        `;
+        gallery.appendChild(div);
+      });
+      currentIndex += perPage;
     }
 
-    function closeLightbox(event) {
-      // Prevent close if clicking inside the image
-      if (
-        event &&
-        event.target.id === "lightbox-img"
-      ) {
-        return;
-      }
-      const lightbox = document.getElementById("lightbox");
-      lightbox.classList.remove("active");
-      lightbox.style.display = "none";
-      document.getElementById("lightbox-img").src = "";
-    }
-
-    // Close lightbox on ESC key press
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") {
-        closeLightbox();
-      }
+    window.addEventListener('scroll', () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 300) loadImages();
     });
 
     function filterImages() {
-      const input = document.getElementById("searchInput").value
-        .toLowerCase()
-        .trim();
-      const items = document.querySelectorAll(".gallery .item");
-      const terms = input.split(/\s+/).filter(Boolean);
-
-      items.forEach((item) => {
-        const keywords = item.getAttribute("data-keywords").toLowerCase();
-        const match = terms.every((term) => keywords.includes(term));
-        item.style.display = match ? "block" : "none";
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const items = document.querySelectorAll('.item');
+      let count = 0;
+      items.forEach(item => {
+        const match = item.getAttribute('data-keywords').includes(input);
+        item.style.display = match ? '' : 'none';
+        if (match) count++;
       });
+      document.getElementById('result-count').textContent = count + " image(s) found";
     }
 
-    // Scroll hide/show back button
-    let lastScrollTop = 0;
-    window.addEventListener("scroll", function () {
-      const backBtn = document.getElementById("backBtn");
-      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-      if (currentScroll > lastScrollTop) {
-        backBtn.classList.add("hidden");
-      } else {
-        backBtn.classList.remove("hidden");
+    function openLightbox(src) {
+      const img = document.getElementById('lightbox-img');
+      img.src = src;
+      document.getElementById('lightbox').style.display = 'flex';
+      const views = incrementViewCount(src);
+      document.getElementById('viewCounter').textContent = views + ' views';
+    }
+
+    function closeLightbox(e) {
+      if (e.target.id === 'lightbox' || e.target.className === 'close') {
+        document.getElementById('lightbox').style.display = 'none';
+        document.getElementById('lightbox-img').src = '';
       }
-      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    }
+
+    function incrementViewCount(src) {
+      const key = 'views_' + src;
+      let count = localStorage.getItem(key) || 0;
+      count++;
+      localStorage.setItem(key, count);
+      return count;
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      loadImages();
     });
-  </script>
-</body>
+
+    // SWIPE SUPPORT
+    let startX = 0;
+    document.getElementById('lightbox').addEventListener('touchstart', e => startX = e.touches[0].clientX);
+    document.getElementById('lightbox').addEventListener('touchend', e => {
+      const endX = e.changedTouches[0].clientX;
+      if (Math.abs(startX - endX) > 50) closeLightbox(e);
+    });
+  </script></body>
 </html>
