@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Animal AI Art – Sojol Biswas</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVNEJT1ERV"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -14,7 +11,6 @@
     gtag('js', new Date());
     gtag('config', 'G-TVNEJT1ERV');
   </script>
-
   <style>
     body {
       background: #0d0d0d;
@@ -24,18 +20,15 @@
       padding: 20px;
       transition: background 0.3s, color 0.3s;
     }
-
     body.light-mode {
       background: #fff;
       color: #111;
     }
-
     h1 {
       text-align: center;
       color: #00ffcc;
       margin-top: 60px;
     }
-
     .back, .theme-toggle {
       position: fixed;
       top: 20px;
@@ -49,20 +42,13 @@
       transition: opacity 0.3s ease;
       border: none;
     }
-
     .back { left: 20px; }
     .theme-toggle { right: 20px; }
-
-    .back.hidden, .theme-toggle.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
+    .back.hidden, .theme-toggle.hidden { opacity: 0; pointer-events: none; }
     .search-box {
       text-align: center;
       margin-top: 20px;
     }
-
     .search-box input {
       padding: 10px 16px;
       width: 300px;
@@ -73,7 +59,6 @@
       color: #00ffcc;
       font-size: 16px;
     }
-
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -82,12 +67,10 @@
       max-width: 1200px;
       margin: auto;
     }
-
     .item {
       text-align: center;
       position: relative;
     }
-
     .image-wrapper {
       position: relative;
       overflow: hidden;
@@ -96,19 +79,16 @@
       border: 2px solid #00ffcc30;
       transition: transform 0.3s ease;
     }
-
     .image-wrapper img {
       width: 100%;
       height: auto;
       display: block;
       border-radius: 12px;
     }
-
     .image-wrapper:hover {
       transform: scale(1.05);
       box-shadow: 0 0 12px #00ffcc80;
     }
-
     .download {
       position: absolute;
       bottom: 10px;
@@ -124,17 +104,14 @@
       font-weight: 500;
       z-index: 10;
     }
-
     .image-wrapper:hover .download {
       opacity: 1;
     }
-
     .caption {
       margin-top: 10px;
       font-size: 14px;
       color: #ccc;
     }
-
     .license {
       text-align: center;
       margin-top: 60px;
@@ -147,7 +124,6 @@
       margin-right: auto;
       line-height: 1.6;
     }
-
     .lightbox {
       position: fixed;
       top: 0;
@@ -160,13 +136,11 @@
       align-items: center;
       z-index: 999;
     }
-
     .lightbox img {
       max-width: 90%;
       max-height: 80vh;
       border-radius: 10px;
     }
-
     .lightbox .close {
       position: absolute;
       top: 20px;
@@ -175,7 +149,6 @@
       color: #00ffcc;
       cursor: pointer;
     }
-
     .watermark {
       position: absolute;
       bottom: 8px;
@@ -187,124 +160,48 @@
       pointer-events: none;
       border-radius: 6px;
     }
-
-    .theme-toggle:hover {
-      background-color: #00ffcc40;
-      box-shadow: 0 0 8px #00ffcc66;
-    }
-
-    #feedbackBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #00ffcccc;
-      border: none;
-      padding: 14px 18px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 20px;
-      box-shadow: 0 0 10px #00ffccaa;
-      z-index: 1000;
-      transition: background-color 0.3s ease;
-    }
-
-    #feedbackBtn:hover {
-      background-color: #00ffccee;
-    }
-
-    #feedbackModal {
-      display: none;
-      position: fixed;
-      z-index: 1500;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.8);
-      backdrop-filter: blur(4px);
-      justify-content: center;
-      align-items: center;
-    }
-
-    #feedbackModal.active {
-      display: flex;
-    }
-
-    #feedbackModalContent {
-      background-color: #1a1a1a;
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 400px;
-      width: 90%;
-      color: #00ffcc;
-      box-shadow: 0 0 20px #00ffcc99;
-      position: relative;
-    }
-
-    #feedbackModalContent textarea {
-      width: 100%;
-      height: 100px;
-      background: #0d0d0d;
-      border: none;
-      border-radius: 8px;
-      color: #00ffcc;
-      padding: 10px;
-      resize: vertical;
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-    }
-
-    #feedbackModalContent button {
-      background: #00ffcc;
-      border: none;
-      color: #000;
-      font-weight: 700;
-      padding: 12px 20px;
-      border-radius: 8px;
-      margin-top: 10px;
-      cursor: pointer;
-      width: 100%;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
-    }
-
-    #feedbackModalContent button:hover {
-      background-color: #00ccaa;
-    }
-
-    #feedbackModalClose {
-      position: absolute;
-      top: 12px;
-      right: 18px;
-      font-size: 28px;
-      color: #00ffcc;
-      cursor: pointer;
-    }
-
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
   </style>
 </head>
 <body>
   <button class="back hidden" id="backBtn" onclick="history.back()">⬅ Back</button>
   <button class="theme-toggle hidden" onclick="toggleTheme()">🌓 Theme</button>
-
   <h1 class="fade-in">🦜 Animal AI Art Gallery</h1>
-
   <div class="search-box fade-in">
     <input type="text" id="searchInput" placeholder="Search AI images..." onkeyup="filterImages()" />
   </div>
-
   <div class="gallery fade-in" id="gallery">
+    <div class="item" data-keywords="lion king ai animal">
+      <div class="image-wrapper" onclick="openLightbox('images/animal/file_00000000e2c862308ebd9137efbfc321.png')">
+        <img src="images/animal/file_00000000e2c862308ebd9137efbfc321.png" alt="Lion King" />
+        <div class="watermark"></div>
+        <a class="download" href="images/animal/file_00000000e2c862308ebd9137efbfc321.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">Lion King</div>
+    </div>
+    <div class="item" data-keywords="lion wild cute ai">
+      <div class="image-wrapper" onclick="openLightbox('images/animal/Lion.png')">
+        <img src="images/animal/Lion.png" alt="Wild but Cute Lion" />
+        <div class="watermark"></div>
+        <a class="download" href="images/animal/Lion.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">Wild but Cute Lion</div>
+    </div>
+    <div class="item" data-keywords="lion best ai image">
+      <div class="image-wrapper" onclick="openLightbox('images/animal/file_0000000085886230a97f2ffdf1e5fadd.png')">
+        <img src="images/animal/file_0000000085886230a97f2ffdf1e5fadd.png" alt="Best AI Lion Img" />
+        <div class="watermark"></div>
+        <a class="download" href="images/animal/file_0000000085886230a97f2ffdf1e5fadd.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">Best AI Lion Img</div>
+    </div>
+    <div class="item" data-keywords="cat cute ai overload">
+      <div class="image-wrapper" onclick="openLightbox('images/animal/cute_cat.jpg')">
+        <img src="images/animal/cute_cat.jpg" alt="Cute overload AI cat" />
+        <div class="watermark"></div>
+        <a class="download" href="images/animal/cute_cat.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Cute overload AI cat</div>
+    </div>
     <div class="item" data-keywords="robotic cockatoo bird ai futuristic">
       <div class="image-wrapper" onclick="openLightbox('images/animal/robotic_cockatoo_final_watermark.jpg')">
         <img src="images/animal/robotic_cockatoo_final_watermark.jpg" alt="Robotic Cockatoo" />
@@ -314,23 +211,16 @@
       <div class="caption">Robotic Cockatoo</div>
     </div>
   </div>
-
   <div class="license fade-in">
     ⚠️ All images are original and owned by <strong>Sojol Biswas</strong>.<br />
     You may use them for personal or educational purposes only.<br />
     Commercial use requires permission. Credit is appreciated.
   </div>
-
-  <!-- Lightbox -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <span class="close">&times;</span>
     <img id="lightbox-img" src="" alt="Preview" />
   </div>
-
-  <!-- Feedback Button -->
   <button id="feedbackBtn" title="Send Feedback">💬</button>
-
-  <!-- Feedback Modal -->
   <div id="feedbackModal">
     <div id="feedbackModalContent">
       <span id="feedbackModalClose">&times;</span>
@@ -339,12 +229,10 @@
       <button id="feedbackSendBtn">Send</button>
     </div>
   </div>
-
   <script>
     function toggleTheme() {
       document.body.classList.toggle('light-mode');
     }
-
     const backBtn = document.getElementById('backBtn');
     const themeToggle = document.querySelector('.theme-toggle');
     let lastScrollTop = 0;
@@ -359,16 +247,13 @@
       }
       lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     });
-
     function openLightbox(src) {
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').style.display = 'flex';
     }
-
     function closeLightbox() {
       document.getElementById('lightbox').style.display = 'none';
     }
-
     function filterImages() {
       const input = document.getElementById('searchInput').value.toLowerCase();
       const items = document.querySelectorAll('.gallery .item');
@@ -377,7 +262,6 @@
         item.style.display = keywords.includes(input) ? 'block' : 'none';
       });
     }
-
     document.addEventListener("DOMContentLoaded", function () {
       const fadeEls = document.querySelectorAll(".fade-in");
       const observer = new IntersectionObserver(entries => {
@@ -387,28 +271,23 @@
       }, { threshold: 0.1 });
       fadeEls.forEach(el => observer.observe(el));
     });
-
     const feedbackBtn = document.getElementById('feedbackBtn');
     const feedbackModal = document.getElementById('feedbackModal');
     const feedbackModalClose = document.getElementById('feedbackModalClose');
     const feedbackSendBtn = document.getElementById('feedbackSendBtn');
     const feedbackText = document.getElementById('feedbackText');
-
     feedbackBtn.addEventListener('click', () => {
       feedbackModal.classList.add('active');
       feedbackText.focus();
     });
-
     feedbackModalClose.addEventListener('click', () => {
       feedbackModal.classList.remove('active');
     });
-
     feedbackModal.addEventListener('click', e => {
       if (e.target === feedbackModal) {
         feedbackModal.classList.remove('active');
       }
     });
-
     feedbackSendBtn.addEventListener('click', () => {
       const feedback = feedbackText.value.trim();
       if(feedback.length === 0) {
