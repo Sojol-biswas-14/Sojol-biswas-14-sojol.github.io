@@ -3,74 +3,231 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Animal AI Art – Sojol Biswas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVNEJT1ERV"></script>
-  <script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />  <!-- Google Analytics -->  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVNEJT1ERV"></script>  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-TVNEJT1ERV');
-  </script>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    /* Basic styles are linked in style.css */
-  </style>
-</head>
+  </script>  <style>
+    body {
+      background: #0d0d0d;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 20px;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.light-mode {
+      background: #fff;
+      color: #111;
+    }
+    h1 {
+      text-align: center;
+      color: #00ffcc;
+      margin-top: 60px;
+    }
+    .back, .theme-toggle {
+      position: fixed;
+      top: 20px;
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 1000;
+      transition: opacity 0.3s ease;
+      border: none;
+    }
+    .back { left: 20px; }
+    .theme-toggle { right: 20px; }
+    .back.hidden, .theme-toggle.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .search-box {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .search-box input {
+      padding: 10px 16px;
+      width: 300px;
+      max-width: 90%;
+      border-radius: 8px;
+      border: none;
+      background: #1a1a1a;
+      color: #00ffcc;
+      font-size: 16px;
+    }
+    .filter-box {
+      margin: 20px auto 0;
+      max-width: 320px;
+      text-align: center;
+    }
+    .filter-box select {
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      background: #1a1a1a;
+      color: #00ffcc;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      max-width: 320px;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .item {
+      text-align: center;
+      position: relative;
+    }
+    .image-wrapper {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 12px;
+      border: 2px solid #00ffcc30;
+      transition: transform 0.3s ease;
+    }
+    .image-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+    }
+    .image-wrapper:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #00ffcc80;
+    }
+    .download {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 8px 16px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 500;
+      z-index: 10;
+    }
+    .image-wrapper:hover .download {
+      opacity: 1;
+    }
+    .caption {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ccc;
+    }
+    .license {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 14px;
+      color: #bbb;
+      border-top: 1px solid #333;
+      padding-top: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 10px;
+    }
+    .lightbox .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 28px;
+      color: #00ffcc;
+      cursor: pointer;
+    }
+    .watermark {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      width: 40px;
+      height: 40px;
+      background: url('images/logo.png') no-repeat center/contain;
+      opacity: 0.25;
+      pointer-events: none;
+      border-radius: 6px;
+    }
+  </style></head>
 <body>
   <button class="back hidden" id="backBtn" onclick="history.back()">⬅ Back</button>
-  <button class="theme-toggle hidden" onclick="toggleTheme()">🌓 Theme</button>
-  <button class="filter-toggle hidden" onclick="toggleFilter()">🔽 Filter</button>  <h1 class="fade-in">🦜 Animal AI Art Gallery</h1>  <div class="search-box fade-in">
+  <button class="theme-toggle hidden" onclick="toggleTheme()">🌓 Theme</button>  <h1 class="fade-in">🦁 Animal AI Art Gallery</h1>  <div class="search-box fade-in">
     <input type="text" id="searchInput" placeholder="Search AI images..." onkeyup="filterImages()" />
   </div>  <div class="filter-box fade-in">
-    <select id="filterSelect" onchange="sortGallery()">
-      <option value="latest">Sort by Latest</option>
-      <option value="popular">Sort by Popular</option>
-      <option value="downloaded">Sort by Most Downloaded</option>
+    <select id="sortSelect" onchange="sortGallery()">
+      <option value="latest">Latest</option>
+      <option value="popular">Popular</option>
+      <option value="downloaded">Most Downloaded</option>
     </select>
   </div>  <div class="gallery fade-in" id="gallery">
-    <div class="item" data-keywords="robotic cockatoo bird ai futuristic" data-index="5" data-popularity="80" data-downloads="40">
+    <div class="item" data-keywords="robotic cockatoo bird ai futuristic" data-date="2025-06-21" data-popularity="6" data-downloads="14">
       <div class="image-wrapper" onclick="openLightbox('images/animal/robotic_cockatoo_final_watermark.jpg')">
         <img src="images/animal/robotic_cockatoo_final_watermark.jpg" alt="Robotic Cockatoo" />
         <div class="watermark"></div>
         <a class="download" href="images/animal/robotic_cockatoo_final_watermark.jpg" download>⬇ Download</a>
       </div>
       <div class="caption">Robotic Cockatoo</div>
-    </div><div class="item" data-keywords="lion king animal ai majestic" data-index="4" data-popularity="150" data-downloads="90">
-  <div class="image-wrapper" onclick="openLightbox('images/animal/file_00000000e2c862308ebd9137efbfc321.png')">
-    <img src="images/animal/file_00000000e2c862308ebd9137efbfc321.png" alt="Lion King" />
-    <div class="watermark"></div>
-    <a class="download" href="images/animal/file_00000000e2c862308ebd9137efbfc321.png" download>⬇ Download</a>
-  </div>
-  <div class="caption">Lion King</div>
-</div>
-
-<div class="item" data-keywords="cute overload cat animal ai" data-index="3" data-popularity="100" data-downloads="60">
-  <div class="image-wrapper" onclick="openLightbox('images/animal/cute_cat.jpg')">
-    <img src="images/animal/cute_cat.jpg" alt="Cute Overload AI Cat" />
-    <div class="watermark"></div>
-    <a class="download" href="images/animal/cute_cat.jpg" download>⬇ Download</a>
-  </div>
-  <div class="caption">Cute Overload AI Cat</div>
-</div>
-
-<div class="item" data-keywords="cute lion ai animal" data-index="2" data-popularity="90" data-downloads="50">
-  <div class="image-wrapper" onclick="openLightbox('images/animal/Lion.png')">
-    <img src="images/animal/Lion.png" alt="Wild but Cute Lion" />
-    <div class="watermark"></div>
-    <a class="download" href="images/animal/Lion.png" download>⬇ Download</a>
-  </div>
-  <div class="caption">Wild but Cute Lion</div>
-</div>
-
-<div class="item" data-keywords="best ai lion image majestic animal" data-index="1" data-popularity="120" data-downloads="70">
-  <div class="image-wrapper" onclick="openLightbox('images/animal/file_0000000085886230a97f2ffdf1e5fadd.png')">
-    <img src="images/animal/file_0000000085886230a97f2ffdf1e5fadd.png" alt="Best AI Lion Img" />
-    <div class="watermark"></div>
-    <a class="download" href="images/animal/file_0000000085886230a97f2ffdf1e5fadd.png" download>⬇ Download</a>
-  </div>
-  <div class="caption">Best AI Lion Img</div>
-</div>
-
+    </div>
+    <div class="item" data-keywords="lion king animal ai majestic" data-date="2025-06-20" data-popularity="5" data-downloads="12">
+      <div class="image-wrapper" onclick="openLightbox('images/animal/file_00000000e2c862308ebd9137efbfc321.png')">
+        <img src="images/animal/file_00000000e2c862308ebd9137efbfc321.png" alt="Lion King" />
+        <div class="watermark"></div>
+        <a class="download" href="images/animal/file_00000000e2c862308ebd9137efbfc321.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">Lion King</div>
+    </div>
+    <div class="item" data-keywords="wild but cute lion animal ai" data-date="2025-06-19" data-popularity="4" data-downloads="10">
+      <div class="image-wrapper" onclick="openLightbox('images/animal/Lion.png')">
+        <img src="images/animal/Lion.png" alt="Wild but Cute Lion" />
+        <div class="watermark"></div>
+        <a class="download" href="images/animal/Lion.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">Wild but Cute Lion</div>
+    </div>
+    <div class="item" data-keywords="best ai lion image majestic animal" data-date="2025-06-18" data-popularity="4" data-downloads="9">
+      <div class="image-wrapper" onclick="openLightbox('images/animal/file_0000000085886230a97f2ffdf1e5fadd.png')">
+        <img src="images/animal/file_0000000085886230a97f2ffdf1e5fadd.png" alt="Best AI Lion Img" />
+        <div class="watermark"></div>
+        <a class="download" href="images/animal/file_0000000085886230a97f2ffdf1e5fadd.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">Best AI Lion Img</div>
+    </div>
+    <div class="item" data-keywords="cute overload cat animal ai" data-date="2025-06-17" data-popularity="3" data-downloads="8">
+      <div class="image-wrapper" onclick="openLightbox('images/animal/cute_cat.jpg')">
+        <img src="images/animal/cute_cat.jpg" alt="Cute Overload AI Cat" />
+        <div class="watermark"></div>
+        <a class="download" href="images/animal/cute_cat.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Cute Overload AI Cat</div>
+    </div>
   </div>  <div class="license fade-in">
     ⚠️ All images are original and owned by <strong>Sojol Biswas</strong>.<br />
     You may use them for personal or educational purposes only.<br />
@@ -78,47 +235,17 @@
   </div>  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <span class="close">&times;</span>
     <img id="lightbox-img" src="" alt="Preview" />
-  </div><button id="feedbackBtn" title="Send Feedback">💬</button>
-
-  <div id="feedbackModal">
-    <div id="feedbackModalContent">
-      <span id="feedbackModalClose">&times;</span>
-      <h3>Send your feedback</h3>
-      <textarea id="feedbackText" placeholder="Write your feedback here..."></textarea>
-      <button id="feedbackSendBtn">Send</button>
-    </div>
   </div>  <script>
     function toggleTheme() {
       document.body.classList.toggle('light-mode');
     }
-
-    const backBtn = document.getElementById('backBtn');
-    const themeToggle = document.querySelector('.theme-toggle');
-    const filterToggle = document.querySelector('.filter-toggle');
-    let lastScrollTop = 0;
-    window.addEventListener("scroll", function () {
-      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-      if (currentScroll > lastScrollTop) {
-        backBtn.classList.add("hidden");
-        themeToggle.classList.add("hidden");
-        filterToggle.classList.add("hidden");
-      } else {
-        backBtn.classList.remove("hidden");
-        themeToggle.classList.remove("hidden");
-        filterToggle.classList.remove("hidden");
-      }
-      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-    });
-
     function openLightbox(src) {
       document.getElementById('lightbox-img').src = src;
       document.getElementById('lightbox').style.display = 'flex';
     }
-
     function closeLightbox() {
       document.getElementById('lightbox').style.display = 'none';
     }
-
     function filterImages() {
       const input = document.getElementById('searchInput').value.toLowerCase();
       const items = document.querySelectorAll('.gallery .item');
@@ -127,51 +254,38 @@
         item.style.display = keywords.includes(input) ? 'block' : 'none';
       });
     }
-
     function sortGallery() {
-      const value = document.getElementById('filterSelect').value;
       const gallery = document.getElementById('gallery');
-      const items = Array.from(gallery.getElementsByClassName('item'));
-      if (value === 'latest') {
-        items.sort((a, b) => (b.dataset.index || 0) - (a.dataset.index || 0));
-      } else if (value === 'popular') {
-        items.sort((a, b) => (b.dataset.popularity || 0) - (a.dataset.popularity || 0));
-      } else if (value === 'downloaded') {
-        items.sort((a, b) => (b.dataset.downloads || 0) - (a.dataset.downloads || 0));
-      }
+      const items = Array.from(gallery.children);
+      const sortBy = document.getElementById('sortSelect').value;
+      items.sort((a, b) => {
+        if (sortBy === 'latest') {
+          return new Date(b.getAttribute('data-date')) - new Date(a.getAttribute('data-date'));
+        } else if (sortBy === 'popular') {
+          return parseInt(b.getAttribute('data-popularity')) - parseInt(a.getAttribute('data-popularity'));
+        } else if (sortBy === 'downloaded') {
+          return parseInt(b.getAttribute('data-downloads')) - parseInt(a.getAttribute('data-downloads'));
+        }
+        return 0;
+      });
       items.forEach(item => gallery.appendChild(item));
     }
-
-    const feedbackBtn = document.getElementById('feedbackBtn');
-    const feedbackModal = document.getElementById('feedbackModal');
-    const feedbackModalClose = document.getElementById('feedbackModalClose');
-    const feedbackSendBtn = document.getElementById('feedbackSendBtn');
-    const feedbackText = document.getElementById('feedbackText');
-
-    feedbackBtn.addEventListener('click', () => {
-      feedbackModal.classList.add('active');
-      feedbackText.focus();
+    document.addEventListener("DOMContentLoaded", function () {
+      sortGallery();
     });
-
-    feedbackModalClose.addEventListener('click', () => {
-      feedbackModal.classList.remove('active');
-    });
-
-    feedbackModal.addEventListener('click', e => {
-      if (e.target === feedbackModal) {
-        feedbackModal.classList.remove('active');
+    const backBtn = document.getElementById('backBtn');
+    const themeToggle = document.querySelector('.theme-toggle');
+    let lastScrollTop = 0;
+    window.addEventListener("scroll", function () {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      if (currentScroll > lastScrollTop) {
+        backBtn.classList.add("hidden");
+        themeToggle.classList.add("hidden");
+      } else {
+        backBtn.classList.remove("hidden");
+        themeToggle.classList.remove("hidden");
       }
-    });
-
-    feedbackSendBtn.addEventListener('click', () => {
-      const feedback = feedbackText.value.trim();
-      if(feedback.length === 0) {
-        alert('Please write some feedback before sending.');
-        return;
-      }
-      alert('Thanks for your feedback! (This is a demo, no actual sending)');
-      feedbackText.value = '';
-      feedbackModal.classList.remove('active');
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     });
   </script></body>
 </html>
