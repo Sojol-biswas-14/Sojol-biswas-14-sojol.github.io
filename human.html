@@ -1,57 +1,222 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Human AI Art – Sojol Biswas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVNEJT1ERV"></script>
-  <script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />  <!-- Google Analytics -->  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVNEJT1ERV"></script>  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-TVNEJT1ERV');
-  </script>
+  </script>  <style>
+    body {
+      background: #0d0d0d;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 20px;
+      transition: background 0.3s, color 0.3s;
+    }
 
-  <style>
-    /* [Same as your original CSS styles... keep them untouched] */
-    /* Add dropdown style */
-    .sort-box {
+    body.light-mode {
+      background: #fff;
+      color: #111;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00ffcc;
+      margin-top: 60px;
+    }
+
+    .back, .theme-toggle {
+      position: fixed;
+      top: 20px;
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 1000;
+      transition: opacity 0.3s ease;
+      border: none;
+    }
+
+    .back { left: 20px; }
+    .theme-toggle { right: 20px; }
+
+    .back.hidden, .theme-toggle.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .search-box {
       text-align: center;
       margin-top: 20px;
     }
-    .sort-box select {
+
+    .search-box input {
       padding: 10px 16px;
+      width: 300px;
+      max-width: 90%;
       border-radius: 8px;
       border: none;
       background: #1a1a1a;
       color: #00ffcc;
       font-size: 16px;
     }
-  </style>
-</head>
+
+    .sort-box {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .sort-box select {
+      padding: 10px 16px;
+      border-radius: 8px;
+      background: #1a1a1a;
+      color: #00ffcc;
+      border: none;
+      font-size: 16px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .item {
+      text-align: center;
+      position: relative;
+    }
+
+    .image-wrapper {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 12px;
+      border: 2px solid #00ffcc30;
+      transition: transform 0.3s ease;
+    }
+
+    .image-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+    }
+
+    .image-wrapper:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #00ffcc80;
+    }
+
+    .download {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: #00ffcc20;
+      color: #00ffcc;
+      padding: 8px 16px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 500;
+      z-index: 10;
+    }
+
+    .image-wrapper:hover .download {
+      opacity: 1;
+    }
+
+    .caption {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .license {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 14px;
+      color: #bbb;
+      border-top: 1px solid #333;
+      padding-top: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 10px;
+    }
+
+    .lightbox .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 28px;
+      color: #00ffcc;
+      cursor: pointer;
+    }
+
+    .watermark {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      width: 40px;
+      height: 40px;
+      background: url('images/logo.png') no-repeat center/contain;
+      opacity: 0.25;
+      pointer-events: none;
+      border-radius: 6px;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style></head>
 <body>
   <button class="back hidden" id="backBtn" onclick="history.back()">⬅ Back</button>
-  <button class="theme-toggle hidden" onclick="toggleTheme()">🌓 Theme</button>
-
-  <h1 class="fade-in">👤 Human AI Art Gallery</h1>
-
-  <div class="search-box fade-in">
+  <button class="theme-toggle hidden" onclick="toggleTheme()">🌓 Theme</button>  <h1 class="fade-in">👤 Human AI Art Gallery</h1>  <div class="search-box fade-in">
     <input type="text" id="searchInput" placeholder="Search AI images..." onkeyup="filterImages()" />
-  </div>
-
-  <div class="sort-box fade-in">
+  </div>  <div class="sort-box fade-in">
     <select id="sortSelect" onchange="sortGallery()">
       <option value="latest">Sort: Latest</option>
       <option value="popular">Popular</option>
       <option value="downloads">Most Downloaded</option>
     </select>
-  </div>
-
-  <div class="gallery fade-in" id="gallery">
-    <!-- New image 1 -->
+  </div>  <div class="gallery fade-in" id="gallery">
     <div class="item" data-keywords="indian girl ai portrait" data-sort="latest">
       <div class="image-wrapper" onclick="openLightbox('images/human/file_00000000b05c61f9a247dea715520ba6.png')">
         <img src="images/human/file_00000000b05c61f9a247dea715520ba6.png" alt="A Indian girl AI portrait" />
@@ -59,25 +224,45 @@
         <a class="download" href="images/human/file_00000000b05c61f9a247dea715520ba6.png" download>⬇ Download</a>
       </div>
       <div class="caption">A Indian girl AI portrait</div>
-    </div>
-
-    <!-- New image 2 -->
-    <div class="item" data-keywords="pakistan girl ai portrait" data-sort="latest">
-      <div class="image-wrapper" onclick="openLightbox('images/human/file_000000001d3c61fb8711dc9e445bd664.png')">
-        <img src="images/human/file_000000001d3c61fb8711dc9e445bd664.png" alt="A Pakistan AI girl art" />
-        <div class="watermark"></div>
-        <a class="download" href="images/human/file_000000001d3c61fb8711dc9e445bd664.png" download>⬇ Download</a>
-      </div>
-      <div class="caption">A Pakistan AI girl art</div>
-    </div>
-
-    <!-- [All your original image entries stay untouched and follow here] -->
-    <!-- ... (Keep all 3 original .item blocks) -->
+    </div><div class="item" data-keywords="pakistan girl ai portrait" data-sort="latest">
+  <div class="image-wrapper" onclick="openLightbox('images/human/file_000000001d3c61fb8711dc9e445bd664.png')">
+    <img src="images/human/file_000000001d3c61fb8711dc9e445bd664.png" alt="A Pakistan AI girl art" />
+    <div class="watermark"></div>
+    <a class="download" href="images/human/file_000000001d3c61fb8711dc9e445bd664.png" download>⬇ Download</a>
   </div>
+  <div class="caption">A Pakistan AI girl art</div>
+</div>
 
-  <script>
+<!-- Existing image blocks remain below as originally structured -->
+<!-- Add your original image divs here unchanged -->
+
+  </div>  <script>
     function toggleTheme() {
       document.body.classList.toggle('light-mode');
+    }
+
+    const backBtn = document.getElementById('backBtn');
+    const themeToggle = document.querySelector('.theme-toggle');
+    let lastScrollTop = 0;
+    window.addEventListener("scroll", function () {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      if (currentScroll > lastScrollTop) {
+        backBtn.classList.add("hidden");
+        themeToggle.classList.add("hidden");
+      } else {
+        backBtn.classList.remove("hidden");
+        themeToggle.classList.remove("hidden");
+      }
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
+
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').style.display = 'flex';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
     }
 
     function filterImages() {
@@ -90,17 +275,24 @@
     }
 
     function sortGallery() {
-      const sortValue = document.getElementById("sortSelect").value;
-      const gallery = document.getElementById("gallery");
+      const sortValue = document.getElementById('sortSelect').value;
+      const gallery = document.getElementById('gallery');
       const items = Array.from(gallery.children);
-      let sorted;
-      if (sortValue === "latest") sorted = items.reverse();
-      else sorted = items; // You can expand logic for popular/downloads later
-      gallery.innerHTML = "";
-      sorted.forEach(item => gallery.appendChild(item));
+      if (sortValue === 'latest') {
+        items.sort((a, b) => b.dataset.sort.localeCompare(a.dataset.sort));
+      }
+      gallery.innerHTML = '';
+      items.forEach(item => gallery.appendChild(item));
     }
-  </script>
 
-  <!-- [Keep all your other scripts unchanged] -->
-</body>
+    document.addEventListener("DOMContentLoaded", function () {
+      const fadeEls = document.querySelectorAll(".fade-in");
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      }, { threshold: 0.1 });
+      fadeEls.forEach(el => observer.observe(el));
+    });
+  </script></body>
 </html>
