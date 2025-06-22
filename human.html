@@ -1,14 +1,21 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Human AI Art – Sojol Biswas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />  <!-- Google Analytics -->  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVNEJT1ERV"></script>  <script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVNEJT1ERV"></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-TVNEJT1ERV');
-  </script>  <style>
+  </script>
+
+  <style>
     body {
       background: #0d0d0d;
       color: #ffffff;
@@ -67,18 +74,22 @@
       font-size: 16px;
     }
 
-    .sort-box {
+    .filter-box {
+      margin: 20px auto 0;
+      max-width: 320px;
       text-align: center;
-      margin-top: 10px;
     }
 
-    .sort-box select {
+    .filter-box select {
       padding: 10px 16px;
       border-radius: 8px;
+      border: none;
       background: #1a1a1a;
       color: #00ffcc;
-      border: none;
       font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      max-width: 320px;
     }
 
     .gallery {
@@ -195,6 +206,95 @@
       border-radius: 6px;
     }
 
+    #feedbackBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #00ffcccc;
+      border: none;
+      padding: 14px 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      box-shadow: 0 0 10px #00ffccaa;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
+
+    #feedbackBtn:hover {
+      background-color: #00ffccee;
+    }
+
+    #feedbackModal {
+      display: none;
+      position: fixed;
+      z-index: 1500;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.8);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+    }
+
+    #feedbackModal.active {
+      display: flex;
+    }
+
+    #feedbackModalContent {
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      color: #00ffcc;
+      box-shadow: 0 0 20px #00ffcc99;
+      position: relative;
+    }
+
+    #feedbackModalContent textarea {
+      width: 100%;
+      height: 100px;
+      background: #0d0d0d;
+      border: none;
+      border-radius: 8px;
+      color: #00ffcc;
+      padding: 10px;
+      resize: vertical;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+    }
+
+    #feedbackModalContent button {
+      background: #00ffcc;
+      border: none;
+      color: #000;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    #feedbackModalContent button:hover {
+      background-color: #00ccaa;
+    }
+
+    #feedbackModalClose {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      font-size: 28px;
+      color: #00ffcc;
+      cursor: pointer;
+    }
+
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
@@ -205,38 +305,95 @@
       opacity: 1;
       transform: translateY(0);
     }
-  </style></head>
+  </style>
+</head>
 <body>
   <button class="back hidden" id="backBtn" onclick="history.back()">⬅ Back</button>
-  <button class="theme-toggle hidden" onclick="toggleTheme()">🌓 Theme</button>  <h1 class="fade-in">👤 Human AI Art Gallery</h1>  <div class="search-box fade-in">
+  <button class="theme-toggle hidden" onclick="toggleTheme()">🌓 Theme</button>
+
+  <h1 class="fade-in">👤 Human AI Art Gallery</h1>
+
+  <div class="search-box fade-in">
     <input type="text" id="searchInput" placeholder="Search AI images..." onkeyup="filterImages()" />
-  </div>  <div class="sort-box fade-in">
+  </div>
+
+  <div class="filter-box fade-in">
     <select id="sortSelect" onchange="sortGallery()">
-      <option value="latest">Sort: Latest</option>
+      <option value="latest">Latest</option>
       <option value="popular">Popular</option>
-      <option value="downloads">Most Downloaded</option>
+      <option value="downloaded">Most Downloaded</option>
     </select>
-  </div>  <div class="gallery fade-in" id="gallery">
-    <div class="item" data-keywords="indian girl ai portrait" data-sort="latest">
+  </div>
+
+  <div class="gallery fade-in" id="gallery">
+    <!-- NEW IMAGES AT TOP -->
+    <div class="item" data-keywords="indian girl ai portrait" data-date="2025-06-21" data-popularity="5" data-downloads="10">
       <div class="image-wrapper" onclick="openLightbox('images/human/file_00000000b05c61f9a247dea715520ba6.png')">
-        <img src="images/human/file_00000000b05c61f9a247dea715520ba6.png" alt="A Indian girl AI portrait" />
+        <img src="images/human/file_00000000b05c61f9a247dea715520ba6.png" alt="A indian girl AI portrait" />
         <div class="watermark"></div>
         <a class="download" href="images/human/file_00000000b05c61f9a247dea715520ba6.png" download>⬇ Download</a>
       </div>
-      <div class="caption">A Indian girl AI portrait</div>
-    </div><div class="item" data-keywords="pakistan girl ai portrait" data-sort="latest">
-  <div class="image-wrapper" onclick="openLightbox('images/human/file_000000001d3c61fb8711dc9e445bd664.png')">
-    <img src="images/human/file_000000001d3c61fb8711dc9e445bd664.png" alt="A Pakistan AI girl art" />
-    <div class="watermark"></div>
-    <a class="download" href="images/human/file_000000001d3c61fb8711dc9e445bd664.png" download>⬇ Download</a>
+      <div class="caption">A indian girl AI portrait</div>
+    </div>
+    <div class="item" data-keywords="pakistan ai girl art" data-date="2025-06-20" data-popularity="3" data-downloads="5">
+      <div class="image-wrapper" onclick="openLightbox('images/human/file_000000001d3c61fb8711dc9e445bd664.png')">
+        <img src="images/human/file_000000001d3c61fb8711dc9e445bd664.png" alt="A Pakistan AI girl art" />
+        <div class="watermark"></div>
+        <a class="download" href="images/human/file_000000001d3c61fb8711dc9e445bd664.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">A Pakistan AI girl art</div>
+    </div>
+
+    <!-- ORIGINAL IMAGES BELOW -->
+    <div class="item" data-keywords="elegant female portrait" data-date="2025-01-01" data-popularity="10" data-downloads="20">
+      <div class="image-wrapper" onclick="openLightbox('images/human/images1.jpeg')">
+        <img src="images/human/images1.jpeg" alt="Elegant Female Portrait" />
+        <div class="watermark"></div>
+        <a class="download" href="images/human/images1.jpeg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Elegant Female Portrait</div>
+    </div>
+    <div class="item" data-keywords="traditional female ai art" data-date="2024-12-01" data-popularity="8" data-downloads="15">
+      <div class="image-wrapper" onclick="openLightbox('images/human/South_Asian_Woman_Portrait.jpg')">
+        <img src="images/human/South_Asian_Woman_Portrait.jpg" alt="Traditional Female AI Art" />
+        <div class="watermark"></div>
+        <a class="download" href="images/human/South_Asian_Woman_Portrait.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Traditional Female AI Art</div>
+    </div>
+    <div class="item" data-keywords="female black and white portrait" data-date="2024-11-01" data-popularity="6" data-downloads="12">
+      <div class="image-wrapper" onclick="openLightbox('images/human/Female-art-black-and-white.jpg')">
+        <img src="images/human/Female-art-black-and-white.jpg" alt="Female Art Black and White" />
+        <div class="watermark"></div>
+        <a class="download" href="images/human/Female-art-black-and-white.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Female Art – Black and White</div>
+    </div>
   </div>
-  <div class="caption">A Pakistan AI girl art</div>
-</div>
 
-<!-- Existing image blocks remain below as originally structured -->
-<!-- Add your original image divs here unchanged -->
+  <div class="license fade-in">
+    ⚠️ All images are original and owned by <strong>Sojol Biswas</strong>.<br />
+    You may use them for personal or educational purposes only.<br />
+    Commercial use requires permission. Credit is appreciated.
+  </div>
 
-  </div>  <script>
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="close">&times;</span>
+    <img id="lightbox-img" src="" alt="Preview" />
+  </div>
+
+  <button id="feedbackBtn" title="Send Feedback">💬</button>
+
+  <div id="feedbackModal">
+    <div id="feedbackModalContent">
+      <span id="feedbackModalClose">&times;</span>
+      <h3>Send your feedback</h3>
+      <textarea id="feedbackText" placeholder="Write your feedback here..."></textarea>
+      <button id="feedbackSendBtn">Send</button>
+    </div>
+  </div>
+
+  <script>
     function toggleTheme() {
       document.body.classList.toggle('light-mode');
     }
@@ -275,16 +432,30 @@
     }
 
     function sortGallery() {
-      const sortValue = document.getElementById('sortSelect').value;
       const gallery = document.getElementById('gallery');
       const items = Array.from(gallery.children);
-      if (sortValue === 'latest') {
-        items.sort((a, b) => b.dataset.sort.localeCompare(a.dataset.sort));
-      }
-      gallery.innerHTML = '';
+
+      const sortBy = document.getElementById('sortSelect').value;
+
+      items.sort((a, b) => {
+        if (sortBy === 'latest') {
+          // Sort by date descending (newest first)
+          return new Date(b.getAttribute('data-date')) - new Date(a.getAttribute('data-date'));
+        } else if (sortBy === 'popular') {
+          // Sort by popularity descending
+          return parseInt(b.getAttribute('data-popularity')) - parseInt(a.getAttribute('data-popularity'));
+        } else if (sortBy === 'downloaded') {
+          // Sort by downloads descending
+          return parseInt(b.getAttribute('data-downloads')) - parseInt(a.getAttribute('data-downloads'));
+        }
+        return 0;
+      });
+
+      // Append sorted items back to gallery
       items.forEach(item => gallery.appendChild(item));
     }
 
+    // Initial sort to Latest on page load
     document.addEventListener("DOMContentLoaded", function () {
       const fadeEls = document.querySelectorAll(".fade-in");
       const observer = new IntersectionObserver(entries => {
@@ -293,6 +464,41 @@
         });
       }, { threshold: 0.1 });
       fadeEls.forEach(el => observer.observe(el));
+
+      sortGallery();
     });
-  </script></body>
-</html>
+
+    const feedbackBtn = document.getElementById('feedbackBtn');
+    const feedbackModal = document.getElementById('feedbackModal');
+    const feedbackModalClose = document.getElementById('feedbackModalClose');
+    const feedbackSendBtn = document.getElementById('feedbackSendBtn');
+    const feedbackText = document.getElementById('feedbackText');
+
+    feedbackBtn.addEventListener('click', () => {
+      feedbackModal.classList.add('active');
+      feedbackText.focus();
+    });
+
+    feedbackModalClose.addEventListener('click', () => {
+      feedbackModal.classList.remove('active');
+    });
+
+    feedbackModal.addEventListener('click', e => {
+      if (e.target === feedbackModal) {
+        feedbackModal.classList.remove('active');
+      }
+    });
+
+    feedbackSendBtn.addEventListener('click', () => {
+      const feedback = feedbackText.value.trim();
+      if(feedback.length === 0) {
+        alert('Please write some feedback before sending.');
+        return;
+      }
+      alert('Thanks for your feedback! (This is a demo, no actual sending)');
+      feedbackText.value = '';
+      feedbackModal.classList.remove('active');
+    });
+  </script>
+</body>
+  </html>
