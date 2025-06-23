@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anime AI Art – Sojol Biswas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* Your existing styles copied exactly from human.html */
+    /* (Add your full CSS from human.html here for exact style) */
+  </style>
+</head>
+<body>
+  <!-- Back button and theme toggle -->
+  <button class="back-button" onclick="history.back()" id="backBtn">⬅ Back</button>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+
+  <div class="container fade-in">
+    <h1>Anime AI Art Gallery</h1>
+    <div id="gallery" class="gallery">
+      <!-- Images will be inserted here -->
+    </div>
+  </div>
+
+  <script>
+    // Theme toggle function
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+    }
+
+    // Back button hide/show on scroll
+    let prevScroll = window.scrollY;
+    const backBtn = document.getElementById('backBtn');
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll > prevScroll) backBtn.classList.add('hidden');
+      else backBtn.classList.remove('hidden');
+      prevScroll = currentScroll;
+    });
+
+    // Example image data for anime gallery
+    const images = [
+      "images/anime/anime1.jpg",
+      "images/anime/anime2.jpg",
+      "images/anime/anime3.jpg"
+      // Add all your anime images filenames here...
+    ];
+
+    const gallery = document.getElementById('gallery');
+
+    // Load images dynamically
+    images.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = "Anime AI Art";
+      img.style.width = "200px";
+      img.style.margin = "10px";
+      gallery.appendChild(img);
+    });
+  </script>
+</body>
+</html>
