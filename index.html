@@ -276,7 +276,11 @@
 <body>
   <button class="back-button" onclick="history.back()" id="backBtn">⬅ Back</button>
   <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
-  <div id="google_translate_element" style="position: fixed; top: 70px; right: 20px; z-index: 999;"></div>
+
+  <div id="google_translate_container" style="position: fixed; top: 70px; right: 20px; z-index: 999; background: #1a1a1a; border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 8px;">
+    <div id="google_translate_element"></div>
+    <button id="googleTranslateCloseBtn" title="Close Translation" style="background: transparent; border: none; color: #00ffcc; font-size: 18px; cursor: pointer; line-height: 1;">×</button>
+  </div>
 
   <div class="container fade-in">
     <div class="profile">
@@ -347,6 +351,8 @@
       }
       prevScroll = currentScroll;
     });
+
+    // Fade-in animations
     document.addEventListener("DOMContentLoaded", function () {
       const fadeEls = document.querySelectorAll(".fade-in");
       const observer = new IntersectionObserver(entries => {
@@ -356,6 +362,8 @@
       }, { threshold: 0.1 });
       fadeEls.forEach(el => observer.observe(el));
     });
+
+    // Feedback modal logic
     const feedbackBtn = document.getElementById('feedbackBtn');
     const feedbackModal = document.getElementById('feedbackModal');
     const feedbackModalClose = document.getElementById('feedbackModalClose');
@@ -383,6 +391,14 @@
       alert('Thanks for your feedback! (This is a demo, no actual sending)');
       feedbackText.value = '';
       feedbackModal.classList.remove('active');
+    });
+
+    // Google Translate close button logic
+    const googleTranslateContainer = document.getElementById('google_translate_container');
+    const googleTranslateCloseBtn = document.getElementById('googleTranslateCloseBtn');
+
+    googleTranslateCloseBtn.addEventListener('click', () => {
+      googleTranslateContainer.style.display = 'none';
     });
   </script>
 </body>
