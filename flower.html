@@ -1,14 +1,18 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Flower AI Art – Sojol Biswas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />  <!-- Google Analytics -->  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVNEJT1ERV"></script>  <script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVNEJT1ERV"></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-TVNEJT1ERV');
-  </script>  <style>
+  </script>
+  <style>
     body {
       background: #0d0d0d;
       color: #ffffff;
@@ -17,18 +21,15 @@
       padding: 20px;
       transition: background 0.3s, color 0.3s;
     }
-
     body.light-mode {
       background: #fff;
       color: #111;
     }
-
     h1 {
       text-align: center;
       color: #00ffcc;
       margin-top: 60px;
     }
-
     .back, .theme-toggle {
       position: fixed;
       top: 20px;
@@ -42,20 +43,16 @@
       transition: opacity 0.3s ease;
       border: none;
     }
-
     .back { left: 20px; }
     .theme-toggle { right: 20px; }
-
     .back.hidden, .theme-toggle.hidden {
       opacity: 0;
       pointer-events: none;
     }
-
     .search-box {
       text-align: center;
       margin-top: 20px;
     }
-
     .search-box input {
       padding: 10px 16px;
       width: 300px;
@@ -66,21 +63,18 @@
       color: #00ffcc;
       font-size: 16px;
     }
-
     .filter-box {
       text-align: center;
       margin-top: 10px;
     }
-
     .filter-box select {
-      padding: 8px 12px;
-      border-radius: 6px;
+      padding: 8px 14px;
+      border-radius: 8px;
       background: #1a1a1a;
       color: #00ffcc;
       border: none;
       font-size: 15px;
     }
-
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -89,12 +83,11 @@
       max-width: 1200px;
       margin: auto;
     }
-
     .item {
       text-align: center;
       position: relative;
+      transition: all 0.3s ease;
     }
-
     .image-wrapper {
       position: relative;
       overflow: hidden;
@@ -103,19 +96,16 @@
       border: 2px solid #00ffcc30;
       transition: transform 0.3s ease;
     }
-
     .image-wrapper img {
       width: 100%;
       height: auto;
       display: block;
       border-radius: 12px;
     }
-
     .image-wrapper:hover {
       transform: scale(1.05);
       box-shadow: 0 0 12px #00ffcc80;
     }
-
     .download {
       position: absolute;
       bottom: 10px;
@@ -131,72 +121,27 @@
       font-weight: 500;
       z-index: 10;
     }
-
     .image-wrapper:hover .download {
       opacity: 1;
     }
-
     .caption {
       margin-top: 10px;
       font-size: 14px;
       color: #ccc;
     }
-
-    .views {
-      font-size: 13px;
-      color: #888;
-      margin-top: 4px;
-    }
-
-    .loader {
-      text-align: center;
-      color: #00ffcc;
-      font-size: 18px;
-      padding: 40px;
-      display: none;
-    }
-
-    .license {
-      text-align: center;
-      margin-top: 60px;
-      font-size: 14px;
-      color: #bbb;
-      border-top: 1px solid #333;
-      padding-top: 30px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.6;
-    }
-
-    .lightbox {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-
-    .lightbox img {
-      max-width: 90%;
-      max-height: 80vh;
-      border-radius: 10px;
-    }
-
-    .lightbox .close {
+    .view-count {
       position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 28px;
+      top: 8px;
+      right: 10px;
+      background: rgba(0, 255, 204, 0.1);
       color: #00ffcc;
-      cursor: pointer;
+      padding: 3px 8px;
+      font-size: 13px;
+      border-radius: 6px;
+      font-weight: 600;
+      z-index: 2;
+      backdrop-filter: blur(2px);
     }
-
     .watermark {
       position: absolute;
       bottom: 8px;
@@ -208,12 +153,10 @@
       pointer-events: none;
       border-radius: 6px;
     }
-
     .theme-toggle:hover {
       background-color: #00ffcc40;
       box-shadow: 0 0 8px #00ffcc66;
     }
-
     #feedbackBtn {
       position: fixed;
       bottom: 20px;
@@ -228,72 +171,337 @@
       z-index: 1000;
       transition: background-color 0.3s ease;
     }
-
     #feedbackBtn:hover {
       background-color: #00ffccee;
     }
-
+    #feedbackModal {
+      display: none;
+      position: fixed;
+      z-index: 1500;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.8);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+    }
+    #feedbackModal.active {
+      display: flex;
+    }
+    #feedbackModalContent {
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      color: #00ffcc;
+      box-shadow: 0 0 20px #00ffcc99;
+      position: relative;
+    }
+    #feedbackModalContent textarea {
+      width: 100%;
+      height: 100px;
+      background: #0d0d0d;
+      border: none;
+      border-radius: 8px;
+      color: #00ffcc;
+      padding: 10px;
+      resize: vertical;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+    }
+    #feedbackModalContent button {
+      background: #00ffcc;
+      border: none;
+      color: #000;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    #feedbackModalContent button:hover {
+      background-color: #00ccaa;
+    }
+    #feedbackModalClose {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      font-size: 28px;
+      color: #00ffcc;
+      cursor: pointer;
+    }
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 10px;
+    }
+    .lightbox .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 28px;
+      color: #00ffcc;
+      cursor: pointer;
+    }
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.6s ease;
     }
-
     .fade-in.visible {
       opacity: 1;
       transform: translateY(0);
     }
-
-    /* Add other custom styles like infinite scroll and animations here if needed */
-  </style></head>
+  </style>
+</head>
 <body>
-<!-- Rest of original body remains unchanged, only JavaScript for sorting, views, and infinite scroll should be added at end of <body> --><!-- Additional scripts injected at end --><script>
-  function sortGallery(criteria) {
-    const gallery = document.getElementById('gallery');
-    const items = Array.from(gallery.getElementsByClassName('item'));
-    let sorted;
-    if (criteria === 'popular') {
-      sorted = items.sort((a, b) => b.dataset.popularity - a.dataset.popularity);
-    } else if (criteria === 'downloaded') {
-      sorted = items.sort((a, b) => b.dataset.downloads - a.dataset.downloads);
-    } else {
-      sorted = items.sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date));
+  <button class="back hidden" id="backBtn" onclick="history.back()">⬅ Back</button>
+  <button class="theme-toggle hidden" onclick="toggleTheme()">🌓 Theme</button>
+
+  <h1 class="fade-in">🌸 Flower AI Art Gallery</h1>
+
+  <div class="search-box fade-in">
+    <input type="text" id="searchInput" placeholder="Search AI images..." onkeyup="filterImages()" />
+  </div>
+
+  <div class="filter-box fade-in">
+    <select id="filterSelect" onchange="sortGallery()">
+      <option value="latest">Sort by Latest</option>
+      <option value="popular">Sort by Popular</option>
+      <option value="downloads">Sort by Downloads</option>
+    </select>
+  </div>
+
+  <div class="gallery fade-in" id="gallery">
+    <!-- FLOWER IMAGE ITEMS START -->
+    <div class="item" data-keywords="black orchid midnight shadow" data-date="2025-06-25" data-popularity="22" data-downloads="50">
+      <div class="image-wrapper" onclick="openLightbox('images/flower/Gemini_Generated_Image_97zz3197zz3197zz.png')">
+        <img src="images/flower/Gemini_Generated_Image_97zz3197zz3197zz.png" alt="Midnight Bloom Orchid" />
+        <div class="watermark"></div>
+        <a class="download" href="images/flower/Gemini_Generated_Image_97zz3197zz3197zz.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">Midnight Bloom Orchid or Shadow Petal</div>
+    </div>
+
+    <div class="item" data-keywords="pink purple mountain flower dawnbell jewel" data-date="2025-06-25" data-popularity="20" data-downloads="48">
+      <div class="image-wrapper" onclick="openLightbox('images/flower/Gemini_Generated_Image_97zz3097zz3097zz.png')">
+        <img src="images/flower/Gemini_Generated_Image_97zz3097zz3097zz.png" alt="Himalayan Dawnbell" />
+        <div class="watermark"></div>
+        <a class="download" href="images/flower/Gemini_Generated_Image_97zz3097zz3097zz.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">Himalayan Dawnbell or Crimson Alpine Jewel</div>
+    </div>
+
+    <div class="item" data-keywords="striped flower zebra inkstreak lily" data-date="2025-06-25" data-popularity="19" data-downloads="45">
+      <div class="image-wrapper" onclick="openLightbox('images/flower/Gemini_Generated_Image_97zz2z97zz2z97zz.png')">
+        <img src="images/flower/Gemini_Generated_Image_97zz2z97zz2z97zz.png" alt="Lunar Zebra Blossom" />
+        <div class="watermark"></div>
+        <a class="download" href="images/flower/Gemini_Generated_Image_97zz2z97zz2z97zz.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">Lunar Zebra Blossom or Inkstreak Lily</div>
+    </div>
+
+    <div class="item" data-keywords="blue himalayan poppy whisper azure" data-date="2025-06-25" data-popularity="18" data-downloads="44">
+      <div class="image-wrapper" onclick="openLightbox('images/flower/Gemini_Generated_Image_97zz2y97zz2y97zz.png')">
+        <img src="images/flower/Gemini_Generated_Image_97zz2y97zz2y97zz.png" alt="Whisper Poppy" />
+        <div class="watermark"></div>
+        <a class="download" href="images/flower/Gemini_Generated_Image_97zz2y97zz2y97zz.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">Whisper Poppy or Azure Cloud Blossom</div>
+    </div>
+
+    <div class="item" data-keywords="crimson multi-petal rose velvet" data-date="2025-06-25" data-popularity="17" data-downloads="43">
+      <div class="image-wrapper" onclick="openLightbox('images/flower/Gemini_Generated_Image_97zz2x97zz2x97zz.png')">
+        <img src="images/flower/Gemini_Generated_Image_97zz2x97zz2x97zz.png" alt="Andean Fire Rose" />
+        <div class="watermark"></div>
+        <a class="download" href="images/flower/Gemini_Generated_Image_97zz2x97zz2x97zz.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">Andean Fire Rose or Velvet Cascade Bloom</div>
+    </div>
+
+    <div class="item" data-keywords="blue himalayan poppy glacier kiss bluebell" data-date="2025-06-25" data-popularity="16" data-downloads="41">
+      <div class="image-wrapper" onclick="openLightbox('images/flower/Gemini_Generated_Image_97zz2w97zz2w97zz.png')">
+        <img src="images/flower/Gemini_Generated_Image_97zz2w97zz2w97zz.png" alt="Glacier's Kiss" />
+        <div class="watermark"></div>
+        <a class="download" href="images/flower/Gemini_Generated_Image_97zz2w97zz2w97zz.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">Glacier's Kiss or Celestial Bluebell</div>
+    </div>
+
+    <div class="item" data-keywords="crimson rafflesia jungle forest monarch" data-date="2025-06-25" data-popularity="14" data-downloads="39">
+      <div class="image-wrapper" onclick="openLightbox('images/flower/Gemini_Generated_Image_97zz2v97zz2v97zz.png')">
+        <img src="images/flower/Gemini_Generated_Image_97zz2v97zz2v97zz.png" alt="Jungle Giant Bloom" />
+        <div class="watermark"></div>
+        <a class="download" href="images/flower/Gemini_Generated_Image_97zz2v97zz2v97zz.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">Jungle Giant Bloom or Forest Monarch</div>
+    </div>
+
+    <div class="item" data-keywords="white ghost orchid phantom moonbeam" data-date="2025-06-25" data-popularity="12" data-downloads="33">
+      <div class="image-wrapper" onclick="openLightbox('images/flower/Gemini_Generated_Image_97zz2s97zz2s97zz.png')">
+        <img src="images/flower/Gemini_Generated_Image_97zz2s97zz2s97zz.png" alt="Phantom Orchid" />
+        <div class="watermark"></div>
+        <a class="download" href="images/flower/Gemini_Generated_Image_97zz2s97zz2s97zz.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">Phantom Orchid or Moonbeam Bloom</div>
+    </div>
+
+    <div class="item" data-keywords="rose tulips floral colorful bouquet">
+      <div class="image-wrapper" onclick="openLightbox('images/flower/Rose-&-tulips-mixed.png')">
+        <img src="images/flower/Rose-&-tulips-mixed.png" alt="Rose and Tulips Mixed" />
+        <div class="watermark"></div>
+        <a class="download" href="images/flower/Rose-&-tulips-mixed.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">Rose & Tulips Mixed</div>
+    </div>
+
+    <div class="item" data-keywords="rose lotus lili white tulips floral colorful bouquet">
+      <div class="image-wrapper" onclick="openLightbox('images/flower/Gemini_Generated_Image_4np7y64np7y64np7.png')">
+        <img src="images/flower/Gemini_Generated_Image_4np7y64np7y64np7.png" alt="White Lotus" />
+        <div class="watermark"></div>
+        <a class="download" href="images/flower/Gemini_Generated_Image_4np7y64np7y64np7.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">White Lotus</div>
+    </div>
+
+    <div class="item" data-keywords="white lotus single flower floral colorful bouquet">
+      <div class="image-wrapper" onclick="openLightbox('images/flower/Gemini_Generated_Image_gew18rgew18rgew1.png')">
+        <img src="images/flower/Gemini_Generated_Image_gew18rgew18rgew1.png" alt="Single White Lotus" />
+        <div class="watermark"></div>
+        <a class="download" href="images/flower/Gemini_Generated_Image_gew18rgew18rgew1.png" download>⬇ Download</a>
+      </div>
+      <div class="caption">Single White Lotus</div>
+    </div>
+    <!-- FLOWER IMAGE ITEMS END -->
+  </div>
+
+  <div class="license fade-in">
+    ⚠️ All images are original and owned by <strong>Sojol Biswas</strong>.<br />
+    You may use them for personal or educational purposes only.<br />
+    Commercial use requires permission. Credit is appreciated.
+  </div>
+
+  <!-- Lightbox Viewer -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="close">&times;</span>
+    <img id="lightbox-img" src="" alt="Preview" />
+  </div>
+
+  <!-- Feedback Button -->
+  <button id="feedbackBtn" title="Send Feedback">💬</button>
+
+  <!-- Feedback Modal -->
+  <div id="feedbackModal">
+    <div id="feedbackModalContent">
+      <span id="feedbackModalClose">&times;</span>
+      <h3>Send your feedback</h3>
+      <textarea id="feedbackText" placeholder="Write your feedback here..."></textarea>
+      <button id="feedbackSendBtn">Send</button>
+    </div>
+  </div>
+  <script>
+    // Theme toggle
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
     }
-    sorted.forEach(item => gallery.appendChild(item));
-  }
 
-  let loadIndex = 0;
-  const batchSize = 12;
-  const allItems = Array.from(document.querySelectorAll('.gallery .item'));
-  const loader = document.createElement('div');
-  loader.className = 'loader';
-  loader.innerText = 'Loading more images...';
-  document.body.appendChild(loader);
-
-  function loadMore() {
-    const gallery = document.getElementById('gallery');
-    loader.style.display = 'block';
-    setTimeout(() => {
-      for (let i = 0; i < batchSize; i++) {
-        const item = allItems[loadIndex++];
-        if (item) {
-          item.style.display = 'block';
-          gallery.appendChild(item);
-        }
+    // Show/hide back and theme buttons on scroll
+    const backBtn = document.getElementById('backBtn');
+    const themeToggle = document.querySelector('.theme-toggle');
+    let lastScrollTop = 0;
+    window.addEventListener("scroll", function () {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      if (currentScroll > lastScrollTop) {
+        backBtn.classList.add("hidden");
+        themeToggle.classList.add("hidden");
+      } else {
+        backBtn.classList.remove("hidden");
+        themeToggle.classList.remove("hidden");
       }
-      loader.style.display = 'none';
-    }, 500);
-  }
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
 
-  window.addEventListener('scroll', () => {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 300) {
-      loadMore();
+    // Lightbox
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').style.display = 'flex';
     }
-  });
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+    }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    allItems.forEach(item => item.style.display = 'none');
-    loadMore();
-  });
-</script></body>
+    // Search/filter
+    function filterImages() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const items = document.querySelectorAll('.gallery .item');
+      items.forEach(item => {
+        const keywords = item.getAttribute('data-keywords');
+        item.style.display = keywords.includes(input) ? 'block' : 'none';
+      });
+    }
+
+    // Fade-in on scroll
+    document.addEventListener("DOMContentLoaded", function () {
+      const fadeEls = document.querySelectorAll(".fade-in");
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      }, { threshold: 0.1 });
+      fadeEls.forEach(el => observer.observe(el));
+    });
+
+    // Feedback Modal
+    const feedbackBtn = document.getElementById('feedbackBtn');
+    const feedbackModal = document.getElementById('feedbackModal');
+    const feedbackModalClose = document.getElementById('feedbackModalClose');
+    const feedbackSendBtn = document.getElementById('feedbackSendBtn');
+    const feedbackText = document.getElementById('feedbackText');
+
+    feedbackBtn.addEventListener('click', () => {
+      feedbackModal.classList.add('active');
+      feedbackText.focus();
+    });
+
+    feedbackModalClose.addEventListener('click', () => {
+      feedbackModal.classList.remove('active');
+    });
+
+    feedbackModal.addEventListener('click', e => {
+      if (e.target === feedbackModal) {
+        feedbackModal.classList.remove('active');
+      }
+    });
+
+    feedbackSendBtn.addEventListener('click', () => {
+      const feedback = feedbackText.value.trim();
+      if (feedback.length === 0) {
+        alert('Please write some feedback before sending.');
+        return;
+      }
+      alert('Thanks for your feedback! (This is a demo — no actual sending)');
+      feedbackText.value = '';
+      feedbackModal.classList.remove('active');
+    });
+  </script>
+</body>
 </html>
