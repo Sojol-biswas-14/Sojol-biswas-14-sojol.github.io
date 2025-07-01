@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wallpaper AI Art – Sojol Biswas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVNEJT1ERV"></script>
-  <script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />  <!-- Google Analytics -->  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVNEJT1ERV"></script>  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-TVNEJT1ERV');
-  </script>
-
-  <style>
+  </script>  <style>
     body {
       background: #0d0d0d;
       color: #ffffff;
@@ -72,6 +65,20 @@
       background: #1a1a1a;
       color: #00ffcc;
       font-size: 16px;
+    }
+
+    .filter-box {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .filter-box select {
+      padding: 8px 14px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: none;
+      background: #1a1a1a;
+      color: #00ffcc;
     }
 
     .gallery {
@@ -292,9 +299,8 @@
       opacity: 1;
       transform: translateY(0);
     }
-  </style>
-</head>
-<body>
+  </style></head>
+  <body>
   <button class="back hidden" id="backBtn" onclick="history.back()">⬅ Back</button>
   <button class="theme-toggle hidden" onclick="toggleTheme()">🌓 Theme</button>
 
@@ -304,14 +310,93 @@
     <input type="text" id="searchInput" placeholder="Search AI images..." onkeyup="filterImages()" />
   </div>
 
+  <div class="filter-box fade-in">
+    <select id="filterSelect" onchange="filterImagesByDropdown()">
+      <option value="latest">📅 Latest</option>
+      <option value="popular">🔥 Popular</option>
+      <option value="downloads">⬇ Most Downloaded</option>
+    </select>
+  </div>
+
   <div class="gallery fade-in" id="gallery">
-    <div class="item" data-keywords="wallpaper landscape ai art scenic abstract modern">
-      <div class="image-wrapper" onclick="openLightbox('images/wallpaper/20240719_190631.jpg')">
-        <img src="images/wallpaper/20240719_190631.jpg" alt="Wallpaper AI Art" />
+    <div class="item" data-keywords="wallpaper ai futuristic landscape" data-date="2025-06-23" data-popularity="30" data-downloads="62">
+      <div class="image-wrapper" onclick="openLightbox('images/wallpaper/1751359959278.jpg')">
+        <img src="images/wallpaper/1751359959278.jpg" alt="Wallpaper AI" />
         <div class="watermark"></div>
-        <a class="download" href="images/wallpaper/20240719_190631.jpg" download>⬇ Download</a>
+        <a class="download" href="images/wallpaper/1751359959278.jpg" download>⬇ Download</a>
       </div>
-      <div class="caption">Scenic AI Wallpaper</div>
+      <div class="caption">Futuristic Concept</div>
+      <div class="view-count">👁️ <span>0</span></div>
+    </div>
+
+    <div class="item" data-keywords="dream abstract wallpaper design" data-date="2025-06-23" data-popularity="27" data-downloads="54">
+      <div class="image-wrapper" onclick="openLightbox('images/wallpaper/1751359895046.jpg')">
+        <img src="images/wallpaper/1751359895046.jpg" alt="Wallpaper AI" />
+        <div class="watermark"></div>
+        <a class="download" href="images/wallpaper/1751359895046.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Dreamscape Blur</div>
+      <div class="view-count">👁️ <span>0</span></div>
+    </div>
+
+    <div class="item" data-keywords="sunset wallpaper minimalist" data-date="2025-06-23" data-popularity="25" data-downloads="49">
+      <div class="image-wrapper" onclick="openLightbox('images/wallpaper/1751359865953.jpg')">
+        <img src="images/wallpaper/1751359865953.jpg" alt="Wallpaper AI" />
+        <div class="watermark"></div>
+        <a class="download" href="images/wallpaper/1751359865953.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Minimal Sunset</div>
+      <div class="view-count">👁️ <span>0</span></div>
+    </div>
+
+    <div class="item" data-keywords="nebula galaxy stars wallpaper" data-date="2025-06-23" data-popularity="22" data-downloads="45">
+      <div class="image-wrapper" onclick="openLightbox('images/wallpaper/1751360304864.jpg')">
+        <img src="images/wallpaper/1751360304864.jpg" alt="Wallpaper AI" />
+        <div class="watermark"></div>
+        <a class="download" href="images/wallpaper/1751360304864.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Nebula Sky</div>
+      <div class="view-count">👁️ <span>0</span></div>
+    </div>
+
+    <div class="item" data-keywords="landscape digital wallpaper" data-date="2025-06-23" data-popularity="20" data-downloads="41">
+      <div class="image-wrapper" onclick="openLightbox('images/wallpaper/1751360204158.jpg')">
+        <img src="images/wallpaper/1751360204158.jpg" alt="Wallpaper AI" />
+        <div class="watermark"></div>
+        <a class="download" href="images/wallpaper/1751360204158.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Green Fields</div>
+      <div class="view-count">👁️ <span>0</span></div>
+    </div>
+
+    <div class="item" data-keywords="forest light wallpaper leaves" data-date="2025-06-23" data-popularity="19" data-downloads="40">
+      <div class="image-wrapper" onclick="openLightbox('images/wallpaper/1751360174913.jpg')">
+        <img src="images/wallpaper/1751360174913.jpg" alt="Wallpaper AI" />
+        <div class="watermark"></div>
+        <a class="download" href="images/wallpaper/1751360174913.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Morning Forest Glow</div>
+      <div class="view-count">👁️ <span>0</span></div>
+    </div>
+
+    <div class="item" data-keywords="fantasy castle wallpaper ai" data-date="2025-06-23" data-popularity="18" data-downloads="39">
+      <div class="image-wrapper" onclick="openLightbox('images/wallpaper/1751360150955.jpg')">
+        <img src="images/wallpaper/1751360150955.jpg" alt="Wallpaper AI" />
+        <div class="watermark"></div>
+        <a class="download" href="images/wallpaper/1751360150955.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Castle in Clouds</div>
+      <div class="view-count">👁️ <span>0</span></div>
+    </div>
+
+    <div class="item" data-keywords="cyberpunk neon lights cityscape" data-date="2025-06-23" data-popularity="16" data-downloads="37">
+      <div class="image-wrapper" onclick="openLightbox('images/wallpaper/1751360128497.jpg')">
+        <img src="images/wallpaper/1751360128497.jpg" alt="Wallpaper AI" />
+        <div class="watermark"></div>
+        <a class="download" href="images/wallpaper/1751360128497.jpg" download>⬇ Download</a>
+      </div>
+      <div class="caption">Cyber Neon</div>
+      <div class="view-count">👁️ <span>0</span></div>
     </div>
   </div>
 
@@ -338,87 +423,148 @@
       <textarea id="feedbackText" placeholder="Write your feedback here..."></textarea>
       <button id="feedbackSendBtn">Send</button>
     </div>
-  </div>
+          </div>
+          <script>
+  function toggleTheme() {
+    document.body.classList.toggle('light-mode');
+  }
 
-  <script>
-    function toggleTheme() {
-      document.body.classList.toggle('light-mode');
+  const backBtn = document.getElementById('backBtn');
+  const themeToggle = document.querySelector('.theme-toggle');
+  let lastScrollTop = 0;
+  window.addEventListener("scroll", function () {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    if (currentScroll > lastScrollTop) {
+      backBtn.classList.add("hidden");
+      themeToggle.classList.add("hidden");
+    } else {
+      backBtn.classList.remove("hidden");
+      themeToggle.classList.remove("hidden");
     }
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  });
 
-    const backBtn = document.getElementById('backBtn');
-    const themeToggle = document.querySelector('.theme-toggle');
-    let lastScrollTop = 0;
-    window.addEventListener("scroll", function () {
-      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-      if (currentScroll > lastScrollTop) {
-        backBtn.classList.add("hidden");
-        themeToggle.classList.add("hidden");
-      } else {
-        backBtn.classList.remove("hidden");
-        themeToggle.classList.remove("hidden");
-      }
-      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').style.display = 'flex';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+  }
+
+  function filterImages() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const items = document.querySelectorAll('.gallery .item');
+    items.forEach(item => {
+      const keywords = item.getAttribute('data-keywords');
+      item.style.display = keywords.includes(input) ? 'block' : 'none';
     });
+  }
 
-    function openLightbox(src) {
-      document.getElementById('lightbox-img').src = src;
-      document.getElementById('lightbox').style.display = 'flex';
-    }
+  function filterImagesByDropdown() {
+    const filterValue = document.getElementById('filterSelect').value;
+    const items = Array.from(document.querySelectorAll('.gallery .item'));
+    items.sort((a, b) => {
+      if (filterValue === 'latest') {
+        return new Date(b.dataset.date) - new Date(a.dataset.date);
+      } else if (filterValue === 'popular') {
+        return b.dataset.popularity - a.dataset.popularity;
+      } else if (filterValue === 'downloads') {
+        return b.dataset.downloads - a.dataset.downloads;
+      }
+    });
+    const gallery = document.getElementById('gallery');
+    items.forEach(item => gallery.appendChild(item));
+  }
 
-    function closeLightbox() {
-      document.getElementById('lightbox').style.display = 'none';
-    }
-
-    function filterImages() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
-      const items = document.querySelectorAll('.gallery .item');
-      items.forEach(item => {
-        const keywords = item.getAttribute('data-keywords');
-        item.style.display = keywords.includes(input) ? 'block' : 'none';
+  // Fade-in animation on scroll
+  document.addEventListener("DOMContentLoaded", function () {
+    const fadeEls = document.querySelectorAll(".fade-in");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
       });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => observer.observe(el));
+  });
+
+  // Feedback modal logic
+  const feedbackBtn = document.getElementById('feedbackBtn');
+  const feedbackModal = document.getElementById('feedbackModal');
+  const feedbackModalClose = document.getElementById('feedbackModalClose');
+  const feedbackSendBtn = document.getElementById('feedbackSendBtn');
+  const feedbackText = document.getElementById('feedbackText');
+
+  feedbackBtn.addEventListener('click', () => {
+    feedbackModal.classList.add('active');
+    feedbackText.focus();
+  });
+
+  feedbackModalClose.addEventListener('click', () => {
+    feedbackModal.classList.remove('active');
+  });
+
+  feedbackModal.addEventListener('click', e => {
+    if (e.target === feedbackModal) {
+      feedbackModal.classList.remove('active');
     }
+  });
 
-    document.addEventListener("DOMContentLoaded", function () {
-      const fadeEls = document.querySelectorAll(".fade-in");
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
-        });
-      }, { threshold: 0.1 });
-      fadeEls.forEach(el => observer.observe(el));
-    });
+  feedbackSendBtn.addEventListener('click', () => {
+    const feedback = feedbackText.value.trim();
+    if (feedback.length === 0) {
+      alert('Please write some feedback before sending.');
+      return;
+    }
+    alert('Thanks for your feedback! (This is a demo, no actual sending)');
+    feedbackText.value = '';
+    feedbackModal.classList.remove('active');
+  });
 
-    const feedbackBtn = document.getElementById('feedbackBtn');
-    const feedbackModal = document.getElementById('feedbackModal');
-    const feedbackModalClose = document.getElementById('feedbackModalClose');
-    const feedbackSendBtn = document.getElementById('feedbackSendBtn');
-    const feedbackText = document.getElementById('feedbackText');
-
-    feedbackBtn.addEventListener('click', () => {
-      feedbackModal.classList.add('active');
-      feedbackText.focus();
-    });
-
-    feedbackModalClose.addEventListener('click', () => {
-      feedbackModal.classList.remove('active');
-    });
-
-    feedbackModal.addEventListener('click', e => {
-      if (e.target === feedbackModal) {
-        feedbackModal.classList.remove('active');
+  // View Counter Animation
+  const viewCounters = document.querySelectorAll('.view-count span');
+  viewCounters.forEach(counter => {
+    let count = 0;
+    const target = Math.floor(Math.random() * 90 + 10); // Simulated views
+    const update = () => {
+      if (count < target) {
+        count += Math.ceil((target - count) / 6);
+        counter.textContent = count;
+        requestAnimationFrame(update);
+      } else {
+        counter.textContent = target;
       }
-    });
+    };
+    update();
+  });
 
-    feedbackSendBtn.addEventListener('click', () => {
-      const feedback = feedbackText.value.trim();
-      if(feedback.length === 0) {
-        alert('Please write some feedback before sending.');
-        return;
-      }
-      alert('Thanks for your feedback! (This is a demo, no actual sending)');
-      feedbackText.value = '';
-      feedbackModal.classList.remove('active');
+  // Infinite Scroll
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const bodyHeight = document.body.offsetHeight;
+    if (scrollTop + windowHeight >= bodyHeight - 100) {
+      loadMoreImages();
+    }
+  });
+
+  let imageLoadIndex = 0;
+  function loadMoreImages() {
+    const items = document.querySelectorAll('.gallery .item');
+    const toShow = Array.from(items).slice(imageLoadIndex, imageLoadIndex + 4);
+    toShow.forEach(item => item.style.display = 'block');
+    imageLoadIndex += 4;
+  }
+
+  // Initial load of first 6 images
+  window.addEventListener("DOMContentLoaded", () => {
+    const items = document.querySelectorAll('.gallery .item');
+    items.forEach((item, i) => {
+      item.style.display = i < 6 ? 'block' : 'none';
     });
-  </script>
+    imageLoadIndex = 6;
+  });
+</script>
 </body>
 </html>
